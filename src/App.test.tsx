@@ -1,9 +1,21 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import { render } from "@testing-library/react";
+import App, { Providers } from "./App";
+import axios from "axios";
+import AxiosMock from "axios-mock-adapter";
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+const mock = new AxiosMock(axios);
+mock.onGet().reply(200);
+
+describe("Smoke tests", () => {
+  test("Providers render their children", () => {
+    const { getByTestId } = render(
+      <Providers>
+        <h1 data-testid="hello">Hello!</h1>
+      </Providers>
+    );
+    expect(getByTestId("hello")).toBeInTheDocument();
+  });
+  test("Our application renders without crashing", () => {
+    expect(() => render(<App />)).not.toThrow();
+  });
 });

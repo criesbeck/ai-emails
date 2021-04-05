@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "@chakra-ui/react": "^1.4.2",
+    "@fontsource/roboto": "^4.2.2",
+    "@fontsource/roboto-slab": "^4.2.2",
     "@testing-library/jest-dom": "^5.11.10",
     "@testing-library/react": "^11.2.6",
     "@testing-library/user-event": "^12.8.3",
