@@ -1,26 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { OnlyChildren } from "./types";
+import { QueryClient, QueryClientProvider } from "react-query";
+import { ChakraProvider, extendTheme } from "@chakra-ui/react";
+import EmailBuddy from "./email-buddy/EmailBuddy";
 
-function App() {
+const theme = extendTheme({
+  fonts: {
+    body: "Roboto, sans-serif",
+    heading: "Roboto Slab, serif",
+    mono: "monospace",
+  },
+});
+
+export const queryClient = new QueryClient();
+export const Providers: React.FC<OnlyChildren> = ({ children }) => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ChakraProvider theme={theme}>
+      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    </ChakraProvider>
   );
-}
+};
+
+const App: React.FC = () => {
+  return (
+    <Providers>
+      <EmailBuddy />
+    </Providers>
+  );
+};
 
 export default App;
