@@ -2,7 +2,8 @@ import axios from "axios";
 import AxiosMock from "axios-mock-adapter";
 import { fetchEmailStatistics } from "./EmailBuddy";
 import { render, waitFor } from "@testing-library/react";
-import App, { queryClient } from "../App";
+import App from "../App";
+import { queryClient } from "../components/Providers";
 
 console.error = jest.fn();
 const mock = new AxiosMock(axios);

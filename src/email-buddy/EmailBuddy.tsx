@@ -3,6 +3,7 @@ import { useQuery } from "react-query";
 import { Submissions, Authors } from "./ApiTypes";
 import axios from "axios";
 import AlertError from "../components/AlertError";
+import EmailsView from "./EmailsView";
 
 export const fetchEmailStatistics = async (): Promise<
   [Submissions, Authors]
@@ -42,15 +43,6 @@ const EmailsMissing = () => {
   return (
     <Flex data-testid="emails-missing">There is no submission data yet.</Flex>
   );
-};
-
-export interface EmailViewProps {
-  submissions: Submissions;
-  authors: Authors;
-}
-
-const EmailsView: React.FC<EmailViewProps> = () => {
-  return <Flex data-testid="emails-view">Hello!</Flex>;
 };
 
 interface EmailRouterProps {
