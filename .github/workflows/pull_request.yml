@@ -1,14 +1,21 @@
+name: React CICD
+
 on:
   pull_request:
-    branches:
-      - main
+    branches: [main]
+
 jobs:
-  name: Compile and Test
-  steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v2
-      with:
-        node-version: "14"
-    - run: npm install
-    - run: npm test
-    - run: npm build
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: "14"
+      - name: Install Dependencies
+        run: npm install
+      - name: Compile Project
+        run: npm run build
+      - name: Test Project
+        run: npm test
