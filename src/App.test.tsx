@@ -4,7 +4,7 @@ import axios from "axios";
 import AxiosMock from "axios-mock-adapter";
 
 const mock = new AxiosMock(axios);
-mock.onGet().reply(200);
+mock.onGet().reply(200, { submissions: {}, authors: {} });
 
 describe("Smoke tests", () => {
   test("Providers render their children", () => {
