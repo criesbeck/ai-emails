@@ -18,6 +18,7 @@ import {
   TableCaption,
   Button,
 } from "@chakra-ui/react";
+import MarkdownEditor from "@uiw/react-markdown-editor";
 import { Submissions, Authors, Author } from "./ApiTypes";
 import useAuthors from "./useAuthors";
 
@@ -109,10 +110,10 @@ export interface EmailModalProps {
 const EmailModal: React.FC<EmailModalProps> = (props) => {
   const { currentStudent, unselectStudent } = props;
   return (
-    <Modal isOpen={currentStudent !== null} onClose={unselectStudent}>
+    <Modal size="lg" isOpen={currentStudent !== null} onClose={unselectStudent}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Send Email</ModalHeader>
+        <ModalHeader>Email {currentStudent?.email}</ModalHeader>
         <ModalCloseButton />
         <Flex flexDirection="column" width="100%" pb="16px" px="24px">
           <Flex py="16px" alignItems="center">
@@ -121,15 +122,15 @@ const EmailModal: React.FC<EmailModalProps> = (props) => {
             </Text>
             <Input value="Consider dropping the class" />
           </Flex>
-          <Text fontWeight="600" pt="16px">
+          <Text fontWeight="600" py="16px">
             Body
           </Text>
-          <Text pb="16px">
-            You have submitted zero exercises in week 5 of the quarter. Most
-            students have submitted 15 exercises by now. You should consider
-            dropping the class.
-          </Text>
-          <Flex>
+          <MarkdownEditor
+            visible={false}
+            height={500}
+            value="I am an email message."
+          />
+          <Flex pt="16px">
             <Button colorScheme="teal">Send</Button>
           </Flex>
         </Flex>
