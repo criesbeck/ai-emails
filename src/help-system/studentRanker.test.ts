@@ -1,5 +1,5 @@
-import { Submission } from "./ApiTypes";
-import { partitionIntoWeeks } from "./useAuthors";
+import { Submission } from "./CriticStructure";
+import { partitionIntoWeeks } from "./studentRanker";
 
 describe("Partitioning submissions into weeks", () => {
   const ONE_WEEK = 7 * 24 * 60 * 60 * 1000;

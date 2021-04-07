@@ -20,7 +20,7 @@ import {
   Button,
 } from "@chakra-ui/react";
 import MarkdownEditor from "@uiw/react-markdown-editor";
-import { Submissions, Authors, Author } from "./ApiTypes";
+import { Submissions, Authors, Author } from "../help-system/CriticStructure";
 import useAuthors from "./useAuthors";
 
 export type SelectStudent = (student: any) => void;

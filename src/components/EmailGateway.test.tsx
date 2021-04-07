@@ -1,6 +1,6 @@
 import axios from "axios";
 import AxiosMock from "axios-mock-adapter";
-import { fetchEmailStatistics } from "./EmailBuddy";
+import { fetchEmailStatistics } from "./EmailGateway";
 import { render, waitFor } from "@testing-library/react";
 import App from "../App";
 import { queryClient } from "../components/Providers";

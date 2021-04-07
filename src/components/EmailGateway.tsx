@@ -1,6 +1,6 @@
 import { Flex, Heading, Spinner } from "@chakra-ui/react";
 import { useQuery } from "react-query";
-import { Submissions, Authors } from "./ApiTypes";
+import { Submissions, Authors } from "../help-system/CriticStructure";
 import axios from "axios";
 import AlertError from "../components/AlertError";
 import EmailsView from "./EmailsView";
