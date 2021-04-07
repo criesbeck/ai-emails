@@ -1,29 +1,50 @@
-import { Submission, Authors } from "./CriticStructure";
 import dayjs from "dayjs";
-import _ from "lodash";
+import { Author } from "./CriticStructure";
+import { CourseContext, Tag, Student } from "./tagStructure";
+import * as tagElements from "./tags";
 
-export type Weeks = Array<Array<Submission>>;
+const tags: Tag[] = Object.values(tagElements);
 
-export const partitionIntoWeeks = (submissions: Submission[]): Weeks => {
-  const lastSubmission = submissions[submissions.length - 1].submitted;
-  return Object.values(
-    _(submissions)
-      .groupBy((submission) =>
-        dayjs(lastSubmission).diff(submission.submitted, "week")
-      )
-      .value()
-  ).reverse();
+const getAuthors = (info: CourseContext): Author[] =>
+  Object.values(info.data.authors.authors);
+
+const countWeeks = (info: CourseContext): number => {
+  const submissionList = Object.values(info.data.submissions.submissions);
+  const [firstSubmission, lastSubmission] = [
+    submissionList[0],
+    submissionList[submissionList.length - 1],
+  ];
+  return dayjs(lastSubmission.submitted).diff(
+    firstSubmission.submitted,
+    "week"
+  );
 };
 
-export interface StudentInformation {
-  data: any;
-  currentWeek: number;
-}
+const makeStudents = (ctx: CourseContext): Student[] => {
+  const makeStudent = (author: Author): Student => {
+    const student: Student = { ...author, issues: [] };
+    tags.forEach((tag) => {
+      if (!tag.predicate({ student, ctx })) return;
+      student.issues.push({
+        name: tag.name,
+        weight: tag.weight,
+        template: tag.template,
+      });
+    });
+    return student;
+  };
+  return getAuthors(ctx).map(makeStudent);
+};
 
 export interface StudentHelp {
   numWeeks: number;
+  students: Student[];
 }
 
-export const orderStudents = (_: StudentInformation): StudentHelp => {
-  return { numWeeks: 13 };
-};
+const score = (student: Student): number =>
+  student.issues.reduce((curScore, issue) => curScore + issue.weight, 0);
+
+export const orderStudents = (info: CourseContext): StudentHelp => ({
+  numWeeks: countWeeks(info),
+  students: makeStudents(info).sort((a, b) => score(b) - score(a)),
+});

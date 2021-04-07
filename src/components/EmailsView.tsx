@@ -20,10 +20,11 @@ import {
   Button,
 } from "@chakra-ui/react";
 import MarkdownEditor from "@uiw/react-markdown-editor";
-import { Submissions, Authors, Author } from "../help-system/CriticStructure";
+import { ApiResponse } from "../help-system/CriticStructure";
+import { Student } from "../help-system/tagStructure";
 import useAuthors from "./useAuthors";
 
-export type SelectStudent = (student: any) => void;
+export type SelectStudent = (student: Student) => void;
 
 const TableColumnHeaders = () => {
   return (
@@ -36,22 +37,24 @@ const TableColumnHeaders = () => {
 };
 
 interface TableAuthorProps {
-  author: Author;
-  submissions: Submissions;
+  student: Student;
   selectStudent: SelectStudent;
 }
 
-const TableAuthor: React.FC<TableAuthorProps> = ({ author, selectStudent }) => {
+const TableAuthor: React.FC<TableAuthorProps> = ({
+  student,
+  selectStudent,
+}) => {
   const selectThisStudent = React.useCallback(() => {
-    selectStudent(author);
-  }, [selectStudent, author]);
+    selectStudent(student);
+  }, [selectStudent, student]);
   return (
     <Tr>
-      <Td>{author.name}</Td>
+      <Td>{student.name}</Td>
       <Td>Fine</Td>
       <Td>
         <Button
-          data-testid={`${author.name.replace(" ", "-")}-email-button`}
+          data-testid={`${student.name.replace(" ", "-")}-email-button`}
           onClick={selectThisStudent}
           colorScheme="blue"
         >
@@ -63,26 +66,24 @@ const TableAuthor: React.FC<TableAuthorProps> = ({ author, selectStudent }) => {
 };
 
 export interface TableRowProps {
-  submissions: Submissions;
-  authors: Authors;
+  students: Student[];
   selectStudent: SelectStudent;
   currentWeek: number;
 }
 
 export interface EmailViewElements {
-  data: any;
+  data: ApiResponse;
   currentWeek: number;
 }
 
 const TableRows: React.FC<TableRowProps> = (props) => {
   return (
     <>
-      {Object.values(props.authors).map((author) => (
+      {Object.values(props.students).map((student) => (
         <TableAuthor
-          key={author.id}
-          author={author}
+          key={student.id}
+          student={student}
           selectStudent={props.selectStudent}
-          submissions={props.submissions}
         />
       ))}
     </>
@@ -121,14 +122,12 @@ const WeekPicker: React.FC<WeekPickerProps> = (props) => {
 
 export interface EmailTableProps {
   selectStudent: SelectStudent;
-  data: any;
+  data: ApiResponse;
 }
 
 const EmailTable: React.FC<EmailTableProps> = (props) => {
   const [currentWeek, setCurrentWeek] = React.useState<number>(0);
-  const { numWeeks } = useAuthors({
-    /* authors: props.data.authors.authors, */
-    /* submissions: props.data.submissions.submissions, */
+  const { students, numWeeks } = useAuthors({
     data: props.data,
     currentWeek,
   });
@@ -147,9 +146,8 @@ const EmailTable: React.FC<EmailTableProps> = (props) => {
         <Tbody>
           <TableRows
             currentWeek={currentWeek}
-            authors={props.data.authors.authors}
+            students={students}
             selectStudent={props.selectStudent}
-            submissions={props.data.submissions.submissions}
           />
         </Tbody>
         <Tfoot>
@@ -176,7 +174,7 @@ const useStudentModal = () => {
 };
 
 export interface EmailModalProps {
-  currentStudent: any | null;
+  currentStudent: Student | null;
   unselectStudent: () => void;
 }
 
@@ -213,7 +211,7 @@ const EmailModal: React.FC<EmailModalProps> = (props) => {
 };
 
 export interface EmailViewProps {
-  data: any;
+  data: ApiResponse;
 }
 
 const EmailsView: React.FC<EmailViewProps> = (props) => {

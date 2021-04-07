@@ -3,12 +3,7 @@ import { useQuery } from "react-query";
 import axios from "axios";
 import AlertError from "../components/AlertError";
 import EmailsView from "./EmailsView";
-
-export type ApiResponse = {
-  submissions: any;
-  authors: any;
-  poke: any;
-};
+import { ApiResponse } from "../help-system/CriticStructure";
 
 export const fetchEmailStatistics = async (): Promise<ApiResponse> => {
   const [submissions, authors, poke] = (
