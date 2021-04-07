@@ -1,6 +1,6 @@
 import { Flex, Heading, Spinner } from "@chakra-ui/react";
 import { useQuery } from "react-query";
-import { Submissions, Authors } from "./ApiTypes";
+import { Submissions, Authors } from "../help-system/CriticStructure";
 import axios from "axios";
 import AlertError from "../components/AlertError";
 import EmailsView from "./EmailsView";
@@ -14,8 +14,8 @@ export const fetchEmailStatistics = async (): Promise<
       axios.get("/authors.json"),
     ])
   )?.map((el) => el.data);
-  const emails = rawEmails as Submissions;
-  const authors = rawAuthors as Authors;
+  const emails = rawEmails.submissions as Submissions;
+  const authors = rawAuthors.authors as Authors;
   return [emails, authors];
 };
 
@@ -59,7 +59,7 @@ const EmailsRouter: React.FC<EmailRouterProps> = ({
   if (isError) return <EmailsError />;
   if (isLoading || !data) return <EmailsLoading />;
   const [submissions, authors] = data;
-  return Object.keys(submissions?.submissions).length === 0 ? (
+  return Object.keys(submissions).length === 0 ? (
     <EmailsMissing />
   ) : (
     <EmailsView submissions={submissions} authors={authors} />

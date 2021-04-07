@@ -1,6 +1,6 @@
 import axios from "axios";
 import AxiosMock from "axios-mock-adapter";
-import { fetchEmailStatistics } from "./EmailBuddy";
+import { fetchEmailStatistics } from "./EmailGateway";
 import { render, waitFor } from "@testing-library/react";
 import App from "../App";
 import { queryClient } from "../components/Providers";
@@ -23,10 +23,12 @@ describe("Our email fetcher component", () => {
     });
   });
   test("Fetch course stats makes the right API calls", async () => {
-    mock.onGet("/example-submission-data.json").reply(200, "emails");
-    mock.onGet("/authors.json").reply(200, "authors");
-    const [emails, authors] = await fetchEmailStatistics();
-    expect(emails).toBe("emails");
+    mock
+      .onGet("/example-submission-data.json")
+      .reply(200, { submissions: "submissions" });
+    mock.onGet("/authors.json").reply(200, { authors: "authors" });
+    const [submissions, authors] = await fetchEmailStatistics();
+    expect(submissions).toBe("submissions");
     expect(authors).toBe("authors");
   });
   test("Renders loading initially", () => {

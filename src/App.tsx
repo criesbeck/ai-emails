@@ -1,11 +1,11 @@
 import React from "react";
 import Providers from "./components/Providers";
-import EmailBuddy from "./email-buddy/EmailBuddy";
+import EmailGateway from "./components/EmailGateway";
 
 const App: React.FC = () => {
   return (
     <Providers>
-      <EmailBuddy />
+      <EmailGateway />
     </Providers>
   );
 };
