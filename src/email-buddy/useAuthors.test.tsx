@@ -1,8 +1,21 @@
+import { Submission } from "./ApiTypes";
 import { partitionIntoWeeks } from "./useAuthors";
-import snapshot from "./snapshot.json";
 
 describe("Partitioning submissions into weeks", () => {
+  const ONE_WEEK = 7 * 24 * 60 * 60 * 1000;
   test("Works with the original mock data set", () => {
-    expect(partitionIntoWeeks(snapshot.input)).toEqual(snapshot.output);
+    const submissions: Submission[] = [
+      { exid: 1, author: 24, status: "Done", submitted: Date.now() },
+      { exid: 2, author: 24, status: "Done", submitted: Date.now() + ONE_WEEK },
+      {
+        exid: 3,
+        author: 24,
+        status: "Done",
+        submitted: Date.now() + 2 * ONE_WEEK,
+      },
+    ];
+    expect(partitionIntoWeeks(submissions)).toEqual(
+      submissions.map((submission) => [submission])
+    );
   });
 });
