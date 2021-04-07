@@ -50,7 +50,11 @@ const TableAuthor: React.FC<TableAuthorProps> = ({ author, selectStudent }) => {
       <Td>{author.name}</Td>
       <Td>Fine</Td>
       <Td>
-        <Button onClick={selectThisStudent} colorScheme="blue">
+        <Button
+          data-testid={`${author.name.replace(" ", "-")}-email-button`}
+          onClick={selectThisStudent}
+          colorScheme="blue"
+        >
           Message
         </Button>
       </Td>
@@ -74,7 +78,7 @@ export interface EmailViewElements {
 const TableRows: React.FC<TableRowProps> = (props) => {
   return (
     <>
-      {Object.values(props.authors.authors).map((author) => (
+      {Object.values(props.authors).map((author) => (
         <TableAuthor
           key={author.id}
           author={author}
@@ -184,7 +188,11 @@ const EmailModal: React.FC<EmailModalProps> = (props) => {
     <Modal size="lg" isOpen={currentStudent !== null} onClose={unselectStudent}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Email {currentStudent?.email}</ModalHeader>
+        <ModalHeader
+          data-testid={`${currentStudent?.name?.replace(" ", "-")}-email-modal`}
+        >
+          Email {currentStudent?.email}
+        </ModalHeader>
         <ModalCloseButton />
         <Flex flexDirection="column" width="100%" pb="16px" px="24px">
           <Flex py="16px" alignItems="center">

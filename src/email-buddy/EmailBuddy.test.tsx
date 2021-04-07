@@ -23,10 +23,12 @@ describe("Our email fetcher component", () => {
     });
   });
   test("Fetch course stats makes the right API calls", async () => {
-    mock.onGet("/example-submission-data.json").reply(200, "emails");
-    mock.onGet("/authors.json").reply(200, "authors");
-    const [emails, authors] = await fetchEmailStatistics();
-    expect(emails).toBe("emails");
+    mock
+      .onGet("/example-submission-data.json")
+      .reply(200, { submissions: "submissions" });
+    mock.onGet("/authors.json").reply(200, { authors: "authors" });
+    const [submissions, authors] = await fetchEmailStatistics();
+    expect(submissions).toBe("submissions");
     expect(authors).toBe("authors");
   });
   test("Renders loading initially", () => {
