@@ -8,23 +8,13 @@ export const partitionIntoWeeks = (
   submissions: Submission[]
 ): Array<Array<Submission>> => {
   const lastSubmission = submissions[submissions.length - 1].submitted;
-  const submissionsWithWeeks = submissions.map((submission) => ({
-    ...submission,
-    week: dayjs(lastSubmission).diff(submission.submitted, "week"),
-  }));
-  const weeks = Object.values(
-    _(submissionsWithWeeks).groupBy("week").value()
+  return Object.values(
+    _(submissions)
+      .groupBy((submission) =>
+        dayjs(lastSubmission).diff(submission.submitted, "week")
+      )
+      .value()
   ).reverse();
-  return weeks.map((week) =>
-    week
-      .map((submission) => ({
-        submitted: submission.submitted,
-        exid: submission.exid,
-        author: submission.author,
-        status: submission.status,
-      }))
-      .sort((a, b) => a.submitted - b.submitted)
-  );
 };
 
 const useAuthors = (els: EmailViewElements) => {
