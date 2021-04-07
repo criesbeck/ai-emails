@@ -17,6 +17,7 @@ describe("Our email fetcher component", () => {
   test("Renders an error message when there's an error", async () => {
     mock.onGet("/example-submission-data.json").networkError();
     mock.onGet("/authors.json").networkError();
+    mock.onGet("/poke-325-export.json").networkError();
     const { getByTestId } = render(<App />);
     await waitFor(() => {
       expect(getByTestId("emails-error")).toBeInTheDocument();
@@ -27,6 +28,7 @@ describe("Our email fetcher component", () => {
       .onGet("/example-submission-data.json")
       .reply(200, { submissions: "submissions" });
     mock.onGet("/authors.json").reply(200, { authors: "authors" });
+    mock.onGet("/poke-325-export.json").reply(200, { authors: "authors" });
     const [submissions, authors] = await fetchEmailStatistics();
     expect(submissions).toBe("submissions");
     expect(authors).toBe("authors");
@@ -38,6 +40,7 @@ describe("Our email fetcher component", () => {
   test("Renders a nothing found message when nothing is found", async () => {
     mock.onGet("/example-submission-data.json").reply(200, { submissions: {} });
     mock.onGet("/authors.json").reply(200, { authors: {} });
+    mock.onGet("/poke-325-export.json").reply(200, { authors: {} });
     const { getByTestId } = render(<App />);
     await waitFor(() => {
       expect(getByTestId("emails-missing")).toBeInTheDocument();
@@ -48,6 +51,7 @@ describe("Our email fetcher component", () => {
       .onGet("/example-submission-data.json")
       .reply(200, { submissions: { x: 3 } });
     mock.onGet("/authors.json").reply(200, { authors: {} });
+    mock.onGet("/poke-325-export.json").reply(200, { authors: {} });
     const { getByTestId } = render(<App />);
     await waitFor(() => {
       expect(getByTestId("emails-view")).toBeInTheDocument();

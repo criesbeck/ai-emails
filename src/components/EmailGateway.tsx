@@ -12,6 +12,7 @@ export const fetchEmailStatistics = async (): Promise<
     await Promise.all([
       axios.get("/example-submission-data.json"),
       axios.get("/authors.json"),
+      axios.get("/poke-325-export.json"),
     ])
   )?.map((el) => el.data);
   const emails = rawEmails.submissions as Submissions;

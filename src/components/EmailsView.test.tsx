@@ -1,8 +1,8 @@
 import EmailsView from "./EmailsView";
 import { render, fireEvent } from "@testing-library/react";
-import submissionJson from "./example-submission-data.json";
-import authorsJson from "./authors.json";
-import { Authors, Submissions } from "./ApiTypes";
+import submissionJson from "../../public/example-submission-data.json";
+import authorsJson from "../../public/authors.json";
+import { Authors, Submissions } from "../help-system/CriticStructure";
 
 const authors = authorsJson.authors as Authors;
 const submissions = submissionJson as Submissions;
