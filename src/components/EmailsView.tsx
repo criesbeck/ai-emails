@@ -17,9 +17,10 @@ import {
   Th,
   Td,
   TableCaption,
+  Tag,
   Button,
+  Textarea,
 } from "@chakra-ui/react";
-import MarkdownEditor from "@uiw/react-markdown-editor";
 import { ApiResponse } from "../help-system/CriticStructure";
 import { Student } from "../help-system/tagStructure";
 import useAuthors from "./useAuthors";
@@ -30,7 +31,7 @@ const TableColumnHeaders = () => {
   return (
     <Tr>
       <Th>Name</Th>
-      <Th>Status</Th>
+      <Th>Issues</Th>
       <Th>Send Message</Th>
     </Tr>
   );
@@ -51,7 +52,15 @@ const TableAuthor: React.FC<TableAuthorProps> = ({
   return (
     <Tr>
       <Td>{student.name}</Td>
-      <Td>Fine</Td>
+      <Td>
+        {student.issues.map((issue) => {
+          return (
+            <Tag colorScheme="teal" key={issue.name}>
+              {issue.name}
+            </Tag>
+          );
+        })}
+      </Td>
       <Td>
         <Button
           data-testid={`${student.name.replace(" ", "-")}-email-button`}
@@ -178,8 +187,40 @@ export interface EmailModalProps {
   unselectStudent: () => void;
 }
 
+const useEditSubject = (currentStudent: Student | null) => {
+  const [currentSubject, setCurrentSubject] = React.useState<string>(
+    currentStudent?.issues[0]?.name || ""
+  );
+  const changeSubject = React.useCallback((event) => {
+    setCurrentSubject(event.target.value);
+  }, []);
+
+  React.useEffect(() => {
+    setCurrentSubject(currentStudent?.issues[0]?.name || "");
+  }, [currentStudent]);
+
+  return { currentSubject, changeSubject };
+};
+
+const useEditEmail = (currentStudent: Student | null) => {
+  const [currentTemplate, setCurrentTemplate] = React.useState<string>(
+    currentStudent?.issues?.map((issue) => issue.template)?.join("\n") || ""
+  );
+  const changeTemplate = React.useCallback((event) => {
+    setCurrentTemplate(event.target.value);
+  }, []);
+  React.useEffect(() => {
+    setCurrentTemplate(
+      currentStudent?.issues?.map((issue) => issue.template)?.join("\n") || ""
+    );
+  }, [currentStudent]);
+  return { currentTemplate, changeTemplate };
+};
+
 const EmailModal: React.FC<EmailModalProps> = (props) => {
   const { currentStudent, unselectStudent } = props;
+  const { currentSubject, changeSubject } = useEditSubject(currentStudent);
+  const { currentTemplate, changeTemplate } = useEditEmail(currentStudent);
   return (
     <Modal size="lg" isOpen={currentStudent !== null} onClose={unselectStudent}>
       <ModalOverlay />
@@ -195,12 +236,12 @@ const EmailModal: React.FC<EmailModalProps> = (props) => {
             <Text fontWeight="600" pr="16px">
               Subject
             </Text>
-            <Input />
+            <Input value={currentSubject} onChange={changeSubject} />
           </Flex>
           <Text fontWeight="600" py="16px">
             Body
           </Text>
-          <MarkdownEditor visible={false} height={500} />
+          <Textarea value={currentTemplate} onChange={changeTemplate} />
           <Flex pt="16px">
             <Button colorScheme="teal">Send</Button>
           </Flex>
