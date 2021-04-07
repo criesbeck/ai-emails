@@ -6,6 +6,7 @@ import {
   ModalHeader,
   ModalCloseButton,
   Text,
+  Select,
   Input,
   Flex,
   Table,
@@ -34,12 +35,6 @@ const TableColumnHeaders = () => {
   );
 };
 
-export interface TableRowProps {
-  submissions: Submissions;
-  authors: Authors;
-  selectStudent: SelectStudent;
-}
-
 interface TableAuthorProps {
   author: Author;
   submissions: Submissions;
@@ -63,19 +58,23 @@ const TableAuthor: React.FC<TableAuthorProps> = ({ author, selectStudent }) => {
   );
 };
 
+export interface TableRowProps {
+  submissions: Submissions;
+  authors: Authors;
+  selectStudent: SelectStudent;
+  currentWeek: number;
+}
+
 export interface EmailViewElements {
   submissions: Submissions;
   authors: Authors;
+  currentWeek: number;
 }
 
 const TableRows: React.FC<TableRowProps> = (props) => {
-  const authors = useAuthors({
-    authors: props.authors,
-    submissions: props.submissions,
-  });
   return (
     <>
-      {Object.values(authors.authors).map((author) => (
+      {Object.values(props.authors.authors).map((author) => (
         <TableAuthor
           key={author.id}
           author={author}
@@ -87,6 +86,36 @@ const TableRows: React.FC<TableRowProps> = (props) => {
   );
 };
 
+interface WeekPickerProps {
+  setCurrentWeek: React.Dispatch<React.SetStateAction<number>>;
+  currentWeek: number;
+  numWeeks: number;
+}
+
+const WeekPicker: React.FC<WeekPickerProps> = (props) => {
+  const { setCurrentWeek, numWeeks, currentWeek } = props;
+  const changeWeek = React.useCallback<
+    React.ChangeEventHandler<HTMLSelectElement>
+  >(
+    (event) => {
+      setCurrentWeek(Number.parseInt(event.target.value, 10));
+    },
+    [setCurrentWeek]
+  );
+  return (
+    <Flex width="80%" justifyContent="space-around" pb="16px">
+      <Text>Pick Week</Text>
+      <Select placeholder="Pick Week" value={currentWeek} onChange={changeWeek}>
+        {Array.from({ length: numWeeks }).map((_, index) => (
+          <option key={index} value={index}>
+            {index + 1}
+          </option>
+        ))}
+      </Select>
+    </Flex>
+  );
+};
+
 export interface EmailTableProps {
   submissions: Submissions;
   authors: Authors;
@@ -94,24 +123,38 @@ export interface EmailTableProps {
 }
 
 const EmailTable: React.FC<EmailTableProps> = (props) => {
-  const { authors, submissions, selectStudent } = props;
+  const { authors: apiAuthors, submissions, selectStudent } = props;
+  const [currentWeek, setCurrentWeek] = React.useState<number>(0);
+  const { authors, numWeeks } = useAuthors({
+    authors: apiAuthors,
+    submissions,
+    currentWeek,
+  });
   return (
-    <Table variant="simple">
-      <TableCaption>Students</TableCaption>
-      <Thead>
-        <TableColumnHeaders />
-      </Thead>
-      <Tbody>
-        <TableRows
-          authors={authors}
-          selectStudent={selectStudent}
-          submissions={submissions}
-        />
-      </Tbody>
-      <Tfoot>
-        <TableColumnHeaders />
-      </Tfoot>
-    </Table>
+    <>
+      <WeekPicker
+        currentWeek={currentWeek}
+        setCurrentWeek={setCurrentWeek}
+        numWeeks={numWeeks}
+      />
+      <Table variant="simple">
+        <TableCaption>Students</TableCaption>
+        <Thead>
+          <TableColumnHeaders />
+        </Thead>
+        <Tbody>
+          <TableRows
+            currentWeek={currentWeek}
+            authors={authors}
+            selectStudent={selectStudent}
+            submissions={submissions}
+          />
+        </Tbody>
+        <Tfoot>
+          <TableColumnHeaders />
+        </Tfoot>
+      </Table>
+    </>
   );
 };
 
@@ -148,16 +191,12 @@ const EmailModal: React.FC<EmailModalProps> = (props) => {
             <Text fontWeight="600" pr="16px">
               Subject
             </Text>
-            <Input value="Consider dropping the class" />
+            <Input />
           </Flex>
           <Text fontWeight="600" py="16px">
             Body
           </Text>
-          <MarkdownEditor
-            visible={false}
-            height={500}
-            value="I am an email message."
-          />
+          <MarkdownEditor visible={false} height={500} />
           <Flex pt="16px">
             <Button colorScheme="teal">Send</Button>
           </Flex>
@@ -167,7 +206,12 @@ const EmailModal: React.FC<EmailModalProps> = (props) => {
   );
 };
 
-const EmailsView: React.FC<EmailViewElements> = (props) => {
+export interface EmailViewProps {
+  authors: Authors;
+  submissions: Submissions;
+}
+
+const EmailsView: React.FC<EmailViewProps> = (props) => {
   const { currentStudent, selectStudent, unselectStudent } = useStudentModal();
   return (
     <Flex data-testid="emails-view" flexDirection="column" alignItems="center">

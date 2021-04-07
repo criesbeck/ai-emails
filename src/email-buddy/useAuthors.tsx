@@ -1,4 +1,5 @@
 import React from "react";
+import { Authors } from "./ApiTypes";
 import dayjs from "dayjs";
 import { Submission } from "./ApiTypes";
 import { EmailViewElements } from "./EmailsView";
@@ -17,13 +18,17 @@ export const partitionIntoWeeks = (
   ).reverse();
 };
 
-const useAuthors = (els: EmailViewElements) => {
+export interface UseAuthors {
+  authors: Authors;
+  numWeeks: number;
+}
+
+const useAuthors = (els: EmailViewElements): UseAuthors => {
   const weeks = React.useMemo(
     () => partitionIntoWeeks(Object.values(els.submissions.submissions)),
-    [els]
+    [els.submissions.submissions]
   );
-  console.log("weeks", weeks);
-  return els.authors;
+  return { authors: els.authors, numWeeks: weeks.length };
 };
 
 export default useAuthors;
