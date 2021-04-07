@@ -87,6 +87,34 @@ const TableRows: React.FC<TableRowProps> = (props) => {
   );
 };
 
+export interface EmailTableProps {
+  submissions: Submissions;
+  authors: Authors;
+  selectStudent: SelectStudent;
+}
+
+const EmailTable: React.FC<EmailTableProps> = (props) => {
+  const { authors, submissions, selectStudent } = props;
+  return (
+    <Table variant="simple">
+      <TableCaption>Students</TableCaption>
+      <Thead>
+        <TableColumnHeaders />
+      </Thead>
+      <Tbody>
+        <TableRows
+          authors={authors}
+          selectStudent={selectStudent}
+          submissions={submissions}
+        />
+      </Tbody>
+      <Tfoot>
+        <TableColumnHeaders />
+      </Tfoot>
+    </Table>
+  );
+};
+
 const useStudentModal = () => {
   const [currentStudent, setCurrentStudent] = React.useState(null);
   const unselectStudent = React.useCallback(() => {
@@ -136,34 +164,6 @@ const EmailModal: React.FC<EmailModalProps> = (props) => {
         </Flex>
       </ModalContent>
     </Modal>
-  );
-};
-
-export interface EmailTableProps {
-  submissions: Submissions;
-  authors: Authors;
-  selectStudent: SelectStudent;
-}
-
-const EmailTable: React.FC<EmailTableProps> = (props) => {
-  const { authors, submissions, selectStudent } = props;
-  return (
-    <Table variant="simple">
-      <TableCaption>Students</TableCaption>
-      <Thead>
-        <TableColumnHeaders />
-      </Thead>
-      <Tbody>
-        <TableRows
-          authors={authors}
-          selectStudent={selectStudent}
-          submissions={submissions}
-        />
-      </Tbody>
-      <Tfoot>
-        <TableColumnHeaders />
-      </Tfoot>
-    </Table>
   );
 };
 
