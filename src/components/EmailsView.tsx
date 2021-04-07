@@ -55,7 +55,7 @@ const TableAuthor: React.FC<TableAuthorProps> = ({
       <Td>
         {student.issues.map((issue) => {
           return (
-            <Tag colorScheme="teal" key={issue.name}>
+            <Tag colorScheme="teal" key={issue.name} mr="8px">
               {issue.name}
             </Tag>
           );
