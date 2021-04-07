@@ -1,26 +1,12 @@
-import React from "react";
-import {
-  partitionIntoWeeks,
-  orderStudents,
-} from "../help-system/studentRanker";
-import { Authors } from "../help-system/CriticStructure";
+import { orderStudents } from "../help-system/studentRanker";
+import { Student } from "../help-system/tagStructure";
 import { EmailViewElements } from "./EmailsView";
 
 export interface UseAuthors {
-  authors: Authors;
+  authors: Student;
   numWeeks: number;
 }
 
-const useAuthors = (els: EmailViewElements): UseAuthors => {
-  const weeks = React.useMemo(
-    () => partitionIntoWeeks(Object.values(els.submissions)),
-    [els.submissions]
-  );
-  orderStudents({ authors: els.authors, weeks, currentWeek: els.currentWeek });
-  return {
-    authors: els.authors,
-    numWeeks: weeks.length,
-  };
-};
+const useAuthors = (els: EmailViewElements) => orderStudents(els);
 
 export default useAuthors;

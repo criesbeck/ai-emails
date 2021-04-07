@@ -1,11 +1,8 @@
 import EmailsView from "./EmailsView";
 import { render, fireEvent } from "@testing-library/react";
-import submissionJson from "./example-submission-data.json";
-import authorsJson from "./authors.json";
-import { Authors, Submissions } from "./ApiTypes";
-
-const authors = authorsJson.authors as Authors;
-const submissions = submissionJson as Submissions;
+import submissionJson from "../../public/example-submission-data.json";
+import authorsJson from "../../public/authors.json";
+import pokeJson from "../../public/poke-325-export.json";
 
 document.createRange = () => {
   const range = new Range();
@@ -19,7 +16,17 @@ document.createRange = () => {
 };
 
 const TestEmails = () => {
-  return <EmailsView authors={authors} submissions={submissions} />;
+  return (
+    <EmailsView
+      data={{
+        authors: authorsJson,
+        // @ts-ignore
+        submissions: submissionJson,
+        // @ts-ignore
+        poke: pokeJson,
+      }}
+    />
+  );
 };
 
 describe("Our emails view", () => {

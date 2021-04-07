@@ -17,41 +17,53 @@ import {
   Th,
   Td,
   TableCaption,
+  Tag,
   Button,
+  Textarea,
 } from "@chakra-ui/react";
-import MarkdownEditor from "@uiw/react-markdown-editor";
-import { Submissions, Authors, Author } from "../help-system/CriticStructure";
+import { ApiResponse } from "../help-system/CriticStructure";
+import { Student } from "../help-system/tagStructure";
 import useAuthors from "./useAuthors";
 
-export type SelectStudent = (student: any) => void;
+export type SelectStudent = (student: Student) => void;
 
 const TableColumnHeaders = () => {
   return (
     <Tr>
       <Th>Name</Th>
-      <Th>Status</Th>
+      <Th>Issues</Th>
       <Th>Send Message</Th>
     </Tr>
   );
 };
 
 interface TableAuthorProps {
-  author: Author;
-  submissions: Submissions;
+  student: Student;
   selectStudent: SelectStudent;
 }
 
-const TableAuthor: React.FC<TableAuthorProps> = ({ author, selectStudent }) => {
+const TableAuthor: React.FC<TableAuthorProps> = ({
+  student,
+  selectStudent,
+}) => {
   const selectThisStudent = React.useCallback(() => {
-    selectStudent(author);
-  }, [selectStudent, author]);
+    selectStudent(student);
+  }, [selectStudent, student]);
   return (
     <Tr>
-      <Td>{author.name}</Td>
-      <Td>Fine</Td>
+      <Td>{student.name}</Td>
+      <Td>
+        {student.issues.map((issue) => {
+          return (
+            <Tag colorScheme="teal" key={issue.name} mr="8px">
+              {issue.name}
+            </Tag>
+          );
+        })}
+      </Td>
       <Td>
         <Button
-          data-testid={`${author.name.replace(" ", "-")}-email-button`}
+          data-testid={`${student.name.replace(" ", "-")}-email-button`}
           onClick={selectThisStudent}
           colorScheme="blue"
         >
@@ -63,27 +75,24 @@ const TableAuthor: React.FC<TableAuthorProps> = ({ author, selectStudent }) => {
 };
 
 export interface TableRowProps {
-  submissions: Submissions;
-  authors: Authors;
+  students: Student[];
   selectStudent: SelectStudent;
   currentWeek: number;
 }
 
 export interface EmailViewElements {
-  submissions: Submissions;
-  authors: Authors;
+  data: ApiResponse;
   currentWeek: number;
 }
 
 const TableRows: React.FC<TableRowProps> = (props) => {
   return (
     <>
-      {Object.values(props.authors).map((author) => (
+      {Object.values(props.students).map((student) => (
         <TableAuthor
-          key={author.id}
-          author={author}
+          key={student.id}
+          student={student}
           selectStudent={props.selectStudent}
-          submissions={props.submissions}
         />
       ))}
     </>
@@ -121,17 +130,14 @@ const WeekPicker: React.FC<WeekPickerProps> = (props) => {
 };
 
 export interface EmailTableProps {
-  submissions: Submissions;
-  authors: Authors;
   selectStudent: SelectStudent;
+  data: ApiResponse;
 }
 
 const EmailTable: React.FC<EmailTableProps> = (props) => {
-  const { authors: apiAuthors, submissions, selectStudent } = props;
   const [currentWeek, setCurrentWeek] = React.useState<number>(0);
-  const { authors, numWeeks } = useAuthors({
-    authors: apiAuthors,
-    submissions,
+  const { students, numWeeks } = useAuthors({
+    data: props.data,
     currentWeek,
   });
   return (
@@ -149,9 +155,8 @@ const EmailTable: React.FC<EmailTableProps> = (props) => {
         <Tbody>
           <TableRows
             currentWeek={currentWeek}
-            authors={authors}
-            selectStudent={selectStudent}
-            submissions={submissions}
+            students={students}
+            selectStudent={props.selectStudent}
           />
         </Tbody>
         <Tfoot>
@@ -178,12 +183,44 @@ const useStudentModal = () => {
 };
 
 export interface EmailModalProps {
-  currentStudent: any | null;
+  currentStudent: Student | null;
   unselectStudent: () => void;
 }
 
+const useEditSubject = (currentStudent: Student | null) => {
+  const [currentSubject, setCurrentSubject] = React.useState<string>(
+    currentStudent?.issues[0]?.name || ""
+  );
+  const changeSubject = React.useCallback((event) => {
+    setCurrentSubject(event.target.value);
+  }, []);
+
+  React.useEffect(() => {
+    setCurrentSubject(currentStudent?.issues[0]?.name || "");
+  }, [currentStudent]);
+
+  return { currentSubject, changeSubject };
+};
+
+const useEditEmail = (currentStudent: Student | null) => {
+  const [currentTemplate, setCurrentTemplate] = React.useState<string>(
+    currentStudent?.issues?.map((issue) => issue.template)?.join("\n") || ""
+  );
+  const changeTemplate = React.useCallback((event) => {
+    setCurrentTemplate(event.target.value);
+  }, []);
+  React.useEffect(() => {
+    setCurrentTemplate(
+      currentStudent?.issues?.map((issue) => issue.template)?.join("\n") || ""
+    );
+  }, [currentStudent]);
+  return { currentTemplate, changeTemplate };
+};
+
 const EmailModal: React.FC<EmailModalProps> = (props) => {
   const { currentStudent, unselectStudent } = props;
+  const { currentSubject, changeSubject } = useEditSubject(currentStudent);
+  const { currentTemplate, changeTemplate } = useEditEmail(currentStudent);
   return (
     <Modal size="lg" isOpen={currentStudent !== null} onClose={unselectStudent}>
       <ModalOverlay />
@@ -199,12 +236,12 @@ const EmailModal: React.FC<EmailModalProps> = (props) => {
             <Text fontWeight="600" pr="16px">
               Subject
             </Text>
-            <Input />
+            <Input value={currentSubject} onChange={changeSubject} />
           </Flex>
           <Text fontWeight="600" py="16px">
             Body
           </Text>
-          <MarkdownEditor visible={false} height={500} />
+          <Textarea value={currentTemplate} onChange={changeTemplate} />
           <Flex pt="16px">
             <Button colorScheme="teal">Send</Button>
           </Flex>
@@ -215,19 +252,14 @@ const EmailModal: React.FC<EmailModalProps> = (props) => {
 };
 
 export interface EmailViewProps {
-  authors: Authors;
-  submissions: Submissions;
+  data: ApiResponse;
 }
 
 const EmailsView: React.FC<EmailViewProps> = (props) => {
   const { currentStudent, selectStudent, unselectStudent } = useStudentModal();
   return (
     <Flex data-testid="emails-view" flexDirection="column" alignItems="center">
-      <EmailTable
-        selectStudent={selectStudent}
-        authors={props.authors}
-        submissions={props.submissions}
-      />
+      <EmailTable selectStudent={selectStudent} data={props.data} />
       <EmailModal
         currentStudent={currentStudent}
         unselectStudent={unselectStudent}

@@ -1,23 +1,59 @@
-export type Status = "Not done" | "Almost done" | "Done" | "Well done!";
+export type Status =
+  | "Not done"
+  | "Almost done"
+  | "Done"
+  | "Well done!"
+  | "Terminated";
+
+export type authorId = number;
+
+export type exerciseId = number;
+
+export type submissionId = number;
+
+export type completionTime = number;
+
+export type exerciseName = string;
 
 export interface Author {
   name: string;
   email: string;
-  id: number;
+  id: authorId;
 }
 
 export type Authors = Record<string, Author>;
 
 export interface Submission {
-  author: number;
-  submitted: number;
-  exid: number;
+  author: authorId;
+  submitted: completionTime;
+  exid: exerciseId;
   status: Status;
 }
 
 export interface Submissions {
-  exercises: Record<string, string>;
-  ai: number[];
-  challenge: number[];
-  submissions: Record<string, Submission>;
+  exercises: Record<exerciseId, exerciseName>;
+  ai: exerciseId[];
+  challenge: exerciseId[];
+  submissions: Record<submissionId, Submission>;
+}
+
+export interface SubmissionHistory {
+  status: Status;
+  submit_hist: Submission[];
+  submitted: completionTime;
+}
+
+export interface AuthorSubmissionHistory {
+  exercises: Record<exerciseId, SubmissionHistory>;
+  submissions: Submission[];
+}
+
+export interface ApiResponse {
+  authors: {
+    authors: Record<authorId, Author>;
+  };
+  poke: {
+    authors: Record<authorId, AuthorSubmissionHistory>;
+  };
+  submissions: Submissions;
 }
