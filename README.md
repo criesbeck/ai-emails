@@ -2,6 +2,6 @@
 
 An AI emailing system.
 
-## Staging Environment
+## Deployment
 
 See https://heuristic-nightingale-18103d.netlify.app
