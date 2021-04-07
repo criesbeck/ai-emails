@@ -7,6 +7,16 @@ import _ from "lodash";
 
 export type Weeks = Array<Array<Submission>>;
 
+export interface TroubleMap {
+  weeks: Weeks;
+  authors: Authors;
+  currentWeek: number;
+}
+
+export const sortAuthorsByTrouble = (trouble: TroubleMap): Authors => {
+  return trouble.authors;
+};
+
 export const partitionIntoWeeks = (submissions: Submission[]): Weeks => {
   const lastSubmission = submissions[submissions.length - 1].submitted;
   return Object.values(
@@ -18,12 +28,6 @@ export const partitionIntoWeeks = (submissions: Submission[]): Weeks => {
   ).reverse();
 };
 
-export interface TroubleMap {
-  weeks: Weeks;
-  authors: Authors;
-  currentWeek: number;
-}
-
 export interface UseAuthors {
   authors: Authors;
   numWeeks: number;
@@ -34,7 +38,14 @@ const useAuthors = (els: EmailViewElements): UseAuthors => {
     () => partitionIntoWeeks(Object.values(els.submissions)),
     [els.submissions]
   );
-  return { authors: els.authors, numWeeks: weeks.length };
+  return {
+    authors: sortAuthorsByTrouble({
+      authors: els.authors,
+      weeks,
+      currentWeek: els.currentWeek,
+    }),
+    numWeeks: weeks.length,
+  };
 };
 
 export default useAuthors;
