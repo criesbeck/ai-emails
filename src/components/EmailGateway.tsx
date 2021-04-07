@@ -1,23 +1,24 @@
 import { Flex, Heading, Spinner } from "@chakra-ui/react";
 import { useQuery } from "react-query";
-import { Submissions, Authors } from "../help-system/CriticStructure";
 import axios from "axios";
 import AlertError from "../components/AlertError";
 import EmailsView from "./EmailsView";
 
-export const fetchEmailStatistics = async (): Promise<
-  [Submissions, Authors]
-> => {
-  const [rawEmails, rawAuthors] = (
+export type ApiResponse = {
+  submissions: any;
+  authors: any;
+  poke: any;
+};
+
+export const fetchEmailStatistics = async (): Promise<ApiResponse> => {
+  const [submissions, authors, poke] = (
     await Promise.all([
       axios.get("/example-submission-data.json"),
       axios.get("/authors.json"),
       axios.get("/poke-325-export.json"),
     ])
   )?.map((el) => el.data);
-  const emails = rawEmails.submissions as Submissions;
-  const authors = rawAuthors.authors as Authors;
-  return [emails, authors];
+  return { submissions, authors, poke };
 };
 
 const EmailsError = () => {
@@ -47,7 +48,7 @@ const EmailsMissing = () => {
 };
 
 interface EmailRouterProps {
-  data: [Submissions, Authors] | undefined;
+  data: ApiResponse | undefined;
   isError: boolean;
   isLoading: boolean;
 }
@@ -59,11 +60,11 @@ const EmailsRouter: React.FC<EmailRouterProps> = ({
 }) => {
   if (isError) return <EmailsError />;
   if (isLoading || !data) return <EmailsLoading />;
-  const [submissions, authors] = data;
-  return Object.keys(submissions).length === 0 ? (
+  const { submissions } = data;
+  return Object.keys(submissions.submissions).length === 0 ? (
     <EmailsMissing />
   ) : (
-    <EmailsView submissions={submissions} authors={authors} />
+    <EmailsView data={data} />
   );
 };
 

@@ -29,9 +29,9 @@ describe("Our email fetcher component", () => {
       .reply(200, { submissions: "submissions" });
     mock.onGet("/authors.json").reply(200, { authors: "authors" });
     mock.onGet("/poke-325-export.json").reply(200, { authors: "authors" });
-    const [submissions, authors] = await fetchEmailStatistics();
-    expect(submissions).toBe("submissions");
-    expect(authors).toBe("authors");
+    const { submissions, authors } = await fetchEmailStatistics();
+    expect(submissions.submissions).toBe("submissions");
+    expect(authors.authors).toBe("authors");
   });
   test("Renders loading initially", () => {
     const { getByTestId } = render(<App />);

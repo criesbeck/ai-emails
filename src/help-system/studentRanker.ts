@@ -4,16 +4,6 @@ import _ from "lodash";
 
 export type Weeks = Array<Array<Submission>>;
 
-export interface TroubleMap {
-  weeks: Weeks;
-  authors: Authors;
-  currentWeek: number;
-}
-
-export const orderStudents = (trouble: TroubleMap): Authors => {
-  return trouble.authors;
-};
-
 export const partitionIntoWeeks = (submissions: Submission[]): Weeks => {
   const lastSubmission = submissions[submissions.length - 1].submitted;
   return Object.values(
@@ -23,4 +13,17 @@ export const partitionIntoWeeks = (submissions: Submission[]): Weeks => {
       )
       .value()
   ).reverse();
+};
+
+export interface StudentInformation {
+  data: any;
+  currentWeek: number;
+}
+
+export interface StudentHelp {
+  numWeeks: number;
+}
+
+export const orderStudents = (_: StudentInformation): StudentHelp => {
+  return { numWeeks: 13 };
 };

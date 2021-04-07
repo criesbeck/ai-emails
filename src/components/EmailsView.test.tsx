@@ -19,7 +19,13 @@ document.createRange = () => {
 };
 
 const TestEmails = () => {
-  return <EmailsView authors={authors} submissions={submissions} />;
+  return (
+    <EmailsView
+      data={{ authors: authorsJson, submissions: submissionJson }}
+      authors={authors}
+      submissions={submissions}
+    />
+  );
 };
 
 describe("Our emails view", () => {

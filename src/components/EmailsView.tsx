@@ -70,8 +70,7 @@ export interface TableRowProps {
 }
 
 export interface EmailViewElements {
-  submissions: Submissions;
-  authors: Authors;
+  data: any;
   currentWeek: number;
 }
 
@@ -121,17 +120,16 @@ const WeekPicker: React.FC<WeekPickerProps> = (props) => {
 };
 
 export interface EmailTableProps {
-  submissions: Submissions;
-  authors: Authors;
   selectStudent: SelectStudent;
+  data: any;
 }
 
 const EmailTable: React.FC<EmailTableProps> = (props) => {
-  const { authors: apiAuthors, submissions, selectStudent } = props;
   const [currentWeek, setCurrentWeek] = React.useState<number>(0);
-  const { authors, numWeeks } = useAuthors({
-    authors: apiAuthors,
-    submissions,
+  const { numWeeks } = useAuthors({
+    /* authors: props.data.authors.authors, */
+    /* submissions: props.data.submissions.submissions, */
+    data: props.data,
     currentWeek,
   });
   return (
@@ -149,9 +147,9 @@ const EmailTable: React.FC<EmailTableProps> = (props) => {
         <Tbody>
           <TableRows
             currentWeek={currentWeek}
-            authors={authors}
-            selectStudent={selectStudent}
-            submissions={submissions}
+            authors={props.data.authors.authors}
+            selectStudent={props.selectStudent}
+            submissions={props.data.submissions.submissions}
           />
         </Tbody>
         <Tfoot>
@@ -215,19 +213,14 @@ const EmailModal: React.FC<EmailModalProps> = (props) => {
 };
 
 export interface EmailViewProps {
-  authors: Authors;
-  submissions: Submissions;
+  data: any;
 }
 
 const EmailsView: React.FC<EmailViewProps> = (props) => {
   const { currentStudent, selectStudent, unselectStudent } = useStudentModal();
   return (
     <Flex data-testid="emails-view" flexDirection="column" alignItems="center">
-      <EmailTable
-        selectStudent={selectStudent}
-        authors={props.authors}
-        submissions={props.submissions}
-      />
+      <EmailTable selectStudent={selectStudent} data={props.data} />
       <EmailModal
         currentStudent={currentStudent}
         unselectStudent={unselectStudent}
