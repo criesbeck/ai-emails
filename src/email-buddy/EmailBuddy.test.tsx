@@ -2,7 +2,8 @@ import axios from "axios";
 import AxiosMock from "axios-mock-adapter";
 import { fetchEmailStatistics } from "./EmailBuddy";
 import { render, waitFor } from "@testing-library/react";
-import App, { queryClient } from "../App";
+import App from "../App";
+import { queryClient } from "../components/Providers";
 
 console.error = jest.fn();
 const mock = new AxiosMock(axios);
@@ -33,16 +34,18 @@ describe("Our email fetcher component", () => {
     expect(getByTestId("emails-loading")).toBeInTheDocument();
   });
   test("Renders a nothing found message when nothing is found", async () => {
-    mock.onGet("/example-submission-data.json").reply(200, []);
-    mock.onGet("/authors.json").reply(200, []);
+    mock.onGet("/example-submission-data.json").reply(200, { submissions: {} });
+    mock.onGet("/authors.json").reply(200, { authors: {} });
     const { getByTestId } = render(<App />);
     await waitFor(() => {
       expect(getByTestId("emails-missing")).toBeInTheDocument();
     });
   });
   test("Renders the email message when emails are found", async () => {
-    mock.onGet("/example-submission-data.json").reply(200, ["hi"]);
-    mock.onGet("/authors.json").reply(200, ["hi"]);
+    mock
+      .onGet("/example-submission-data.json")
+      .reply(200, { submissions: { x: 3 } });
+    mock.onGet("/authors.json").reply(200, { authors: {} });
     const { getByTestId } = render(<App />);
     await waitFor(() => {
       expect(getByTestId("emails-view")).toBeInTheDocument();
