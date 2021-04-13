@@ -8,9 +8,9 @@ import { ApiResponse } from "../help-system/CriticStructure";
 export const fetchEmailStatistics = async (): Promise<ApiResponse> => {
   const [submissions, authors, poke] = (
     await Promise.all([
-      axios.get("/example-submission-data.json"),
-      axios.get("/authors.json"),
-      axios.get("/poke-325-export.json"),
+      axios.get(process.env.REACT_APP_SUBMISSION_DATA!),
+      axios.get(process.env.REACT_APP_AUTHORS!),
+      axios.get(process.env.REACT_APP_POKE!),
     ])
   )?.map((el) => el.data);
   return { submissions, authors, poke };
