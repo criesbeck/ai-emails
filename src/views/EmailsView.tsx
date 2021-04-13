@@ -20,6 +20,10 @@ import {
   Button,
   Textarea,
 } from "@chakra-ui/react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import "./date-picker.css";
+
 import { ApiResponse } from "../help-system/CriticStructure";
 import { Student } from "../help-system/tagStructure";
 import { getLatestSubmission } from "../help-system/utils";
@@ -99,10 +103,24 @@ const TableRows: React.FC<TableRowProps> = (props) => {
   );
 };
 
-const TimePicker: React.FC = () => {
+interface TimePickerProps {
+  currentTime: number;
+  setCurrentTime: React.Dispatch<React.SetStateAction<number>>;
+}
+
+const TimePicker: React.FC<TimePickerProps> = (props) => {
+  const { currentTime, setCurrentTime } = props;
+  const changeTime = React.useCallback(
+    (date: Date | [Date, Date] | null) => {
+      if (date === null) return;
+      if (Array.isArray(date)) return setCurrentTime(date[0].getTime());
+      return setCurrentTime(date.getTime());
+    },
+    [setCurrentTime]
+  );
   return (
-    <Flex width="80%" justifyContent="space-around" pb="16px">
-      <Text>Pick Time</Text>
+    <Flex width="200px" justifyContent="center" pb="16px" alignItems="center">
+      <DatePicker selected={new Date(currentTime)} onChange={changeTime} />
     </Flex>
   );
 };
@@ -122,7 +140,7 @@ const EmailTable: React.FC<EmailTableProps> = (props) => {
   });
   return (
     <>
-      <TimePicker />
+      <TimePicker currentTime={currentTime} setCurrentTime={setCurrentTime} />
       <Table variant="simple">
         <TableCaption>Students</TableCaption>
         <Thead>
