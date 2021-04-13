@@ -3,7 +3,7 @@ import AxiosMock from "axios-mock-adapter";
 import { fetchEmailStatistics } from "./EmailGateway";
 import { render, waitFor } from "@testing-library/react";
 import App from "../App";
-import { queryClient } from "../components/Providers";
+import { queryClient } from "./Providers";
 
 console.error = jest.fn();
 const mock = new AxiosMock(axios);

@@ -1,7 +1,7 @@
 import { Flex, Heading, Spinner } from "@chakra-ui/react";
 import { useQuery } from "react-query";
 import axios from "axios";
-import AlertError from "../components/AlertError";
+import AlertError from "./AlertError";
 import EmailsView from "./EmailsView";
 import { ApiResponse } from "../help-system/CriticStructure";
 
