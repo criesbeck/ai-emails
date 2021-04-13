@@ -77,12 +77,12 @@ const TableAuthor: React.FC<TableAuthorProps> = ({
 export interface TableRowProps {
   students: Student[];
   selectStudent: SelectStudent;
-  currentWeek: number;
+  currentTime: number;
 }
 
 export interface EmailViewElements {
   data: ApiResponse;
-  currentWeek: number;
+  currentTime: number;
 }
 
 const TableRows: React.FC<TableRowProps> = (props) => {
@@ -100,25 +100,25 @@ const TableRows: React.FC<TableRowProps> = (props) => {
 };
 
 interface WeekPickerProps {
-  setCurrentWeek: React.Dispatch<React.SetStateAction<number>>;
-  currentWeek: number;
+  setCurrentTime: React.Dispatch<React.SetStateAction<number>>;
+  currentTime: number;
   numWeeks: number;
 }
 
 const WeekPicker: React.FC<WeekPickerProps> = (props) => {
-  const { setCurrentWeek, numWeeks, currentWeek } = props;
+  const { setCurrentTime, numWeeks, currentTime } = props;
   const changeWeek = React.useCallback<
     React.ChangeEventHandler<HTMLSelectElement>
   >(
     (event) => {
-      setCurrentWeek(Number.parseInt(event.target.value, 10));
+      setCurrentTime(Number.parseInt(event.target.value, 10));
     },
-    [setCurrentWeek]
+    [setCurrentTime]
   );
   return (
     <Flex width="80%" justifyContent="space-around" pb="16px">
       <Text>Pick Week</Text>
-      <Select placeholder="Pick Week" value={currentWeek} onChange={changeWeek}>
+      <Select placeholder="Pick Week" value={currentTime} onChange={changeWeek}>
         {Array.from({ length: numWeeks }).map((_, index) => (
           <option key={index} value={index}>
             {index + 1}
@@ -135,16 +135,16 @@ export interface EmailTableProps {
 }
 
 const EmailTable: React.FC<EmailTableProps> = (props) => {
-  const [currentWeek, setCurrentWeek] = React.useState<number>(0);
+  const [currentTime, setCurrentTime] = React.useState<number>(0);
   const { students, numWeeks } = useAuthors({
     data: props.data,
-    currentWeek,
+    currentTime,
   });
   return (
     <>
       <WeekPicker
-        currentWeek={currentWeek}
-        setCurrentWeek={setCurrentWeek}
+        currentTime={currentTime}
+        setCurrentTime={setCurrentTime}
         numWeeks={numWeeks}
       />
       <Table variant="simple">
@@ -154,7 +154,7 @@ const EmailTable: React.FC<EmailTableProps> = (props) => {
         </Thead>
         <Tbody>
           <TableRows
-            currentWeek={currentWeek}
+            currentTime={currentTime}
             students={students}
             selectStudent={props.selectStudent}
           />

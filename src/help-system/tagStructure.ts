@@ -2,7 +2,7 @@ import { ApiResponse, Author } from "./CriticStructure";
 
 export interface CourseContext {
   data: ApiResponse;
-  currentWeek: number;
+  currentTime: number;
 }
 
 export interface TagContext {
