@@ -1,4 +1,4 @@
-import { Flex, Heading, Spinner } from "@chakra-ui/react";
+import { Flex, Heading } from "@chakra-ui/react";
 import { useQuery } from "react-query";
 import axios from "axios";
 import AlertError from "./AlertError";

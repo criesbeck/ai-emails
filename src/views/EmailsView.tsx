@@ -21,6 +21,7 @@ import {
   Textarea,
 } from "@chakra-ui/react";
 import DatePicker from "react-datepicker";
+import EmailsLoading from "./EmailsLoading";
 import "react-datepicker/dist/react-datepicker.css";
 import "./date-picker.css";
 
@@ -134,10 +135,12 @@ const EmailTable: React.FC<EmailTableProps> = (props) => {
   const [currentTime, setCurrentTime] = React.useState<number>(
     getLatestSubmission(props.data.submissions.submissions)
   );
-  const { students } = useAuthors({
+  const { loading, results } = useAuthors({
     data: props.data,
     currentTime,
   });
+  if (loading) return <EmailsLoading />;
+  const { students } = results;
   return (
     <>
       <TimePicker currentTime={currentTime} setCurrentTime={setCurrentTime} />

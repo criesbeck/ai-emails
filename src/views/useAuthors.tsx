@@ -1,12 +1,16 @@
-import { orderStudents } from "../help-system/studentRanker";
-import { Student } from "../help-system/tagStructure";
+import { orderStudents, StudentHelp } from "../help-system/studentRanker";
 import { EmailViewElements } from "./EmailsView";
 
 export interface UseAuthors {
-  authors: Student;
-  numWeeks: number;
+  loading: boolean;
+  results: StudentHelp;
 }
 
-const useAuthors = (els: EmailViewElements) => orderStudents(els);
+const useAuthors = (els: EmailViewElements): UseAuthors => {
+  return {
+    loading: false,
+    results: orderStudents(els),
+  };
+};
 
 export default useAuthors;
