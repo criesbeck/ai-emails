@@ -6,7 +6,6 @@ import {
   ModalHeader,
   ModalCloseButton,
   Text,
-  Select,
   Input,
   Flex,
   Table,
@@ -23,6 +22,7 @@ import {
 } from "@chakra-ui/react";
 import { ApiResponse } from "../help-system/CriticStructure";
 import { Student } from "../help-system/tagStructure";
+import { getLatestSubmission } from "../help-system/utils";
 import useAuthors from "./useAuthors";
 
 export type SelectStudent = (student: Student) => void;
@@ -99,32 +99,10 @@ const TableRows: React.FC<TableRowProps> = (props) => {
   );
 };
 
-interface WeekPickerProps {
-  setCurrentTime: React.Dispatch<React.SetStateAction<number>>;
-  currentTime: number;
-  numWeeks: number;
-}
-
-const WeekPicker: React.FC<WeekPickerProps> = (props) => {
-  const { setCurrentTime, numWeeks, currentTime } = props;
-  const changeWeek = React.useCallback<
-    React.ChangeEventHandler<HTMLSelectElement>
-  >(
-    (event) => {
-      setCurrentTime(Number.parseInt(event.target.value, 10));
-    },
-    [setCurrentTime]
-  );
+const TimePicker: React.FC = () => {
   return (
     <Flex width="80%" justifyContent="space-around" pb="16px">
-      <Text>Pick Week</Text>
-      <Select placeholder="Pick Week" value={currentTime} onChange={changeWeek}>
-        {Array.from({ length: numWeeks }).map((_, index) => (
-          <option key={index} value={index}>
-            {index + 1}
-          </option>
-        ))}
-      </Select>
+      <Text>Pick Time</Text>
     </Flex>
   );
 };
@@ -135,18 +113,16 @@ export interface EmailTableProps {
 }
 
 const EmailTable: React.FC<EmailTableProps> = (props) => {
-  const [currentTime, setCurrentTime] = React.useState<number>(0);
-  const { students, numWeeks } = useAuthors({
+  const [currentTime, setCurrentTime] = React.useState<number>(
+    getLatestSubmission(props.data.submissions.submissions)
+  );
+  const { students } = useAuthors({
     data: props.data,
     currentTime,
   });
   return (
     <>
-      <WeekPicker
-        currentTime={currentTime}
-        setCurrentTime={setCurrentTime}
-        numWeeks={numWeeks}
-      />
+      <TimePicker />
       <Table variant="simple">
         <TableCaption>Students</TableCaption>
         <Thead>

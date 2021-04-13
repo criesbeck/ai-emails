@@ -1,10 +1,6 @@
 import dayjs from "dayjs";
-import { Tag, CourseContext } from "./tagStructure";
-
-const getLatestSubmission = (ctx: CourseContext) => {
-  const submissions = Object.values(ctx.data.submissions.submissions);
-  return submissions[submissions.length - 1].submitted;
-};
+import { Tag } from "./tagStructure";
+import { getLatestSubmission } from "./utils";
 
 export const needsMoreAI: Tag = {
   name: "Needs AI",
@@ -13,7 +9,9 @@ export const needsMoreAI: Tag = {
   predicate: ({ student, ctx }) => {
     const { currentTime } = ctx;
     if (currentTime < 5) return false;
-    const latestSubmission = getLatestSubmission(ctx);
+    const latestSubmission = getLatestSubmission(
+      ctx.data.submissions.submissions
+    );
     const aiExerciseIds = new Set(ctx.data.submissions.ai);
     const myExercises = ctx.data.poke.authors[student.id].exercises;
     const exerciseIds = Object.keys(myExercises).map((el) =>
@@ -37,7 +35,9 @@ export const submissionCount: Tag = {
   template: `You did not submit three exercises this week.`,
   weight: 1,
   predicate: ({ student, ctx }) => {
-    const latestSubmission = getLatestSubmission(ctx);
+    const latestSubmission = getLatestSubmission(
+      ctx.data.submissions.submissions
+    );
     const thisWeeksSubmissions = ctx.data.poke.authors[
       student.id
     ].submissions.filter(

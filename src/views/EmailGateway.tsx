@@ -6,6 +6,11 @@ import EmailsView from "./EmailsView";
 import { ApiResponse } from "../help-system/CriticStructure";
 
 export const fetchEmailStatistics = async (): Promise<ApiResponse> => {
+  console.log(process.env);
+  console.log(process.env.NODE_ENV);
+  console.log(process.env.REACT_APP_AUTHORS);
+  console.log(process.env.REACT_APP_POKE);
+  console.log(process.env.REACT_APP_POKE);
   const [submissions, authors, poke] = (
     await Promise.all([
       axios.get(process.env.REACT_APP_SUBMISSION_DATA!),
