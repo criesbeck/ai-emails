@@ -21,9 +21,10 @@ import {
   Textarea,
 } from "@chakra-ui/react";
 import DatePicker from "react-datepicker";
+import dayjs from "dayjs";
 import EmailsLoading from "./EmailsLoading";
 import "react-datepicker/dist/react-datepicker.css";
-import "./date-picker.css";
+/* import "./date-picker.css"; */
 
 import { ApiResponse } from "../help-system/CriticStructure";
 import { Student } from "../help-system/tagStructure";
@@ -109,19 +110,38 @@ interface TimePickerProps {
   setCurrentTime: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const TimePicker: React.FC<TimePickerProps> = (props) => {
-  const { currentTime, setCurrentTime } = props;
+const useChangeTime = (props: TimePickerProps) => {
+  const { setCurrentTime } = props;
   const changeTime = React.useCallback(
-    (date: Date | [Date, Date] | null) => {
+    (date: Date | [Date, Date] | null, event) => {
+      if (event.type !== "click") return;
       if (date === null) return;
       if (Array.isArray(date)) return setCurrentTime(date[0].getTime());
       return setCurrentTime(date.getTime());
     },
     [setCurrentTime]
   );
+  return changeTime;
+};
+
+const TimePicker: React.FC<TimePickerProps> = (props) => {
+  const { currentTime } = props;
+  const changeTime = useChangeTime(props);
   return (
     <Flex width="200px" justifyContent="center" pb="16px" alignItems="center">
-      <DatePicker selected={new Date(currentTime)} onChange={changeTime} />
+      <DatePicker
+        value={dayjs(currentTime).format("DD/MM/YYYY")}
+        customInput={
+          <Flex flexDirection="column" alignItems="center">
+            <Text fontWeight={600} pb="8px">
+              {dayjs(currentTime).format("DD/MM/YYYY")}
+            </Text>
+            <Button colorScheme="teal">Change the Date</Button>
+          </Flex>
+        }
+        selected={new Date(currentTime)}
+        onChange={changeTime}
+      />
     </Flex>
   );
 };
