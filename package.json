@@ -15,6 +15,7 @@
     "@types/lodash": "^4.14.168",
     "@types/node": "^12.20.7",
     "@types/react": "^17.0.3",
+    "@types/react-datepicker": "^3.1.8",
     "@types/react-dom": "^17.0.3",
     "@uiw/react-markdown-editor": "^2.0.3",
     "axios": "^0.21.1",
@@ -32,12 +33,17 @@
     "web-vitals": "^1.1.1"
   },
   "scripts": {
-    "start": "FAST_REFRESH=false react-scripts start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "pretty-quick": "pretty-quick --staged",
     "prepare": "husky install"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "comlink-loader.*$": "<rootDir>/MockWorker"
+    }
   },
   "eslintConfig": {
     "extends": [
@@ -60,5 +66,9 @@
   "engines": {
     "node": "14.16.0",
     "npm": "7.8.0"
+  },
+  "devDependencies": {
+    "comlink-loader": "^2.0.0",
+    "react-datepicker": "^3.7.0"
   }
 }

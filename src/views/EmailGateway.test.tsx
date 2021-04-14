@@ -3,7 +3,10 @@ import AxiosMock from "axios-mock-adapter";
 import { fetchEmailStatistics } from "./EmailGateway";
 import { render, waitFor } from "@testing-library/react";
 import App from "../App";
-import { queryClient } from "../components/Providers";
+import { queryClient } from "./Providers";
+import submissions from "../../public/example-submission-data.json";
+import authors from "../../public/authors.json";
+import poke from "../../public/poke-325-export.json";
 
 console.error = jest.fn();
 const mock = new AxiosMock(axios);
@@ -47,11 +50,9 @@ describe("Our email fetcher component", () => {
     });
   });
   test("Renders the email message when emails are found", async () => {
-    mock
-      .onGet("/example-submission-data.json")
-      .reply(200, { submissions: { x: 3 } });
-    mock.onGet("/authors.json").reply(200, { authors: {} });
-    mock.onGet("/poke-325-export.json").reply(200, { authors: {} });
+    mock.onGet("/example-submission-data.json").reply(200, submissions);
+    mock.onGet("/authors.json").reply(200, authors);
+    mock.onGet("/poke-325-export.json").reply(200, poke);
     const { getByTestId } = render(<App />);
     await waitFor(() => {
       expect(getByTestId("emails-view")).toBeInTheDocument();

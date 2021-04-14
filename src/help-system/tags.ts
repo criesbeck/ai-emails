@@ -1,19 +1,17 @@
 import dayjs from "dayjs";
-import { Tag, CourseContext } from "./tagStructure";
-
-const getLatestSubmission = (ctx: CourseContext) => {
-  const submissions = Object.values(ctx.data.submissions.submissions);
-  return submissions[submissions.length - 1].submitted;
-};
+import { Tag } from "./tagStructure";
+import { getLatestSubmission } from "./utils";
 
 export const needsMoreAI: Tag = {
   name: "Needs AI",
   template: "You should start working on AI problems.",
   weight: 1,
   predicate: ({ student, ctx }) => {
-    const { currentWeek } = ctx;
-    if (currentWeek < 5) return false;
-    const latestSubmission = getLatestSubmission(ctx);
+    const { currentTime } = ctx;
+    if (currentTime < 5) return false;
+    const latestSubmission = getLatestSubmission(
+      ctx.data.submissions.submissions
+    );
     const aiExerciseIds = new Set(ctx.data.submissions.ai);
     const myExercises = ctx.data.poke.authors[student.id].exercises;
     const exerciseIds = Object.keys(myExercises).map((el) =>
@@ -25,7 +23,7 @@ export const needsMoreAI: Tag = {
       const isAi = aiExerciseIds.has(num);
       const isDone = status === "Done" || status === "Well done!";
       const isFinishedNow =
-        dayjs(latestSubmission).diff(submitted, "week") <= currentWeek;
+        dayjs(latestSubmission).diff(submitted, "week") <= currentTime;
       return isAi && isDone && isFinishedNow;
     });
     return aiExercises.length < 4;
@@ -37,13 +35,15 @@ export const submissionCount: Tag = {
   template: `You did not submit three exercises this week.`,
   weight: 1,
   predicate: ({ student, ctx }) => {
-    const latestSubmission = getLatestSubmission(ctx);
+    const latestSubmission = getLatestSubmission(
+      ctx.data.submissions.submissions
+    );
     const thisWeeksSubmissions = ctx.data.poke.authors[
       student.id
     ].submissions.filter(
       (submission) =>
         dayjs(latestSubmission).diff(submission.submitted, "week") ===
-        ctx.currentWeek
+        ctx.currentTime
     );
     return thisWeeksSubmissions.length < 3;
   },

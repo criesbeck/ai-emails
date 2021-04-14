@@ -1,16 +1,17 @@
-import { Flex, Heading, Spinner } from "@chakra-ui/react";
+import { Flex, Heading } from "@chakra-ui/react";
 import { useQuery } from "react-query";
 import axios from "axios";
-import AlertError from "../components/AlertError";
+import AlertError from "./AlertError";
+import EmailsLoading from "./EmailsLoading";
 import EmailsView from "./EmailsView";
 import { ApiResponse } from "../help-system/CriticStructure";
 
 export const fetchEmailStatistics = async (): Promise<ApiResponse> => {
   const [submissions, authors, poke] = (
     await Promise.all([
-      axios.get("/example-submission-data.json"),
-      axios.get("/authors.json"),
-      axios.get("/poke-325-export.json"),
+      axios.get(process.env.REACT_APP_SUBMISSION_DATA!),
+      axios.get(process.env.REACT_APP_AUTHORS!),
+      axios.get(process.env.REACT_APP_POKE!),
     ])
   )?.map((el) => el.data);
   return { submissions, authors, poke };
@@ -24,14 +25,6 @@ const EmailsError = () => {
         message="A network error occured. Try refreshing."
         data-testid="emails-error"
       />
-    </Flex>
-  );
-};
-
-const EmailsLoading = () => {
-  return (
-    <Flex data-testid="emails-loading">
-      <Spinner size="lg" width="50px" height="50px" speed="1s" />
     </Flex>
   );
 };

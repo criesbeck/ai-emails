@@ -6,7 +6,6 @@ import {
   ModalHeader,
   ModalCloseButton,
   Text,
-  Select,
   Input,
   Flex,
   Table,
@@ -21,8 +20,14 @@ import {
   Button,
   Textarea,
 } from "@chakra-ui/react";
+import DatePicker from "react-datepicker";
+import EmailsLoading from "./EmailsLoading";
+import "react-datepicker/dist/react-datepicker.css";
+import "./date-picker.css";
+
 import { ApiResponse } from "../help-system/CriticStructure";
 import { Student } from "../help-system/tagStructure";
+import { getLatestSubmission } from "../help-system/utils";
 import useAuthors from "./useAuthors";
 
 export type SelectStudent = (student: Student) => void;
@@ -77,12 +82,12 @@ const TableAuthor: React.FC<TableAuthorProps> = ({
 export interface TableRowProps {
   students: Student[];
   selectStudent: SelectStudent;
-  currentWeek: number;
+  currentTime: number;
 }
 
 export interface EmailViewElements {
   data: ApiResponse;
-  currentWeek: number;
+  currentTime: number;
 }
 
 const TableRows: React.FC<TableRowProps> = (props) => {
@@ -99,32 +104,24 @@ const TableRows: React.FC<TableRowProps> = (props) => {
   );
 };
 
-interface WeekPickerProps {
-  setCurrentWeek: React.Dispatch<React.SetStateAction<number>>;
-  currentWeek: number;
-  numWeeks: number;
+interface TimePickerProps {
+  currentTime: number;
+  setCurrentTime: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const WeekPicker: React.FC<WeekPickerProps> = (props) => {
-  const { setCurrentWeek, numWeeks, currentWeek } = props;
-  const changeWeek = React.useCallback<
-    React.ChangeEventHandler<HTMLSelectElement>
-  >(
-    (event) => {
-      setCurrentWeek(Number.parseInt(event.target.value, 10));
+const TimePicker: React.FC<TimePickerProps> = (props) => {
+  const { currentTime, setCurrentTime } = props;
+  const changeTime = React.useCallback(
+    (date: Date | [Date, Date] | null) => {
+      if (date === null) return;
+      if (Array.isArray(date)) return setCurrentTime(date[0].getTime());
+      return setCurrentTime(date.getTime());
     },
-    [setCurrentWeek]
+    [setCurrentTime]
   );
   return (
-    <Flex width="80%" justifyContent="space-around" pb="16px">
-      <Text>Pick Week</Text>
-      <Select placeholder="Pick Week" value={currentWeek} onChange={changeWeek}>
-        {Array.from({ length: numWeeks }).map((_, index) => (
-          <option key={index} value={index}>
-            {index + 1}
-          </option>
-        ))}
-      </Select>
+    <Flex width="200px" justifyContent="center" pb="16px" alignItems="center">
+      <DatePicker selected={new Date(currentTime)} onChange={changeTime} />
     </Flex>
   );
 };
@@ -135,18 +132,18 @@ export interface EmailTableProps {
 }
 
 const EmailTable: React.FC<EmailTableProps> = (props) => {
-  const [currentWeek, setCurrentWeek] = React.useState<number>(0);
-  const { students, numWeeks } = useAuthors({
+  const [currentTime, setCurrentTime] = React.useState<number>(
+    getLatestSubmission(props.data.submissions.submissions)
+  );
+  const { loading, results } = useAuthors({
     data: props.data,
-    currentWeek,
+    currentTime,
   });
+  if (loading) return <EmailsLoading />;
+  const { students } = results;
   return (
     <>
-      <WeekPicker
-        currentWeek={currentWeek}
-        setCurrentWeek={setCurrentWeek}
-        numWeeks={numWeeks}
-      />
+      <TimePicker currentTime={currentTime} setCurrentTime={setCurrentTime} />
       <Table variant="simple">
         <TableCaption>Students</TableCaption>
         <Thead>
@@ -154,7 +151,7 @@ const EmailTable: React.FC<EmailTableProps> = (props) => {
         </Thead>
         <Tbody>
           <TableRows
-            currentWeek={currentWeek}
+            currentTime={currentTime}
             students={students}
             selectStudent={props.selectStudent}
           />
