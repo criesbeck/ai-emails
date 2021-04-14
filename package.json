@@ -63,6 +63,7 @@
     "npm": "7.8.0"
   },
   "devDependencies": {
+    "comlink-loader": "^2.0.0",
     "react-datepicker": "^3.7.0"
   }
 }
