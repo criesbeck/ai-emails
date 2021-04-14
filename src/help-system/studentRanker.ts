@@ -1,26 +1,22 @@
 import { Author } from "./CriticStructure";
-import { CourseContext, Tag, Student } from "./tagStructure";
-import * as tagElements from "./tags";
+import { WebContext, Student, TagReducer } from "./tagStructure";
+import * as tagReducers from "./tagReducers";
 
-const tags: Tag[] = Object.values(tagElements);
+const reducers: TagReducer[] = Object.values(tagReducers);
 
-const getAuthors = (info: CourseContext): Author[] =>
+const getAuthors = (info: WebContext): Author[] =>
   Object.values(info.data.authors.authors);
 
-const makeStudents = (ctx: CourseContext): Student[] => {
-  const makeStudent = (author: Author): Student => {
-    const student: Student = { ...author, issues: [] };
-    tags.forEach((tag) => {
-      if (!tag.predicate({ student, ctx })) return;
-      student.issues.push({
-        name: tag.name,
-        weight: tag.weight,
-        template: tag.template,
-      });
-    });
-    return student;
-  };
-  return getAuthors(ctx).map(makeStudent);
+const makeStudents = (context: WebContext): Student[] => {
+  const ctx = { currentTime: context.currentTime };
+  const makeStudents = (author: Author): Student => ({
+    ...author,
+    issues: reducers.map((reducer) => {
+      const history = context.data.poke.authors[author.id];
+      return reducer({ history, student: author, ctx });
+    }),
+  });
+  return getAuthors(context).map(makeStudents);
 };
 
 export interface StudentHelp {
@@ -30,6 +26,6 @@ export interface StudentHelp {
 const score = (student: Student): number =>
   student.issues.reduce((curScore, issue) => curScore + issue.weight, 0);
 
-export const orderStudents = (info: CourseContext): StudentHelp => ({
+export const orderStudents = (info: WebContext): StudentHelp => ({
   students: makeStudents(info).sort((a, b) => score(b) - score(a)),
 });
