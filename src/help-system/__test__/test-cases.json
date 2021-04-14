@@ -1,0 +1,25 @@
+{
+  "weeks": {
+    "WEEK_1": 1538832518118,
+    "WEEK_2": 1539437318118,
+    "WEEK_3": 1540042118118,
+    "WEEK_4": 1540646918118,
+    "WEEK_5": 1541251718118,
+    "WEEK_6": 1541856518118,
+    "WEEK_7": 1542461318118,
+    "WEEK_8": 1543066118118,
+    "WEEK_9": 1543670918118,
+    "WEEK_10": 1544275718118,
+    "WEEK_11": 1544880518118,
+    "WEEK_12": 1545485318118,
+    "WEEK_13": 1546280678674
+  },
+  "tests": [
+    {
+      "description": "We can find a student who needs to do more exercises.",
+      "week": "WEEK_13",
+      "studentName": "Latif Thacker",
+      "issueName": "Submission Count"
+    }
+  ]
+}
