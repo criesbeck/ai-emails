@@ -40,6 +40,11 @@
     "pretty-quick": "pretty-quick --staged",
     "prepare": "husky install"
   },
+  "jest": {
+    "moduleNameMapper": {
+      "comlink-loader.*$": "<rootDir>/MockWorker"
+    }
+  },
   "eslintConfig": {
     "extends": [
       "react-app",
