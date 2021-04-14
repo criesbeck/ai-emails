@@ -24,7 +24,6 @@ import DatePicker from "react-datepicker";
 import dayjs from "dayjs";
 import EmailsLoading from "./EmailsLoading";
 import "react-datepicker/dist/react-datepicker.css";
-/* import "./date-picker.css"; */
 
 import { ApiResponse } from "../help-system/CriticStructure";
 import { Student } from "../help-system/tagStructure";
@@ -130,11 +129,11 @@ const TimePicker: React.FC<TimePickerProps> = (props) => {
   return (
     <Flex width="200px" justifyContent="center" pb="16px" alignItems="center">
       <DatePicker
-        value={dayjs(currentTime).format("DD/MM/YYYY")}
+        value={dayjs(currentTime).format("MM/DD/YYYY")}
         customInput={
           <Flex flexDirection="column" alignItems="center">
             <Text fontWeight={600} pb="8px">
-              {dayjs(currentTime).format("DD/MM/YYYY")}
+              {dayjs(currentTime).format("MM/DD/YYYY")}
             </Text>
             <Button colorScheme="teal">Change the Date</Button>
           </Flex>

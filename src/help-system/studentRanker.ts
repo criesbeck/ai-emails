@@ -1,5 +1,6 @@
 import { Author } from "./CriticStructure";
 import { WebContext, Student, TagReducer } from "./tagStructure";
+import { getCourseContext } from "./utils";
 import * as tagReducers from "./tagReducers";
 
 const reducers: TagReducer[] = Object.values(tagReducers);
@@ -8,7 +9,7 @@ const getAuthors = (info: WebContext): Author[] =>
   Object.values(info.data.authors.authors);
 
 const makeStudents = (context: WebContext): Student[] => {
-  const ctx = { currentTime: context.currentTime };
+  const ctx = getCourseContext(context);
   const makeStudents = (author: Author): Student => ({
     ...author,
     issues: reducers.map((reducer) => {

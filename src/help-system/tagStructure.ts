@@ -4,6 +4,12 @@ import {
   AuthorSubmissionHistory,
 } from "./CriticStructure";
 
+export interface CourseContext {
+  currentTime: number;
+  weekStartTime: number;
+  currentWeek: number;
+}
+
 export interface Tag {
   name: string;
   template: string;
@@ -12,10 +18,6 @@ export interface Tag {
 
 export interface WebContext {
   data: ApiResponse;
-  currentTime: number;
-}
-
-export interface CourseContext {
   currentTime: number;
 }
 

@@ -1,25 +1,32 @@
 {
   "weeks": {
-    "WEEK_1": 1538832518118,
-    "WEEK_2": 1539437318118,
-    "WEEK_3": 1540042118118,
-    "WEEK_4": 1540646918118,
-    "WEEK_5": 1541251718118,
-    "WEEK_6": 1541856518118,
-    "WEEK_7": 1542461318118,
-    "WEEK_8": 1543066118118,
-    "WEEK_9": 1543670918118,
-    "WEEK_10": 1544275718118,
-    "WEEK_11": 1544880518118,
-    "WEEK_12": 1545485318118,
-    "WEEK_13": 1546280678674
+    "WEEK_1": 1538888399989,
+    "WEEK_2": 1539493199989,
+    "WEEK_3": 1540097999989,
+    "WEEK_4": 1540702799989,
+    "WEEK_5": 1541307599989,
+    "WEEK_6": 1541915999989,
+    "WEEK_7": 1542520799989,
+    "WEEK_8": 1543125599989,
+    "WEEK_9": 1543730399989,
+    "WEEK_10": 1544335199989,
+    "WEEK_11": 1544939999989,
+    "WEEK_12": 1545544799989,
+    "WEEK_13": 1546754399989
   },
   "tests": [
     {
       "description": "We can find a student who needs to do more exercises.",
-      "week": "WEEK_13",
+      "week": "WEEK_11",
       "studentName": "Latif Thacker",
-      "issueName": "Submission Count"
+      "issueName": "Exercise Count"
+    },
+    {
+      "description": "We can find a student who does not need to do more exercises",
+      "week": "WEEK_6",
+      "studentName": "Tamika Gaudet",
+      "issueName": "Exercise Count",
+      "errorIfExists": true
     }
   ]
 }
