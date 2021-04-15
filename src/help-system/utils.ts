@@ -5,7 +5,7 @@ import {
   Status,
   Submission,
 } from "./CriticStructure";
-import { WebContext, CourseContext, TagContext } from "./tagStructure";
+import { WebContext, CourseContext } from "./tagStructure";
 
 type SubmissionRecord = Record<submissionId, Submission>;
 
