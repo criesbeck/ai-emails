@@ -1,5 +1,7 @@
 import { TagValidator } from "./tagStructure";
 
-export const weightValidator: TagValidator = (tags) => {
-  return tags.filter((tag) => tag.weight > 0);
-};
+export const enoughExercises: TagValidator = ({ issues, history }) =>
+  Object.values(history.exercises).length >= 30 ? [] : issues;
+
+export const weightValidator: TagValidator = ({ issues }) =>
+  issues.filter((issue) => issue.weight > 0);

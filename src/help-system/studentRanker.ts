@@ -1,29 +1,42 @@
 import { Author } from "./CriticStructure";
-import { WebContext, Student, TagReducer, TagValidator } from "./tagStructure";
+import {
+  WebContext,
+  Student,
+  TagContext,
+  Tag,
+  TagFilterContext,
+} from "./tagStructure";
 import { getCourseContext } from "./utils";
 import * as tagReducers from "./tagReducers";
 import * as tagValidators from "./tagValidators";
 
-const reducers: TagReducer[] = Object.values(tagReducers);
+const reducers = Object.values(tagReducers);
+const reduceTags = (ctx: TagContext) =>
+  reducers.reduce((acc: Tag[], fn) => acc.concat(fn(ctx)), []);
 
-const validate: TagValidator = (tags) =>
-  Object.values(tagValidators).reduce((result, filter) => filter(result), tags);
+const filters = Object.values(tagValidators);
+const filterTags = (ctx: TagFilterContext) =>
+  filters.reduce(
+    (acc: Tag[], filter) =>
+      filter({ issues: acc, ctx: ctx.ctx, history: ctx.history }),
+    ctx.issues
+  );
 
 const getAuthors = (info: WebContext): Author[] =>
   Object.values(info.data.authors.authors);
 
 const makeStudents = (context: WebContext): Student[] => {
   const ctx = getCourseContext(context);
-  const makeStudents = (author: Author): Student => ({
-    ...author,
-    issues: validate(
-      reducers.map((reducer) => {
-        const history = context.data.poke.authors[author.id];
-        return reducer({ history, student: author, ctx });
-      })
-    ),
-  });
-  return getAuthors(context).map(makeStudents);
+  const makeStudent = (author: Author): Student => {
+    const history = context.data.poke.authors[author.id];
+    return { ...author, issues: reduceTags({ history, student: author, ctx }) };
+  };
+  const filterIssues = (student: Student): Student => {
+    const history = context.data.poke.authors[student.id];
+    const { issues } = student;
+    return { ...student, issues: filterTags({ issues, history, ctx }) };
+  };
+  return getAuthors(context).map(makeStudent).map(filterIssues);
 };
 
 export interface StudentHelp {

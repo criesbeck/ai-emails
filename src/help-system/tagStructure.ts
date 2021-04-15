@@ -8,6 +8,8 @@ export interface CourseContext {
   currentTime: number;
   weekStartTime: number;
   currentWeek: number;
+  aiExercises: Set<number>;
+  challengeExercises: Set<number>;
 }
 
 export interface Tag {
@@ -35,4 +37,10 @@ export type Student = Author & Issues;
 
 export type TagReducer = (ctx: TagContext) => Tag;
 
-export type TagValidator = (tags: Tag[]) => Tag[];
+export interface TagFilterContext {
+  issues: Tag[];
+  history: AuthorSubmissionHistory;
+  ctx: CourseContext;
+}
+
+export type TagValidator = (ctx: TagFilterContext) => Tag[];

@@ -27,6 +27,33 @@
       "studentName": "Tamika Gaudet",
       "issueName": "Exercise Count",
       "errorIfExists": true
+    },
+    {
+      "description": "We can find a student who can relax at the end of the term",
+      "week": "WEEK_13",
+      "studentName": "Eliora Grissett",
+      "issueName": "Exercise Count",
+      "errorIfExists": true
+    },
+    {
+      "description": "We can find a student who needs to do more AI problems.",
+      "week": "WEEK_8",
+      "studentName": "Mary-Jane Penning",
+      "issueName": "AI Problems"
+    },
+    {
+      "description": "We don't report on AI problems early in the quarter",
+      "week": "WEEK_1",
+      "studentName": "Mary-Jane Penning",
+      "issueName": "AI Problems",
+      "errorIfExists": true
+    },
+    {
+      "description": "We can find a student who does not need to do more AI problems.",
+      "week": "WEEK_8",
+      "studentName": "Drystan Hamman",
+      "issueName": "AI Problems",
+      "errorIfExists": true
     }
   ]
 }

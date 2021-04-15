@@ -1,7 +1,11 @@
 import dayjs from "dayjs";
-import { AuthorSubmissionHistory } from "./CriticStructure";
-import { submissionId, Status, Submission } from "./CriticStructure";
-import { WebContext, CourseContext } from "./tagStructure";
+import {
+  AuthorSubmissionHistory,
+  submissionId,
+  Status,
+  Submission,
+} from "./CriticStructure";
+import { WebContext, CourseContext, TagContext } from "./tagStructure";
 
 type SubmissionRecord = Record<submissionId, Submission>;
 
@@ -36,9 +40,27 @@ export const between = (
   return n >= smaller && n <= bigger;
 };
 
+const getAiExercises = (webContext: WebContext) =>
+  new Set(webContext.data.submissions.ai);
+
+const getChallengeExercises = (webContext: WebContext) =>
+  new Set(webContext.data.submissions.challenge);
+
+export const countAiExercises = (
+  history: AuthorSubmissionHistory,
+  ctx: CourseContext
+): number => {
+  const thisWeeksExercises = getFinishedExercises(history, ctx);
+  return thisWeeksExercises.filter((ex) => {
+    return ctx.aiExercises.has(ex.submit_hist[0].exid);
+  }).length;
+};
+
 export const getCourseContext = (webContext: WebContext): CourseContext => {
   return {
     currentTime: webContext.currentTime,
+    aiExercises: getAiExercises(webContext),
+    challengeExercises: getChallengeExercises(webContext),
     currentWeek: getCurrentWeek(webContext),
     weekStartTime: getWeekStart(webContext),
   };
