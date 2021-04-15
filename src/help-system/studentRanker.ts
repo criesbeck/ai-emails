@@ -1,9 +1,13 @@
 import { Author } from "./CriticStructure";
-import { WebContext, Student, TagReducer } from "./tagStructure";
+import { WebContext, Student, TagReducer, TagValidator } from "./tagStructure";
 import { getCourseContext } from "./utils";
 import * as tagReducers from "./tagReducers";
+import * as tagValidators from "./tagValidators";
 
 const reducers: TagReducer[] = Object.values(tagReducers);
+
+const validate: TagValidator = (tags) =>
+  Object.values(tagValidators).reduce((result, filter) => filter(result), tags);
 
 const getAuthors = (info: WebContext): Author[] =>
   Object.values(info.data.authors.authors);
@@ -12,10 +16,12 @@ const makeStudents = (context: WebContext): Student[] => {
   const ctx = getCourseContext(context);
   const makeStudents = (author: Author): Student => ({
     ...author,
-    issues: reducers.map((reducer) => {
-      const history = context.data.poke.authors[author.id];
-      return reducer({ history, student: author, ctx });
-    }),
+    issues: validate(
+      reducers.map((reducer) => {
+        const history = context.data.poke.authors[author.id];
+        return reducer({ history, student: author, ctx });
+      })
+    ),
   });
   return getAuthors(context).map(makeStudents);
 };

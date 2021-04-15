@@ -1,4 +1,5 @@
 import dayjs from "dayjs";
+import { AuthorSubmissionHistory } from "./CriticStructure";
 import { submissionId, Status, Submission } from "./CriticStructure";
 import { WebContext, CourseContext } from "./tagStructure";
 
@@ -27,8 +28,12 @@ const getCurrentWeek = (webContext: WebContext): number => {
 const getWeekStart = (webContext: WebContext): number =>
   dayjs(webContext.currentTime).startOf("week").toDate().getTime();
 
-export const between = (a: number, b: number, c: number): boolean => {
-  return a >= b && a <= c;
+export const between = (
+  n: number,
+  smaller: number,
+  bigger: number
+): boolean => {
+  return n >= smaller && n <= bigger;
 };
 
 export const getCourseContext = (webContext: WebContext): CourseContext => {
@@ -37,4 +42,15 @@ export const getCourseContext = (webContext: WebContext): CourseContext => {
     currentWeek: getCurrentWeek(webContext),
     weekStartTime: getWeekStart(webContext),
   };
+};
+
+export const getFinishedExercises = (
+  history: AuthorSubmissionHistory,
+  { weekStartTime, currentTime }: CourseContext
+) => {
+  return Object.values(history.exercises).filter(
+    (exercise) =>
+      between(exercise.submitted, weekStartTime, currentTime) &&
+      isFinished(exercise.status)
+  );
 };

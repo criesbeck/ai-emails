@@ -1,14 +1,12 @@
+import { getFinishedExercises } from "./utils";
 import { TagReducer } from "./tagStructure";
-import { isFinished } from "./utils";
 
-export const exerciseCount: TagReducer = ({
-  history,
-  ctx: { currentTime, weekStartTime },
-}) => {
+export const exerciseCount: TagReducer = ({ history, ctx }) => {
+  const thisWeeksExercises = getFinishedExercises(history, ctx);
   return {
     name: "Exercise Count",
     template: `You did not complete three exercises this week.`,
-    weight: 1,
+    weight: 3 - thisWeeksExercises.length,
   };
 };
 

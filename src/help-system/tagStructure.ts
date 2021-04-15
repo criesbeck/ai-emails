@@ -35,10 +35,4 @@ export type Student = Author & Issues;
 
 export type TagReducer = (ctx: TagContext) => Tag;
 
-export interface ValidatorContext {
-  student: Student;
-  tag: Tag;
-  ctx: CourseContext;
-}
-
-export type TagValidator = (ctx: ValidatorContext) => boolean;
+export type TagValidator = (tags: Tag[]) => Tag[];

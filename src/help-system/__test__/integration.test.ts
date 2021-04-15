@@ -55,7 +55,7 @@ describe("Simple utils", () => {
 });
 
 describe("Our student error finder can detect issues", () => {
-  // inputs.tests.forEach((testCase) => {
-  //   runTest(testCase);
-  // });
+  inputs.tests.forEach((testCase) => {
+    runTest(testCase);
+  });
 });
