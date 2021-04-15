@@ -10,26 +10,38 @@ export const exerciseCount: TagReducer = ({ history, ctx }) => {
   };
 };
 
-export const needsMoreAi: TagReducer = ({ history, ctx }) => {
-  const AI_REQUIRED_OFFSET = 7;
-  return {
-    name: "AI Problems",
-    template: "You should work on more AI exercises.",
-    weight:
-      ctx.currentWeek < 5
-        ? 0
-        : ctx.currentWeek - AI_REQUIRED_OFFSET - countAiExercises(history, ctx),
+interface ReducerConfig {
+  name: string;
+  template: string;
+  offset: number;
+}
+
+const generateCategoryReducer = (config: ReducerConfig): TagReducer => {
+  const { offset, template, name } = config;
+  const needsMore: TagReducer = ({ history, ctx }) => {
+    return {
+      name,
+      template,
+      weight:
+        ctx.currentWeek < 5
+          ? 0
+          : ctx.currentWeek - offset - countAiExercises(history, ctx),
+    };
   };
+  return needsMore;
 };
 
-export const needsMoreChallenge: TagReducer = () => {
-  const CHALLENGE_REQUIRED_OFFSET = 6;
-  return {
-    name: "Needs more challenge",
-    template: "You should work on more challenge exercises.",
-    weight: 0,
-  };
-};
+export const needsMoreAi = generateCategoryReducer({
+  name: "AI Problems",
+  template: "You should work on more AI exercises.",
+  offset: 7,
+});
+
+export const needsMoreChallenge = generateCategoryReducer({
+  name: "Challenge Problems",
+  template: "You should work on more challenge exercises.",
+  offset: 7,
+});
 
 export const considerDropping: TagReducer = () => {
   return {

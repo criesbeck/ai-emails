@@ -54,6 +54,26 @@
       "studentName": "Drystan Hamman",
       "issueName": "AI Problems",
       "errorIfExists": true
+    },
+    {
+      "description": "We can find a student who needs to do more challenge problems.",
+      "week": "WEEK_8",
+      "studentName": "Latif Thacker",
+      "issueName": "Challenge Problems"
+    },
+    {
+      "description": "We don't report on challenge problems too early in the quarter",
+      "week": "WEEK_1",
+      "studentName": "Latif Thacker",
+      "issueName": "Challenge Problems",
+      "errorIfExists": true
+    },
+    {
+      "description": "We can find a student who does not need to work on more challenge problems",
+      "week": "WEEK_8",
+      "studentName": "Drystan Hamman",
+      "issueName": "Challenge Problems",
+      "errorIfExists": true
     }
   ]
 }
