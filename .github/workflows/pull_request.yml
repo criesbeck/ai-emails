@@ -8,6 +8,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Set Timezone
+        run: sudo timedatectl set-timezone America/Chicago
       - uses: actions/checkout@v2
       - name: Install Node.js
         uses: actions/setup-node@v2
