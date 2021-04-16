@@ -1,0 +1,119 @@
+{
+  "weeks": {
+    "WEEK_1": 1538888399989,
+    "WEEK_2": 1539493199989,
+    "WEEK_3": 1540097999989,
+    "WEEK_4": 1540702799989,
+    "WEEK_5": 1541307599989,
+    "WEEK_6": 1541915999989,
+    "WEEK_7": 1542520799989,
+    "WEEK_8": 1543125599989,
+    "WEEK_9": 1543730399989,
+    "WEEK_10": 1544335199989,
+    "WEEK_11": 1544939999989,
+    "WEEK_12": 1545544799989,
+    "WEEK_13": 1546754399989
+  },
+  "tests": [
+    {
+      "description": "We can find a student who needs to do more exercises.",
+      "week": "WEEK_11",
+      "studentName": "Latif Thacker",
+      "issueName": "Exercise Count"
+    },
+    {
+      "description": "We can find a student who does not need to do more exercises",
+      "week": "WEEK_6",
+      "studentName": "Tamika Gaudet",
+      "issueName": "Exercise Count",
+      "errorIfExists": true
+    },
+    {
+      "description": "We can find a student who can relax at the end of the term",
+      "week": "WEEK_13",
+      "studentName": "Eliora Grissett",
+      "issueName": "Exercise Count",
+      "errorIfExists": true
+    },
+    {
+      "description": "We can find a student who needs to do more AI problems.",
+      "week": "WEEK_8",
+      "studentName": "Mary-Jane Penning",
+      "issueName": "AI Problems"
+    },
+    {
+      "description": "We don't report on AI problems early in the quarter",
+      "week": "WEEK_1",
+      "studentName": "Mary-Jane Penning",
+      "issueName": "AI Problems",
+      "errorIfExists": true
+    },
+    {
+      "description": "We can find a student who does not need to do more AI problems.",
+      "week": "WEEK_8",
+      "studentName": "Drystan Hamman",
+      "issueName": "AI Problems",
+      "errorIfExists": true
+    },
+    {
+      "description": "We can find a student who needs to do more challenge problems.",
+      "week": "WEEK_8",
+      "studentName": "Latif Thacker",
+      "issueName": "Challenge Problems"
+    },
+    {
+      "description": "We don't report on challenge problems too early in the quarter",
+      "week": "WEEK_1",
+      "studentName": "Latif Thacker",
+      "issueName": "Challenge Problems",
+      "errorIfExists": true
+    },
+    {
+      "description": "We can find a student who does not need to work on more challenge problems",
+      "week": "WEEK_8",
+      "studentName": "Drystan Hamman",
+      "issueName": "Challenge Problems",
+      "errorIfExists": true
+    },
+    {
+      "description": "We can warn students that they should probably drop the course.",
+      "week": "WEEK_5",
+      "studentName": "Brazil Gast",
+      "issueName": "Consider Dropping"
+    },
+    {
+      "description": "We no longer warn students they should drop past the middle of the term.",
+      "week": "WEEK_8",
+      "studentName": "Brazil Gast",
+      "issueName": "Consider Dropping",
+      "errorIfExists": true
+    },
+    {
+      "description": "We do not warn students doing well that they should drop the course.",
+      "week": "WEEK_8",
+      "studentName": "Drystan Hamman",
+      "issueName": "Consider Dropping",
+      "errorIfExists": true
+    },
+    {
+      "description": "We do not warn students doing well that they should drop the course.",
+      "week": "WEEK_5",
+      "studentName": "Drystan Hamman",
+      "issueName": "Consider Dropping",
+      "errorIfExists": true
+    },
+    {
+      "description": "We can find and provide encouragement to a student who needs it.",
+      "week": "WEEK_8",
+      "studentName": "Curran Wilkins",
+      "issueName": "Don't give up!"
+    },
+    {
+      "description": "We do not provide encouragement to a student who does not need it.",
+      "week": "WEEK_8",
+      "studentName": "Drystan Hamman",
+      "issueName": "Don't give up!",
+      "errorIfExists": true
+    }
+  ]
+}

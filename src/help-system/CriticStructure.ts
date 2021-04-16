@@ -48,6 +48,10 @@ export interface AuthorSubmissionHistory {
   submissions: Submission[];
 }
 
+export interface AuthorHistory {
+  authors: Record<authorId, AuthorSubmissionHistory>;
+}
+
 export interface ApiResponse {
   authors: {
     authors: Record<authorId, Author>;

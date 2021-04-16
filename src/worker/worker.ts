@@ -1,6 +1,6 @@
 import { orderStudents, StudentHelp } from "../help-system/studentRanker";
-import { CourseContext } from "../help-system/tagStructure";
+import { WebContext } from "../help-system/tagStructure";
 
-export function processStudents(ctx: CourseContext): StudentHelp {
+export function processStudents(ctx: WebContext): StudentHelp {
   return orderStudents(ctx);
 }

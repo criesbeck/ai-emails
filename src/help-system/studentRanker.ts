@@ -1,26 +1,42 @@
 import { Author } from "./CriticStructure";
-import { CourseContext, Tag, Student } from "./tagStructure";
-import * as tagElements from "./tags";
+import {
+  WebContext,
+  Student,
+  TagContext,
+  Tag,
+  TagFilterContext,
+} from "./tagStructure";
+import { getCourseContext } from "./utils";
+import * as tagReducers from "./tagReducers";
+import * as tagValidators from "./tagValidators";
 
-const tags: Tag[] = Object.values(tagElements);
+const reducers = Object.values(tagReducers);
+const reduceTags = (ctx: TagContext) =>
+  reducers.reduce((acc: Tag[], fn) => acc.concat(fn(ctx)), []);
 
-const getAuthors = (info: CourseContext): Author[] =>
+const filters = Object.values(tagValidators);
+const filterTags = (ctx: TagFilterContext) =>
+  filters.reduce(
+    (acc: Tag[], filter) =>
+      filter({ issues: acc, ctx: ctx.ctx, history: ctx.history }),
+    ctx.issues
+  );
+
+const getAuthors = (info: WebContext): Author[] =>
   Object.values(info.data.authors.authors);
 
-const makeStudents = (ctx: CourseContext): Student[] => {
+const makeStudents = (context: WebContext): Student[] => {
+  const ctx = getCourseContext(context);
   const makeStudent = (author: Author): Student => {
-    const student: Student = { ...author, issues: [] };
-    tags.forEach((tag) => {
-      if (!tag.predicate({ student, ctx })) return;
-      student.issues.push({
-        name: tag.name,
-        weight: tag.weight,
-        template: tag.template,
-      });
-    });
-    return student;
+    const history = context.data.poke.authors[author.id];
+    return { ...author, issues: reduceTags({ history, student: author, ctx }) };
   };
-  return getAuthors(ctx).map(makeStudent);
+  const filterIssues = (student: Student): Student => {
+    const history = context.data.poke.authors[student.id];
+    const { issues } = student;
+    return { ...student, issues: filterTags({ issues, history, ctx }) };
+  };
+  return getAuthors(context).map(makeStudent).map(filterIssues);
 };
 
 export interface StudentHelp {
@@ -30,6 +46,6 @@ export interface StudentHelp {
 const score = (student: Student): number =>
   student.issues.reduce((curScore, issue) => curScore + issue.weight, 0);
 
-export const orderStudents = (info: CourseContext): StudentHelp => ({
+export const orderStudents = (info: WebContext): StudentHelp => ({
   students: makeStudents(info).sort((a, b) => score(b) - score(a)),
 });
