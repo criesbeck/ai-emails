@@ -1,5 +1,11 @@
-import { getFinishedExercises, countAiExercises } from "./utils";
-import { TagReducer } from "./tagStructure";
+import {
+  getFinishedExercises,
+  countAiExercises,
+  between,
+  isFinished,
+} from "./utils";
+import { AuthorSubmissionHistory } from "./CriticStructure";
+import { TagReducer, CourseContext } from "./tagStructure";
 
 export const exerciseCount: TagReducer = ({ history, ctx }) => {
   const thisWeeksExercises = getFinishedExercises(history, ctx);
@@ -43,18 +49,36 @@ export const needsMoreChallenge = generateCategoryReducer({
   offset: 7,
 });
 
-export const considerDropping: TagReducer = () => {
+const getDropWeight = (
+  history: AuthorSubmissionHistory,
+  ctx: CourseContext
+): number => {
+  if (!between(ctx.currentWeek, 4, 6)) return 0;
+  return Object.values(history.exercises).filter((ex) => isFinished(ex.status))
+    .length <= 3
+    ? 5
+    : 0;
+};
+
+export const considerDropping: TagReducer = ({ history, ctx }) => {
+  const dropWeight = getDropWeight(history, ctx);
   return {
     name: "Consider Dropping",
     template: "You should consider dropping the course.",
-    weight: 0,
+    weight: dropWeight,
   };
 };
 
-export const needsEncouragement: TagReducer = () => {
+export const needsEncouragement: TagReducer = ({ history }) => {
+  const unfinishedExercises = Object.values(history.exercises).filter(
+    (ex) => !isFinished(ex.status)
+  );
+  const needsEncouragement = Boolean(
+    unfinishedExercises.find((ex) => ex?.submit_hist?.length > 5)
+  );
   return {
     name: "Don't give up!",
     template: "Don't give up! Keep trying and learning! You can do it!",
-    weight: 0,
+    weight: needsEncouragement ? 1 : 0,
   };
 };

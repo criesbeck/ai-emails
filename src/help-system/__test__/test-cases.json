@@ -74,6 +74,46 @@
       "studentName": "Drystan Hamman",
       "issueName": "Challenge Problems",
       "errorIfExists": true
+    },
+    {
+      "description": "We can warn students that they should probably drop the course.",
+      "week": "WEEK_5",
+      "studentName": "Brazil Gast",
+      "issueName": "Consider Dropping"
+    },
+    {
+      "description": "We no longer warn students they should drop past the middle of the term.",
+      "week": "WEEK_8",
+      "studentName": "Brazil Gast",
+      "issueName": "Consider Dropping",
+      "errorIfExists": true
+    },
+    {
+      "description": "We do not warn students doing well that they should drop the course.",
+      "week": "WEEK_8",
+      "studentName": "Drystan Hamman",
+      "issueName": "Consider Dropping",
+      "errorIfExists": true
+    },
+    {
+      "description": "We do not warn students doing well that they should drop the course.",
+      "week": "WEEK_5",
+      "studentName": "Drystan Hamman",
+      "issueName": "Consider Dropping",
+      "errorIfExists": true
+    },
+    {
+      "description": "We can find and provide encouragement to a student who needs it.",
+      "week": "WEEK_8",
+      "studentName": "Curran Wilkins",
+      "issueName": "Don't give up!"
+    },
+    {
+      "description": "We do not provide encouragement to a student who does not need it.",
+      "week": "WEEK_8",
+      "studentName": "Drystan Hamman",
+      "issueName": "Don't give up!",
+      "errorIfExists": true
     }
   ]
 }
