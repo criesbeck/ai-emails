@@ -114,6 +114,19 @@
       "studentName": "Drystan Hamman",
       "issueName": "Don't give up!",
       "errorIfExists": true
+    },
+    {
+      "description": "We can find a student with a submission gap.",
+      "week": "WEEK_10",
+      "studentName": "Sharlene Spinks",
+      "issueName": "Submission Gap"
+    },
+    {
+      "description": "We can find a student without a submission gap",
+      "week": "WEEK_8",
+      "studentName": "Eliora Grissett",
+      "issueName": "Submission Gap",
+      "errorIfExists": true
     }
   ]
 }
