@@ -1,6 +1,7 @@
 import React from "react";
 import { Text, Flex, Button } from "@chakra-ui/react";
 import DatePicker from "react-datepicker";
+import { useLocation } from "wouter";
 import dayjs from "dayjs";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -26,8 +27,15 @@ const useChangeTime = (props: TimePickerProps) => {
 const TimePicker: React.FC<TimePickerProps> = (props) => {
   const { currentTime } = props;
   const changeTime = useChangeTime(props);
-  return (
-    <Flex width="200px" justifyContent="center" pb="16px" alignItems="center">
+  const [location] = useLocation();
+  return location !== "/" ? null : (
+    <Flex
+      data-testid="time-picker"
+      width="200px"
+      justifyContent="center"
+      pb="16px"
+      alignItems="center"
+    >
       <DatePicker
         value={dayjs(currentTime).format("MM/DD/YYYY")}
         customInput={

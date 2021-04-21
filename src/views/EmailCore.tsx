@@ -1,7 +1,9 @@
 import React from "react";
 import {
   Flex,
+  Heading,
   Text,
+  Textarea,
   Table,
   Thead,
   Tbody,
@@ -15,8 +17,8 @@ import {
   Checkbox,
 } from "@chakra-ui/react";
 import { ApiResponse } from "../help-system/CriticStructure";
-import { Student } from "../help-system/tagStructure";
-import { StudentHelp } from "../help-system/studentRanker";
+import { Student, Tag as TagType } from "../help-system/tagStructure";
+import { StudentHelp, getInitialEmail } from "../help-system/studentRanker";
 import { Switch, Route, useLocation } from "wouter";
 import { useLocalStorage } from "react-use";
 import AlertError from "./AlertError";
@@ -50,21 +52,130 @@ interface LocalStudentStorage {
   message: string;
 }
 
-const DEFAULT_STORAGE = {
+const DEFAULT_STORAGE: LocalStudentStorage = {
   finished: false,
   message: "",
 };
+const useGoHome = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_, setLocation] = useLocation();
+  const goHome = React.useCallback(() => {
+    setLocation("/");
+  }, [setLocation]);
+  return goHome;
+};
 
 const useStoredStudent = (student: Student) => {
+  const goHome = useGoHome();
   const [storage, setStorage] = useLocalStorage<LocalStudentStorage>(
     `${student.id}`,
-    DEFAULT_STORAGE
+    { finished: false, message: getInitialEmail(student) }
   );
   const toggleFinished = React.useCallback(() => {
     const toSpread = { ...DEFAULT_STORAGE, ...storage };
     setStorage({ ...toSpread, finished: !storage?.finished });
   }, [setStorage, storage]);
-  return { storage, toggleFinished };
+  const [message, setMessage] = React.useState<string>(
+    storage?.message || getInitialEmail(student)
+  );
+  const editMessage: React.ChangeEventHandler<HTMLTextAreaElement> = React.useCallback(
+    (event) => setMessage(event.target.value),
+    [setMessage]
+  );
+  const saveMessage = React.useCallback(() => {
+    setStorage({ finished: true, message: message });
+    goHome();
+  }, [message, setStorage, goHome]);
+  return { storage, toggleFinished, message, editMessage, saveMessage };
+};
+
+const Divider = () => {
+  return <Flex backgroundColor="black" mx="24px" width="1px" />;
+};
+
+const EditEmail: React.FC<StudentProps> = ({ student }) => {
+  const { message, saveMessage, editMessage } = useStoredStudent(student);
+  return (
+    <Flex flexDirection="column" alignItems="center">
+      <Heading size="lg" pb="10px">
+        Message {student.name}
+      </Heading>
+      <Textarea
+        minWidth="500px"
+        minHeight="400px"
+        value={message}
+        onChange={editMessage}
+      />
+      <Flex pt="10px">
+        <Button onClick={saveMessage} colorScheme="blue">
+          Save Draft
+        </Button>
+      </Flex>
+    </Flex>
+  );
+};
+
+interface IssueFormProps {
+  issue: TagType;
+}
+
+const useIssue = (issue: TagType) => {
+  const [issueText, setIssueText] = React.useState<string>(issue.template);
+  const changeIssue: React.ChangeEventHandler<HTMLTextAreaElement> = React.useCallback(
+    (event) => {
+      setIssueText(event.target.value);
+    },
+    [setIssueText]
+  );
+  return { issueText, changeIssue };
+};
+
+const IssueForm: React.FC<IssueFormProps> = ({ issue }) => {
+  const { issueText, changeIssue } = useIssue(issue);
+  return (
+    <Flex flexDirection="column" maxWidth="200px" py="16px">
+      <Text fontWeight="bold">{issue.name}</Text>
+      <Textarea onChange={changeIssue} value={issueText} />
+      <Flex pt="8px">
+        <Button colorScheme="blue">Save Changes</Button>
+      </Flex>
+    </Flex>
+  );
+};
+
+const EditTags: React.FC<StudentProps> = ({ student }) => {
+  return (
+    <Flex flexDirection="column">
+      <Heading size="lg" pb="10px">
+        Edit Issues
+      </Heading>
+      {student.issues.map((issue) => (
+        <IssueForm key={issue.name} issue={issue} />
+      ))}
+    </Flex>
+  );
+};
+
+const EditStudentMessage: React.FC<StudentProps> = ({ student }) => {
+  return (
+    <>
+      <Flex
+        data-testid="edit-student-message"
+        p="24px"
+        alignItems="center"
+        flexDirection="column"
+      >
+        <Flex justifyContent="center">
+          <GotoOverview />
+        </Flex>
+        <Flex py="16px">
+          <EditEmail student={student} />
+          <Divider />
+          <EditTags student={student} />
+        </Flex>
+      </Flex>
+    </>
+  );
 };
 
 const FinishedCheckbox: React.FC<StudentProps> = ({ student }) => {
@@ -148,20 +259,11 @@ const EmailCoreTable: React.FC<TableProps> = ({ students }) => {
   );
 };
 
-const useGoHome = () => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_, setLocation] = useLocation();
-  const goHome = React.useCallback(() => {
-    setLocation("/");
-  }, [setLocation]);
-  return goHome;
-};
-
 const GotoOverview = () => {
   const goHome = useGoHome();
   return (
     <Button colorScheme="teal" data-testid="go-home" onClick={goHome}>
-      Overview
+      Back to Overview
     </Button>
   );
 };
@@ -176,27 +278,17 @@ const StudentMissing: React.FC<StudentMissingProps> = ({ id }) => {
       data-testid="student-missing"
       p="24px"
       flexDirection="column"
-      boxShadow="2px 2px 5px grey"
-      maxWidth="300px"
+      maxWidth="350px"
     >
       <AlertError show message="404 - Student Missing" />
       <Text py="16px">
         We cannot find the student with an id of <strong>{id}</strong>. Please
         double check the URL and try again.
       </Text>
-      <Flex>
+      <Flex justifyContent="center">
         <GotoOverview />
       </Flex>
     </Flex>
-  );
-};
-
-const EditStudentMessage: React.FC<StudentProps> = () => {
-  return (
-    <>
-      <h1 data-testid="edit-student-message">Write me!</h1>
-      <GotoOverview />
-    </>
   );
 };
 
@@ -215,6 +307,7 @@ const EmailCore: React.FC<StudentHelp> = (props) => {
       </Route>
       <Route>
         <EmailCoreTable students={students} />
+        <Button colorScheme="teal">Send all Emails</Button>
       </Route>
     </Switch>
   );
