@@ -19,7 +19,7 @@ import {
 import { ApiResponse } from "../help-system/CriticStructure";
 import { Student, Tag as TagType } from "../help-system/tagStructure";
 import { StudentHelp, getInitialEmail } from "../help-system/studentRanker";
-import { Switch, Route, useLocation } from "wouter";
+import { Switch, Route, useLocation, useRouter } from "wouter";
 import { useLocalStorage } from "react-use";
 import AlertError from "./AlertError";
 
@@ -39,11 +39,14 @@ interface StudentProps {
 }
 
 const useSelectStudent = (student: Student) => {
+  const router = useRouter();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, setLocation] = useLocation();
   const selectThisStudent = React.useCallback(() => {
     setLocation(`/${student.id}`);
-  }, [setLocation, student]);
+    // @ts-ignore
+    router.lastLocation = window.scrollY;
+  }, [setLocation, student, router]);
   return selectThisStudent;
 };
 
@@ -242,7 +245,19 @@ export interface EmailCoreProps {
   data: ApiResponse;
 }
 
+const useRememberScrollPosition = () => {
+  const router = useRouter();
+  React.useEffect(() => {
+    // @ts-ignore
+    if (!router.lastLocation) return;
+    // @ts-ignore
+    const lastLocation: number = router.lastLocation;
+    window.scrollTo({ top: lastLocation });
+  }, [router]);
+};
+
 const EmailCoreTable: React.FC<TableProps> = ({ students }) => {
+  useRememberScrollPosition();
   return (
     <Table variant="simple" data-testid="email-core-table">
       <TableCaption>Students</TableCaption>
