@@ -1,0 +1,2798 @@
+{
+  "students": [
+    {
+      "name": "Curran Wilkins",
+      "email": "cur-wilk@diaperstack.com",
+      "id": 1796,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 3
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Don't give up!",
+          "template": "Don't give up! Keep trying and learning! You can do it!",
+          "weight": 1
+        },
+        {
+          "name": "Submission Gap",
+          "template": "You haven't submitted anything in over 4 days. Is everything okay?",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "Mary-Jane Penning",
+      "email": "maryj.penn@egl-inc.info",
+      "id": 948,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 3
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Submission Gap",
+          "template": "You haven't submitted anything in over 4 days. Is everything okay?",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "Lawrence Wiebe",
+      "email": "law-wieb@progressenergyinc.info",
+      "id": 1721,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 3
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Submission Gap",
+          "template": "You haven't submitted anything in over 4 days. Is everything okay?",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "Sharlene Spinks",
+      "email": "sharle-spi@progressenergyinc.info",
+      "id": 1731,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 3
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Submission Gap",
+          "template": "You haven't submitted anything in over 4 days. Is everything okay?",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "Pazia Lafleur",
+      "email": "pa.lafleu@egl-inc.info",
+      "id": 1735,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 3
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Submission Gap",
+          "template": "You haven't submitted anything in over 4 days. Is everything okay?",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "Elmer Matteo",
+      "email": "elme.matteo@arvinmeritor.info",
+      "id": 1737,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 3
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Submission Gap",
+          "template": "You haven't submitted anything in over 4 days. Is everything okay?",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "Lamech Humphrey",
+      "email": "lamec_humphrey@egl-inc.info",
+      "id": 1743,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 3
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Submission Gap",
+          "template": "You haven't submitted anything in over 4 days. Is everything okay?",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "Kaatje Niemi",
+      "email": "ka.niem@diaperstack.com",
+      "id": 1748,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 3
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Submission Gap",
+          "template": "You haven't submitted anything in over 4 days. Is everything okay?",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "Joni Hoffman",
+      "email": "joni-hoffma@progressenergyinc.info",
+      "id": 1749,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 3
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Submission Gap",
+          "template": "You haven't submitted anything in over 4 days. Is everything okay?",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "Saumya Rumley",
+      "email": "saum-rumley@egl-inc.info",
+      "id": 1753,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 3
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Submission Gap",
+          "template": "You haven't submitted anything in over 4 days. Is everything okay?",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "Regina Hanscom",
+      "email": "regina-hanscom@egl-inc.info",
+      "id": 1755,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 3
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Submission Gap",
+          "template": "You haven't submitted anything in over 4 days. Is everything okay?",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "Drystan Hamman",
+      "email": "dryshamman@egl-inc.info",
+      "id": 1761,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 3
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Submission Gap",
+          "template": "You haven't submitted anything in over 4 days. Is everything okay?",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "Lexie Simmerman",
+      "email": "lex.simmerman@diaperstack.com",
+      "id": 1766,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 3
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Submission Gap",
+          "template": "You haven't submitted anything in over 4 days. Is everything okay?",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "Gina Eichelberger",
+      "email": "giei@egl-inc.info",
+      "id": 1769,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 3
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Submission Gap",
+          "template": "You haven't submitted anything in over 4 days. Is everything okay?",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "Claire Holzman",
+      "email": "cla.holzman@egl-inc.info",
+      "id": 1775,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 3
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Submission Gap",
+          "template": "You haven't submitted anything in over 4 days. Is everything okay?",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "Francisca Blackston",
+      "email": "fra.blacks@egl-inc.info",
+      "id": 1777,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 3
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Submission Gap",
+          "template": "You haven't submitted anything in over 4 days. Is everything okay?",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "Siddel Seals",
+      "email": "siddel.se@arvinmeritor.info",
+      "id": 1779,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 3
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Submission Gap",
+          "template": "You haven't submitted anything in over 4 days. Is everything okay?",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "Naimish Laine",
+      "email": "naimi.lain@autozone-inc.info",
+      "id": 1786,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 3
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Submission Gap",
+          "template": "You haven't submitted anything in over 4 days. Is everything okay?",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "Jemima Ehrhart",
+      "email": "jem_eh@diaperstack.com",
+      "id": 1788,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 3
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Submission Gap",
+          "template": "You haven't submitted anything in over 4 days. Is everything okay?",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "Coleman Bracamontes",
+      "email": "colem.bracamo@arvinmeritor.info",
+      "id": 1789,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 3
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Submission Gap",
+          "template": "You haven't submitted anything in over 4 days. Is everything okay?",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "Syshe Timmerman",
+      "email": "sys.timmer@arvinmeritor.info",
+      "id": 1795,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 3
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Submission Gap",
+          "template": "You haven't submitted anything in over 4 days. Is everything okay?",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "Knut Gaudet",
+      "email": "knut_ga@autozone-inc.info",
+      "id": 1340,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 3
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "Kapolcs Maltby",
+      "email": "kapolc-mal@progressenergyinc.info",
+      "id": 1720,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 3
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "Phoenix Stucker",
+      "email": "phoe.st@diaperstack.com",
+      "id": 1722,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 3
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "Brazil Gast",
+      "email": "brazga@autozone-inc.info",
+      "id": 1741,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 3
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "Wahnond Moline",
+      "email": "wa-moli@arvinmeritor.info",
+      "id": 1742,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 3
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "Rankin Mullane",
+      "email": "ran.mullane@egl-inc.info",
+      "id": 1752,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 3
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "Darby Bracamontes",
+      "email": "dar-bracamontes@egl-inc.info",
+      "id": 1772,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 3
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "Latif Thacker",
+      "email": "lati-thack@arvinmeritor.info",
+      "id": 1794,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 3
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "Firaki Lamontagne",
+      "email": "fira-lamonta@progressenergyinc.info",
+      "id": 1324,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 2
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "Delcine Norrell",
+      "email": "delci.norre@progressenergyinc.info",
+      "id": 1711,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 2
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "Audlin Studebaker",
+      "email": "audl.stud@progressenergyinc.info",
+      "id": 1713,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 2
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "Twila Penning",
+      "email": "tw-pennin@arvinmeritor.info",
+      "id": 1714,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 2
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "Brooke Marler",
+      "email": "brmarle@egl-inc.info",
+      "id": 1719,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 2
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "Monti Knuth",
+      "email": "mont-knut@arvinmeritor.info",
+      "id": 1724,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 2
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "Gina Voyles",
+      "email": "gi_vo@egl-inc.info",
+      "id": 1756,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 2
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "Manu Kepner",
+      "email": "ma.kepne@arvinmeritor.info",
+      "id": 1760,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 2
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "Amol Trimble",
+      "email": "amol_trimb@egl-inc.info",
+      "id": 1764,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 2
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "Kushan Lyons",
+      "email": "kusly@diaperstack.com",
+      "id": 1770,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 2
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "Zacharias Bow",
+      "email": "zachar_bo@progressenergyinc.info",
+      "id": 1771,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 2
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "Xiomara Spinks",
+      "email": "xioma.spinks@autozone-inc.info",
+      "id": 1773,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 2
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "Saloman Martins",
+      "email": "salomamarti@egl-inc.info",
+      "id": 1780,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 2
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "Cecia Dearmas",
+      "email": "ceci.dear@egl-inc.info",
+      "id": 1717,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 1
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "Kenley Rouse",
+      "email": "kenleyrous@arvinmeritor.info",
+      "id": 1768,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 1
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "Michiko Gast",
+      "email": "mic.gas@diaperstack.com",
+      "id": 1774,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 1
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "Jericho Hetrick",
+      "email": "jericho.hetr@progressenergyinc.info",
+      "id": 1785,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 1
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "Brazil Velazquez",
+      "email": "brazil.velazqu@arvinmeritor.info",
+      "id": 1710,
+      "issues": [
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "Kyna Mahone",
+      "email": "kyn_maho@egl-inc.info",
+      "id": 1715,
+      "issues": [
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "Thatcher Pontius",
+      "email": "tha-pontius@arvinmeritor.info",
+      "id": 1725,
+      "issues": [
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "Zama Humphrey",
+      "email": "zama_hu@diaperstack.com",
+      "id": 1727,
+      "issues": [
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "Perri Kluge",
+      "email": "perri_kluge@progressenergyinc.info",
+      "id": 1729,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 2
+        }
+      ]
+    },
+    {
+      "name": "Susana Laird",
+      "email": "susanalai@autozone-inc.info",
+      "id": 1730,
+      "issues": [
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "Mansur Levey",
+      "email": "mansu_le@arvinmeritor.info",
+      "id": 1754,
+      "issues": [
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "Aylwen Hornsby",
+      "email": "ayl.horns@arvinmeritor.info",
+      "id": 1757,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 2
+        }
+      ]
+    },
+    {
+      "name": "Quemby Schrader",
+      "email": "quemby-sch@diaperstack.com",
+      "id": 1762,
+      "issues": [
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "Ciro Breland",
+      "email": "ci.brela@autozone-inc.info",
+      "id": 1776,
+      "issues": [
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "Xiao Radtke",
+      "email": "xi.radt@progressenergyinc.info",
+      "id": 1781,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 2
+        }
+      ]
+    },
+    {
+      "name": "Kyler Hyatt",
+      "email": "kyle-hya@egl-inc.info",
+      "id": 1790,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 2
+        }
+      ]
+    },
+    {
+      "name": "Aila Rumley",
+      "email": "ail.ru@diaperstack.com",
+      "id": 1726,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "Phuong Elliot",
+      "email": "phuo_ell@progressenergyinc.info",
+      "id": 1759,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "Tamika Gaudet",
+      "email": "tamik-ga@autozone-inc.info",
+      "id": 1784,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "Eliora Grissett",
+      "email": "elio.grisse@arvinmeritor.info",
+      "id": 1709,
+      "issues": []
+    },
+    {
+      "name": "Huon Ivey",
+      "email": "huon-ive@autozone-inc.info",
+      "id": 1718,
+      "issues": []
+    },
+    {
+      "name": "Vane Tolle",
+      "email": "van.toll@diaperstack.com",
+      "id": 1728,
+      "issues": []
+    },
+    {
+      "name": "Sahale Fahy",
+      "email": "sahal.fah@egl-inc.info",
+      "id": 1736,
+      "issues": []
+    },
+    {
+      "name": "Sharlene Lenahan",
+      "email": "sha_lena@egl-inc.info",
+      "id": 1746,
+      "issues": []
+    },
+    {
+      "name": "Belva Bow",
+      "email": "belva.bo@progressenergyinc.info",
+      "id": 1758,
+      "issues": []
+    },
+    {
+      "name": "Psyche Pollock",
+      "email": "psyche_pol@autozone-inc.info",
+      "id": 1763,
+      "issues": []
+    },
+    {
+      "name": "Phuong Jaber",
+      "email": "ph.jab@autozone-inc.info",
+      "id": 1765,
+      "issues": []
+    },
+    {
+      "name": "Tamatha Carver",
+      "email": "tama.car@arvinmeritor.info",
+      "id": 1778,
+      "issues": []
+    }
+  ],
+  "studentMap": {
+    "948": {
+      "name": "Mary-Jane Penning",
+      "email": "maryj.penn@egl-inc.info",
+      "id": 948,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 3
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Submission Gap",
+          "template": "You haven't submitted anything in over 4 days. Is everything okay?",
+          "weight": 1
+        }
+      ]
+    },
+    "1324": {
+      "name": "Firaki Lamontagne",
+      "email": "fira-lamonta@progressenergyinc.info",
+      "id": 1324,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 2
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        }
+      ]
+    },
+    "1340": {
+      "name": "Knut Gaudet",
+      "email": "knut_ga@autozone-inc.info",
+      "id": 1340,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 3
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        }
+      ]
+    },
+    "1709": {
+      "name": "Eliora Grissett",
+      "email": "elio.grisse@arvinmeritor.info",
+      "id": 1709,
+      "issues": []
+    },
+    "1710": {
+      "name": "Brazil Velazquez",
+      "email": "brazil.velazqu@arvinmeritor.info",
+      "id": 1710,
+      "issues": [
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        }
+      ]
+    },
+    "1711": {
+      "name": "Delcine Norrell",
+      "email": "delci.norre@progressenergyinc.info",
+      "id": 1711,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 2
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        }
+      ]
+    },
+    "1713": {
+      "name": "Audlin Studebaker",
+      "email": "audl.stud@progressenergyinc.info",
+      "id": 1713,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 2
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        }
+      ]
+    },
+    "1714": {
+      "name": "Twila Penning",
+      "email": "tw-pennin@arvinmeritor.info",
+      "id": 1714,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 2
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        }
+      ]
+    },
+    "1715": {
+      "name": "Kyna Mahone",
+      "email": "kyn_maho@egl-inc.info",
+      "id": 1715,
+      "issues": [
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        }
+      ]
+    },
+    "1717": {
+      "name": "Cecia Dearmas",
+      "email": "ceci.dear@egl-inc.info",
+      "id": 1717,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 1
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        }
+      ]
+    },
+    "1718": {
+      "name": "Huon Ivey",
+      "email": "huon-ive@autozone-inc.info",
+      "id": 1718,
+      "issues": []
+    },
+    "1719": {
+      "name": "Brooke Marler",
+      "email": "brmarle@egl-inc.info",
+      "id": 1719,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 2
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        }
+      ]
+    },
+    "1720": {
+      "name": "Kapolcs Maltby",
+      "email": "kapolc-mal@progressenergyinc.info",
+      "id": 1720,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 3
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        }
+      ]
+    },
+    "1721": {
+      "name": "Lawrence Wiebe",
+      "email": "law-wieb@progressenergyinc.info",
+      "id": 1721,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 3
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Submission Gap",
+          "template": "You haven't submitted anything in over 4 days. Is everything okay?",
+          "weight": 1
+        }
+      ]
+    },
+    "1722": {
+      "name": "Phoenix Stucker",
+      "email": "phoe.st@diaperstack.com",
+      "id": 1722,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 3
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        }
+      ]
+    },
+    "1724": {
+      "name": "Monti Knuth",
+      "email": "mont-knut@arvinmeritor.info",
+      "id": 1724,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 2
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        }
+      ]
+    },
+    "1725": {
+      "name": "Thatcher Pontius",
+      "email": "tha-pontius@arvinmeritor.info",
+      "id": 1725,
+      "issues": [
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        }
+      ]
+    },
+    "1726": {
+      "name": "Aila Rumley",
+      "email": "ail.ru@diaperstack.com",
+      "id": 1726,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 1
+        }
+      ]
+    },
+    "1727": {
+      "name": "Zama Humphrey",
+      "email": "zama_hu@diaperstack.com",
+      "id": 1727,
+      "issues": [
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        }
+      ]
+    },
+    "1728": {
+      "name": "Vane Tolle",
+      "email": "van.toll@diaperstack.com",
+      "id": 1728,
+      "issues": []
+    },
+    "1729": {
+      "name": "Perri Kluge",
+      "email": "perri_kluge@progressenergyinc.info",
+      "id": 1729,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 2
+        }
+      ]
+    },
+    "1730": {
+      "name": "Susana Laird",
+      "email": "susanalai@autozone-inc.info",
+      "id": 1730,
+      "issues": [
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        }
+      ]
+    },
+    "1731": {
+      "name": "Sharlene Spinks",
+      "email": "sharle-spi@progressenergyinc.info",
+      "id": 1731,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 3
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Submission Gap",
+          "template": "You haven't submitted anything in over 4 days. Is everything okay?",
+          "weight": 1
+        }
+      ]
+    },
+    "1735": {
+      "name": "Pazia Lafleur",
+      "email": "pa.lafleu@egl-inc.info",
+      "id": 1735,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 3
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Submission Gap",
+          "template": "You haven't submitted anything in over 4 days. Is everything okay?",
+          "weight": 1
+        }
+      ]
+    },
+    "1736": {
+      "name": "Sahale Fahy",
+      "email": "sahal.fah@egl-inc.info",
+      "id": 1736,
+      "issues": []
+    },
+    "1737": {
+      "name": "Elmer Matteo",
+      "email": "elme.matteo@arvinmeritor.info",
+      "id": 1737,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 3
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Submission Gap",
+          "template": "You haven't submitted anything in over 4 days. Is everything okay?",
+          "weight": 1
+        }
+      ]
+    },
+    "1741": {
+      "name": "Brazil Gast",
+      "email": "brazga@autozone-inc.info",
+      "id": 1741,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 3
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        }
+      ]
+    },
+    "1742": {
+      "name": "Wahnond Moline",
+      "email": "wa-moli@arvinmeritor.info",
+      "id": 1742,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 3
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        }
+      ]
+    },
+    "1743": {
+      "name": "Lamech Humphrey",
+      "email": "lamec_humphrey@egl-inc.info",
+      "id": 1743,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 3
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Submission Gap",
+          "template": "You haven't submitted anything in over 4 days. Is everything okay?",
+          "weight": 1
+        }
+      ]
+    },
+    "1746": {
+      "name": "Sharlene Lenahan",
+      "email": "sha_lena@egl-inc.info",
+      "id": 1746,
+      "issues": []
+    },
+    "1748": {
+      "name": "Kaatje Niemi",
+      "email": "ka.niem@diaperstack.com",
+      "id": 1748,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 3
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Submission Gap",
+          "template": "You haven't submitted anything in over 4 days. Is everything okay?",
+          "weight": 1
+        }
+      ]
+    },
+    "1749": {
+      "name": "Joni Hoffman",
+      "email": "joni-hoffma@progressenergyinc.info",
+      "id": 1749,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 3
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Submission Gap",
+          "template": "You haven't submitted anything in over 4 days. Is everything okay?",
+          "weight": 1
+        }
+      ]
+    },
+    "1752": {
+      "name": "Rankin Mullane",
+      "email": "ran.mullane@egl-inc.info",
+      "id": 1752,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 3
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        }
+      ]
+    },
+    "1753": {
+      "name": "Saumya Rumley",
+      "email": "saum-rumley@egl-inc.info",
+      "id": 1753,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 3
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Submission Gap",
+          "template": "You haven't submitted anything in over 4 days. Is everything okay?",
+          "weight": 1
+        }
+      ]
+    },
+    "1754": {
+      "name": "Mansur Levey",
+      "email": "mansu_le@arvinmeritor.info",
+      "id": 1754,
+      "issues": [
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        }
+      ]
+    },
+    "1755": {
+      "name": "Regina Hanscom",
+      "email": "regina-hanscom@egl-inc.info",
+      "id": 1755,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 3
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Submission Gap",
+          "template": "You haven't submitted anything in over 4 days. Is everything okay?",
+          "weight": 1
+        }
+      ]
+    },
+    "1756": {
+      "name": "Gina Voyles",
+      "email": "gi_vo@egl-inc.info",
+      "id": 1756,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 2
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        }
+      ]
+    },
+    "1757": {
+      "name": "Aylwen Hornsby",
+      "email": "ayl.horns@arvinmeritor.info",
+      "id": 1757,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 2
+        }
+      ]
+    },
+    "1758": {
+      "name": "Belva Bow",
+      "email": "belva.bo@progressenergyinc.info",
+      "id": 1758,
+      "issues": []
+    },
+    "1759": {
+      "name": "Phuong Elliot",
+      "email": "phuo_ell@progressenergyinc.info",
+      "id": 1759,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 1
+        }
+      ]
+    },
+    "1760": {
+      "name": "Manu Kepner",
+      "email": "ma.kepne@arvinmeritor.info",
+      "id": 1760,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 2
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        }
+      ]
+    },
+    "1761": {
+      "name": "Drystan Hamman",
+      "email": "dryshamman@egl-inc.info",
+      "id": 1761,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 3
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Submission Gap",
+          "template": "You haven't submitted anything in over 4 days. Is everything okay?",
+          "weight": 1
+        }
+      ]
+    },
+    "1762": {
+      "name": "Quemby Schrader",
+      "email": "quemby-sch@diaperstack.com",
+      "id": 1762,
+      "issues": [
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        }
+      ]
+    },
+    "1763": {
+      "name": "Psyche Pollock",
+      "email": "psyche_pol@autozone-inc.info",
+      "id": 1763,
+      "issues": []
+    },
+    "1764": {
+      "name": "Amol Trimble",
+      "email": "amol_trimb@egl-inc.info",
+      "id": 1764,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 2
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        }
+      ]
+    },
+    "1765": {
+      "name": "Phuong Jaber",
+      "email": "ph.jab@autozone-inc.info",
+      "id": 1765,
+      "issues": []
+    },
+    "1766": {
+      "name": "Lexie Simmerman",
+      "email": "lex.simmerman@diaperstack.com",
+      "id": 1766,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 3
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Submission Gap",
+          "template": "You haven't submitted anything in over 4 days. Is everything okay?",
+          "weight": 1
+        }
+      ]
+    },
+    "1768": {
+      "name": "Kenley Rouse",
+      "email": "kenleyrous@arvinmeritor.info",
+      "id": 1768,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 1
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        }
+      ]
+    },
+    "1769": {
+      "name": "Gina Eichelberger",
+      "email": "giei@egl-inc.info",
+      "id": 1769,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 3
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Submission Gap",
+          "template": "You haven't submitted anything in over 4 days. Is everything okay?",
+          "weight": 1
+        }
+      ]
+    },
+    "1770": {
+      "name": "Kushan Lyons",
+      "email": "kusly@diaperstack.com",
+      "id": 1770,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 2
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        }
+      ]
+    },
+    "1771": {
+      "name": "Zacharias Bow",
+      "email": "zachar_bo@progressenergyinc.info",
+      "id": 1771,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 2
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        }
+      ]
+    },
+    "1772": {
+      "name": "Darby Bracamontes",
+      "email": "dar-bracamontes@egl-inc.info",
+      "id": 1772,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 3
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        }
+      ]
+    },
+    "1773": {
+      "name": "Xiomara Spinks",
+      "email": "xioma.spinks@autozone-inc.info",
+      "id": 1773,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 2
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        }
+      ]
+    },
+    "1774": {
+      "name": "Michiko Gast",
+      "email": "mic.gas@diaperstack.com",
+      "id": 1774,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 1
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        }
+      ]
+    },
+    "1775": {
+      "name": "Claire Holzman",
+      "email": "cla.holzman@egl-inc.info",
+      "id": 1775,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 3
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Submission Gap",
+          "template": "You haven't submitted anything in over 4 days. Is everything okay?",
+          "weight": 1
+        }
+      ]
+    },
+    "1776": {
+      "name": "Ciro Breland",
+      "email": "ci.brela@autozone-inc.info",
+      "id": 1776,
+      "issues": [
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        }
+      ]
+    },
+    "1777": {
+      "name": "Francisca Blackston",
+      "email": "fra.blacks@egl-inc.info",
+      "id": 1777,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 3
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Submission Gap",
+          "template": "You haven't submitted anything in over 4 days. Is everything okay?",
+          "weight": 1
+        }
+      ]
+    },
+    "1778": {
+      "name": "Tamatha Carver",
+      "email": "tama.car@arvinmeritor.info",
+      "id": 1778,
+      "issues": []
+    },
+    "1779": {
+      "name": "Siddel Seals",
+      "email": "siddel.se@arvinmeritor.info",
+      "id": 1779,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 3
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Submission Gap",
+          "template": "You haven't submitted anything in over 4 days. Is everything okay?",
+          "weight": 1
+        }
+      ]
+    },
+    "1780": {
+      "name": "Saloman Martins",
+      "email": "salomamarti@egl-inc.info",
+      "id": 1780,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 2
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        }
+      ]
+    },
+    "1781": {
+      "name": "Xiao Radtke",
+      "email": "xi.radt@progressenergyinc.info",
+      "id": 1781,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 2
+        }
+      ]
+    },
+    "1784": {
+      "name": "Tamika Gaudet",
+      "email": "tamik-ga@autozone-inc.info",
+      "id": 1784,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 1
+        }
+      ]
+    },
+    "1785": {
+      "name": "Jericho Hetrick",
+      "email": "jericho.hetr@progressenergyinc.info",
+      "id": 1785,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 1
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        }
+      ]
+    },
+    "1786": {
+      "name": "Naimish Laine",
+      "email": "naimi.lain@autozone-inc.info",
+      "id": 1786,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 3
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Submission Gap",
+          "template": "You haven't submitted anything in over 4 days. Is everything okay?",
+          "weight": 1
+        }
+      ]
+    },
+    "1788": {
+      "name": "Jemima Ehrhart",
+      "email": "jem_eh@diaperstack.com",
+      "id": 1788,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 3
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Submission Gap",
+          "template": "You haven't submitted anything in over 4 days. Is everything okay?",
+          "weight": 1
+        }
+      ]
+    },
+    "1789": {
+      "name": "Coleman Bracamontes",
+      "email": "colem.bracamo@arvinmeritor.info",
+      "id": 1789,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 3
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Submission Gap",
+          "template": "You haven't submitted anything in over 4 days. Is everything okay?",
+          "weight": 1
+        }
+      ]
+    },
+    "1790": {
+      "name": "Kyler Hyatt",
+      "email": "kyle-hya@egl-inc.info",
+      "id": 1790,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 2
+        }
+      ]
+    },
+    "1794": {
+      "name": "Latif Thacker",
+      "email": "lati-thack@arvinmeritor.info",
+      "id": 1794,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 3
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        }
+      ]
+    },
+    "1795": {
+      "name": "Syshe Timmerman",
+      "email": "sys.timmer@arvinmeritor.info",
+      "id": 1795,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 3
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Submission Gap",
+          "template": "You haven't submitted anything in over 4 days. Is everything okay?",
+          "weight": 1
+        }
+      ]
+    },
+    "1796": {
+      "name": "Curran Wilkins",
+      "email": "cur-wilk@diaperstack.com",
+      "id": 1796,
+      "issues": [
+        {
+          "name": "Exercise Count",
+          "template": "You did not complete three exercises this week.",
+          "weight": 3
+        },
+        {
+          "name": "AI Problems",
+          "template": "You should work on more AI exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Challenge Problems",
+          "template": "You should work on more challenge exercises.",
+          "weight": 1
+        },
+        {
+          "name": "Don't give up!",
+          "template": "Don't give up! Keep trying and learning! You can do it!",
+          "weight": 1
+        },
+        {
+          "name": "Submission Gap",
+          "template": "You haven't submitted anything in over 4 days. Is everything okay?",
+          "weight": 1
+        }
+      ]
+    }
+  }
+}

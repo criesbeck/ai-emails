@@ -41,11 +41,23 @@ const makeStudents = (context: WebContext): Student[] => {
 
 export interface StudentHelp {
   students: Student[];
+  studentMap: Record<string, Student>;
 }
 
 const score = (student: Student): number =>
   student.issues.reduce((curScore, issue) => curScore + issue.weight, 0);
 
-export const orderStudents = (info: WebContext): StudentHelp => ({
-  students: makeStudents(info).sort((a, b) => score(b) - score(a)),
-});
+export const getInitialEmail = (student: Student): string =>
+  student.issues.map((issue) => issue.template).join("\n");
+
+export const orderStudents = (info: WebContext): StudentHelp => {
+  const students = makeStudents(info).sort((a, b) => score(b) - score(a));
+  const studentMap = students.reduce(
+    (acc, el) => ({ ...acc, [el.id]: el }),
+    {}
+  );
+  return {
+    students,
+    studentMap,
+  };
+};

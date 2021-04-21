@@ -1,6 +1,6 @@
 import React from "react";
 import { StudentHelp } from "../help-system/studentRanker";
-import { EmailViewElements } from "./EmailsView";
+import { EmailViewElements } from "./EmailCore";
 import Worker from "../worker";
 
 export interface UseAuthors {
@@ -12,6 +12,7 @@ const useOrderStudents = (els: EmailViewElements) => {
   const [loading, setLoading] = React.useState(false);
   const [students, setStudents] = React.useState<StudentHelp>({
     students: [],
+    studentMap: {},
   });
   const sortStudents = React.useCallback(async () => {
     setLoading(true);

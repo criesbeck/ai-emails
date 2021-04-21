@@ -15,6 +15,8 @@ export type completionTime = number;
 
 export type exerciseName = string;
 
+export type SubmissionRecord = Record<submissionId, Submission>;
+
 export interface Author {
   name: string;
   email: string;
@@ -34,7 +36,7 @@ export interface Submissions {
   exercises: Record<exerciseId, exerciseName>;
   ai: exerciseId[];
   challenge: exerciseId[];
-  submissions: Record<submissionId, Submission>;
+  submissions: SubmissionRecord;
 }
 
 export interface SubmissionHistory {
