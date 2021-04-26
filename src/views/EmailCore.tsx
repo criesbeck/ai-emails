@@ -105,7 +105,7 @@ interface PreviousEmailProps {
 }
 
 const PreviousEmail: React.FC<PreviousEmailProps> = ({ previousEmail }) => {
-  if (previousEmail === null) return null;
+  if (previousEmail === null || previousEmail === "") return null;
   return (
     <>
       <Heading size="md" py="10px">
