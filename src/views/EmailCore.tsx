@@ -16,10 +16,14 @@ import {
   Button,
   Checkbox,
 } from "@chakra-ui/react";
-import { ApiResponse } from "../help-system/CriticStructure";
-import { Student, Tag as TagType } from "../help-system/tagStructure";
-import { StudentHelp, getInitialEmail } from "../help-system/studentRanker";
 import { Switch, Route, useLocation, useRouter } from "wouter";
+import {
+  ApiResponse,
+  Student,
+  Tag as TagType,
+  StudentHelp,
+  getInitialEmail,
+} from "../help-system";
 import { useLocalStorage } from "react-use";
 import AlertError from "./AlertError";
 

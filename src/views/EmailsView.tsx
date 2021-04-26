@@ -4,7 +4,7 @@ import EmailsLoading from "./EmailsLoading";
 import TimePicker from "./TimePicker";
 import EmailCore, { EmailCoreProps } from "./EmailCore";
 
-import { getLatestSubmission } from "../help-system/utils";
+import { getLatestSubmission } from "../help-system";
 import useAuthors from "./useAuthors";
 
 const EmailViewController: React.FC<EmailCoreProps> = (props) => {

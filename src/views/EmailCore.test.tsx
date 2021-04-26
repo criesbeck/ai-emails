@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { render } from "@testing-library/react";
-import { StudentHelp } from "../help-system/studentRanker";
+import { StudentHelp } from "../help-system";
 import EmailCore from "./EmailCore";
 
 const studentsJson = JSON.parse(

@@ -1,5 +1,5 @@
 import React from "react";
-import { StudentHelp } from "../help-system/studentRanker";
+import { StudentHelp } from "../help-system";
 import { EmailViewElements } from "./EmailCore";
 import Worker from "../worker";
 

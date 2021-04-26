@@ -4,7 +4,7 @@ import axios from "axios";
 import AlertError from "./AlertError";
 import EmailsLoading from "./EmailsLoading";
 import EmailsView from "./EmailsView";
-import { ApiResponse } from "../help-system/CriticStructure";
+import { ApiResponse } from "../help-system";
 
 export const fetchEmailStatistics = async (): Promise<ApiResponse> => {
   const [submissions, authors, poke] = (
