@@ -22,6 +22,7 @@ import {
   Student,
   Tag as TagType,
   StudentHelp,
+  StudentWithHistory,
   getInitialEmail,
 } from "../help-system";
 import { useLocalStorage } from "react-use";
@@ -40,6 +41,10 @@ const TableColumnHeaders = () => {
 
 interface StudentProps {
   student: Student;
+}
+
+interface EditStudentProps {
+  student: StudentWithHistory;
 }
 
 const useSelectStudent = (student: Student) => {
@@ -100,7 +105,7 @@ const Divider = () => {
   return <Flex backgroundColor="black" mx="24px" width="1px" />;
 };
 
-const EditEmail: React.FC<StudentProps> = ({ student }) => {
+const EditEmail: React.FC<EditStudentProps> = ({ student }) => {
   const { message, saveMessage, editMessage } = useStoredStudent(student);
   return (
     <Flex flexDirection="column" alignItems="center">
@@ -113,11 +118,20 @@ const EditEmail: React.FC<StudentProps> = ({ student }) => {
         value={message}
         onChange={editMessage}
       />
-      <Flex pt="10px">
+      <Flex py="10px">
         <Button onClick={saveMessage} colorScheme="blue">
           Save Draft
         </Button>
       </Flex>
+      <Heading size="md" py="10px">
+        Previous Message
+      </Heading>
+      <Textarea
+        minWidth="500px"
+        minHeight="400px"
+        value={student.previousEmail}
+        readOnly
+      />
     </Flex>
   );
 };
@@ -163,7 +177,7 @@ const EditTags: React.FC<StudentProps> = ({ student }) => {
   );
 };
 
-const EditStudentMessage: React.FC<StudentProps> = ({ student }) => {
+const EditStudentMessage: React.FC<EditStudentProps> = ({ student }) => {
   return (
     <>
       <Flex
@@ -316,13 +330,13 @@ const EmailCore: React.FC<StudentHelp> = (props) => {
   return (
     <Switch>
       <Route path="/:id">
-        {(params) =>
-          studentMap[params.id] ? (
+        {(params) => {
+          return studentMap[params.id] ? (
             <EditStudentMessage student={studentMap[params.id]} />
           ) : (
             <StudentMissing id={params.id} />
-          )
-        }
+          );
+        }}
       </Route>
       <Route>
         <EmailCoreTable students={students} />

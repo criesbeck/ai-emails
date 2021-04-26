@@ -5,8 +5,9 @@ import {
   TagContext,
   Tag,
   TagFilterContext,
+  StudentWithHistory,
 } from "./tagStructure";
-import { getCourseContext } from "./utils";
+import { getCourseContext, getWeekBefore } from "./utils";
 import * as tagReducers from "./tagReducers";
 import * as tagValidators from "./tagValidators";
 
@@ -41,7 +42,7 @@ const makeStudents = (context: WebContext): Student[] => {
 
 export interface StudentHelp {
   students: Student[];
-  studentMap: Record<string, Student>;
+  studentMap: Record<string, StudentWithHistory>;
 }
 
 const score = (student: Student): number =>
@@ -50,10 +51,25 @@ const score = (student: Student): number =>
 export const getInitialEmail = (student: Student): string =>
   student.issues.map((issue) => issue.template).join("\n");
 
+const getStudentMap = (students: Student[]): Record<string, Student> =>
+  students.reduce(
+    (acc: Record<string, Student>, el) => ({ ...acc, [el.id]: el }),
+    {}
+  );
+
 export const orderStudents = (info: WebContext): StudentHelp => {
-  const students = makeStudents(info).sort((a, b) => score(b) - score(a));
+  const studentsThisWeek = makeStudents(info);
+  const studentsLastWeek = makeStudents({
+    ...info,
+    currentTime: getWeekBefore(info.currentTime),
+  });
+  const lastWeekMap = getStudentMap(studentsLastWeek);
+  const students = studentsThisWeek.sort((a, b) => score(b) - score(a));
   const studentMap = students.reduce(
-    (acc, el) => ({ ...acc, [el.id]: el }),
+    (acc, el) => ({
+      ...acc,
+      [el.id]: { ...el, previousEmail: getInitialEmail(lastWeekMap[el.id]) },
+    }),
     {}
   );
   return {

@@ -12,15 +12,17 @@ type SubmissionRecord = Record<submissionId, Submission>;
 export const isFinished = (status: Status) =>
   status === "Done" || status === "Well done!";
 
-const getSortedSubmissions = (submissionRecord: SubmissionRecord) =>
-  Object.values(submissionRecord).sort((a, b) => a.submitted - b.submitted);
-
 export const getEarliestSubmission = (submissionRecord: SubmissionRecord) =>
-  getSortedSubmissions(submissionRecord)[0].submitted;
+  Math.min(...Object.values(submissionRecord).map((sub) => sub.submitted));
 
-export const getLatestSubmission = (submissionRecord: SubmissionRecord) => {
-  const submissions = getSortedSubmissions(submissionRecord);
-  return submissions[submissions.length - 1].submitted;
+export const getLatestSubmission = (submissionRecord: SubmissionRecord) =>
+  Math.max(...Object.values(submissionRecord).map((sub) => sub.submitted));
+
+export const isFirstWeek = (
+  submissions: SubmissionRecord,
+  time: number
+): boolean => {
+  return dayjs(time).diff(getEarliestSubmission(submissions), "week") <= 0;
 };
 
 const getCurrentWeek = (webContext: WebContext): number => {
@@ -29,6 +31,10 @@ const getCurrentWeek = (webContext: WebContext): number => {
     "week"
   );
 };
+
+export const getWeekBefore = (time: number): number =>
+  dayjs(time).subtract(1, "week").toDate().getTime();
+
 const getWeekStart = (webContext: WebContext): number =>
   dayjs(webContext.currentTime).startOf("week").toDate().getTime();
 

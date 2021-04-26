@@ -8,6 +8,22 @@ import {
 import { AuthorSubmissionHistory } from "./CriticStructure";
 import { TagReducer, CourseContext } from "./tagStructure";
 
+export const submissionGap: TagReducer = ({ ctx, history }) => {
+  const finishedExercises = getFinishedExercises(history, ctx);
+  const lastSubmission = history.submissions
+    .filter((submission) => submission.submitted <= ctx.currentTime)
+    .sort((a, b) => b.submitted - a.submitted)[0];
+  const daysBetween = lastSubmission?.submitted
+    ? dayjs(ctx.currentTime).diff(lastSubmission.submitted, "day")
+    : Infinity;
+  return {
+    name: "Submission Gap",
+    template:
+      "You haven't submitted anything in over 4 days. Is everything okay?",
+    weight: daysBetween >= 4 && finishedExercises.length < 30 ? 1 : 0,
+  };
+};
+
 export const exerciseCount: TagReducer = ({ history, ctx }) => {
   const thisWeeksExercises = getFinishedExercises(history, ctx);
   return {
@@ -81,21 +97,5 @@ export const needsEncouragement: TagReducer = ({ history }) => {
     name: "Don't give up!",
     template: "Don't give up! Keep trying and learning! You can do it!",
     weight: needsEncouragement ? 1 : 0,
-  };
-};
-
-export const submissionGap: TagReducer = ({ ctx, history }) => {
-  const finishedExercises = getFinishedExercises(history, ctx);
-  const lastSubmission = history.submissions
-    .filter((submission) => submission.submitted <= ctx.currentTime)
-    .sort((a, b) => b.submitted - a.submitted)[0];
-  const daysBetween = lastSubmission?.submitted
-    ? dayjs(ctx.currentTime).diff(lastSubmission.submitted, "day")
-    : Infinity;
-  return {
-    name: "Submission Gap",
-    template:
-      "You haven't submitted anything in over 4 days. Is everything okay?",
-    weight: daysBetween >= 4 && finishedExercises.length < 30 ? 1 : 0,
   };
 };

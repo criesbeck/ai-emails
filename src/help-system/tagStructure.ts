@@ -33,7 +33,20 @@ export interface Issues {
   issues: Tag[];
 }
 
-export type Student = Author & Issues;
+export interface Student {
+  name: string;
+  email: string;
+  id: number;
+  issues: Tag[];
+}
+
+export interface StudentWithHistory {
+  name: string;
+  email: string;
+  id: number;
+  issues: Tag[];
+  previousEmail: string;
+}
 
 export type TagReducer = (ctx: TagContext) => Tag;
 
