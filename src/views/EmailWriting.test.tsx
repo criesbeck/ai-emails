@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import { render, fireEvent } from "@testing-library/react";
 import { StudentHelp } from "../help-system";
+import { MemoryRouter } from "react-router-dom";
 import EmailCore from "./EmailCore";
 
 const studentsJson = JSON.parse(
@@ -11,10 +12,12 @@ const studentsJson = JSON.parse(
 describe("Getting to the page", () => {
   test("We can navigate between pages by clicking on the right buttons", () => {
     const { getByTestId } = render(
-      <EmailCore
-        students={studentsJson.students}
-        studentMap={studentsJson.studentMap}
-      />
+      <MemoryRouter>
+        <EmailCore
+          students={studentsJson.students}
+          studentMap={studentsJson.studentMap}
+        />
+      </MemoryRouter>
     );
     const button = getByTestId("Brazil-Velazquez-email-button");
     fireEvent.click(button);

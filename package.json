@@ -17,23 +17,24 @@
     "@types/react": "^17.0.3",
     "@types/react-datepicker": "^3.1.8",
     "@types/react-dom": "^17.0.3",
-    "@uiw/react-markdown-editor": "^2.0.3",
+    "@types/react-router-dom": "^5.1.7",
     "axios": "^0.21.1",
     "axios-mock-adapter": "^1.19.0",
+    "comlink-loader": "^2.0.0",
     "dayjs": "^1.10.4",
     "framer-motion": "^4.1.2",
     "husky": "^6.0.0",
     "jest-localstorage-mock": "^2.4.10",
-    "lodash": "^4.17.21",
     "pretty-quick": "^3.1.0",
     "react": "^17.0.2",
+    "react-datepicker": "^3.7.0",
     "react-dom": "^17.0.2",
     "react-query": "^3.13.4",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "react-use": "^17.2.3",
     "typescript": "^4.2.3",
-    "web-vitals": "^1.1.1",
-    "wouter": "^2.7.4"
+    "web-vitals": "^1.1.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -68,10 +69,6 @@
   },
   "engines": {
     "node": "14.16.1",
-    "npm": "7.10.0"
-  },
-  "devDependencies": {
-    "comlink-loader": "^2.0.0",
-    "react-datepicker": "^3.7.0"
+    "npm": "7.11.1"
   }
 }

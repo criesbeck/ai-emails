@@ -45,7 +45,7 @@ export interface StudentWithHistory {
   email: string;
   id: number;
   issues: Tag[];
-  previousEmail: string;
+  previousEmail: string | null;
 }
 
 export type TagReducer = (ctx: TagContext) => Tag;

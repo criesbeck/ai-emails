@@ -16,7 +16,6 @@ import {
   Button,
   Checkbox,
 } from "@chakra-ui/react";
-import { Switch, Route, useLocation, useRouter } from "wouter";
 import {
   ApiResponse,
   Student,
@@ -25,6 +24,7 @@ import {
   StudentWithHistory,
   getInitialEmail,
 } from "../help-system";
+import { Route, Switch, useHistory } from "react-router-dom";
 import { useLocalStorage } from "react-use";
 import AlertError from "./AlertError";
 
@@ -47,15 +47,11 @@ interface EditStudentProps {
   student: StudentWithHistory;
 }
 
-const useSelectStudent = (student: Student) => {
-  const router = useRouter();
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_, setLocation] = useLocation();
+const useSelectStudent = ({ id }: Student) => {
+  const history = useHistory();
   const selectThisStudent = React.useCallback(() => {
-    setLocation(`/${student.id}`);
-    // @ts-ignore
-    router.lastLocation = window.scrollY;
-  }, [setLocation, student, router]);
+    history.push(`/${id}`);
+  }, [history, id]);
   return selectThisStudent;
 };
 
@@ -69,11 +65,10 @@ const DEFAULT_STORAGE: LocalStudentStorage = {
   message: "",
 };
 const useGoHome = () => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_, setLocation] = useLocation();
+  const history = useHistory();
   const goHome = React.useCallback(() => {
-    setLocation("/");
-  }, [setLocation]);
+    history.push("/");
+  }, [history]);
   return goHome;
 };
 
@@ -105,6 +100,27 @@ const Divider = () => {
   return <Flex backgroundColor="black" mx="24px" width="1px" />;
 };
 
+interface PreviousEmailProps {
+  previousEmail: string | null;
+}
+
+const PreviousEmail: React.FC<PreviousEmailProps> = ({ previousEmail }) => {
+  if (previousEmail === null) return null;
+  return (
+    <>
+      <Heading size="md" py="10px">
+        Previous Message
+      </Heading>
+      <Textarea
+        minWidth="500px"
+        minHeight="400px"
+        value={previousEmail}
+        readOnly
+      />
+    </>
+  );
+};
+
 const EditEmail: React.FC<EditStudentProps> = ({ student }) => {
   const { message, saveMessage, editMessage } = useStoredStudent(student);
   return (
@@ -123,15 +139,7 @@ const EditEmail: React.FC<EditStudentProps> = ({ student }) => {
           Save Draft
         </Button>
       </Flex>
-      <Heading size="md" py="10px">
-        Previous Message
-      </Heading>
-      <Textarea
-        minWidth="500px"
-        minHeight="400px"
-        value={student.previousEmail}
-        readOnly
-      />
+      <PreviousEmail previousEmail={student.previousEmail} />
     </Flex>
   );
 };
@@ -263,19 +271,7 @@ export interface EmailCoreProps {
   data: ApiResponse;
 }
 
-const useRememberScrollPosition = () => {
-  const router = useRouter();
-  React.useEffect(() => {
-    // @ts-ignore
-    if (!router.lastLocation) return;
-    // @ts-ignore
-    const lastLocation: number = router.lastLocation;
-    window.scrollTo({ top: lastLocation });
-  }, [router]);
-};
-
 const EmailCoreTable: React.FC<TableProps> = ({ students }) => {
-  useRememberScrollPosition();
   return (
     <Table variant="simple" data-testid="email-core-table">
       <TableCaption>Students</TableCaption>
@@ -329,15 +325,17 @@ const EmailCore: React.FC<StudentHelp> = (props) => {
   const { students, studentMap } = props;
   return (
     <Switch>
-      <Route path="/:id">
-        {(params) => {
-          return studentMap[params.id] ? (
-            <EditStudentMessage student={studentMap[params.id]} />
+      <Route
+        path="/:id"
+        exact
+        render={({ match }) => {
+          return studentMap[match.params.id] ? (
+            <EditStudentMessage student={studentMap[match.params.id]} />
           ) : (
-            <StudentMissing id={params.id} />
+            <StudentMissing id={match.params.id} />
           );
         }}
-      </Route>
+      ></Route>
       <Route>
         <EmailCoreTable students={students} />
         <Button colorScheme="teal">Send all Emails</Button>

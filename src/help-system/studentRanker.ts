@@ -7,7 +7,7 @@ import {
   TagFilterContext,
   StudentWithHistory,
 } from "./tagStructure";
-import { getCourseContext, getWeekBefore } from "./utils";
+import { getCourseContext, getWeekBefore, isFirstWeek } from "./utils";
 import * as tagReducers from "./tagReducers";
 import * as tagValidators from "./tagValidators";
 
@@ -57,6 +57,12 @@ const getStudentMap = (students: Student[]): Record<string, Student> =>
     {}
   );
 
+const getPreviousEmail = (info: WebContext, student: Student) => {
+  if (isFirstWeek(info.data.submissions.submissions, info.currentTime))
+    return null;
+  return getInitialEmail(student);
+};
+
 export const orderStudents = (info: WebContext): StudentHelp => {
   const studentsThisWeek = makeStudents(info);
   const studentsLastWeek = makeStudents({
@@ -68,7 +74,10 @@ export const orderStudents = (info: WebContext): StudentHelp => {
   const studentMap = students.reduce(
     (acc, el) => ({
       ...acc,
-      [el.id]: { ...el, previousEmail: getInitialEmail(lastWeekMap[el.id]) },
+      [el.id]: {
+        ...el,
+        previousEmail: getPreviousEmail(info, lastWeekMap[el.id]),
+      },
     }),
     {}
   );

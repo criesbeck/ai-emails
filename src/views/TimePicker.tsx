@@ -1,7 +1,7 @@
 import React from "react";
 import { Text, Flex, Button } from "@chakra-ui/react";
 import DatePicker from "react-datepicker";
-import { useLocation } from "wouter";
+import { useRouteMatch } from "react-router-dom";
 import dayjs from "dayjs";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -27,8 +27,9 @@ const useChangeTime = (props: TimePickerProps) => {
 const TimePicker: React.FC<TimePickerProps> = (props) => {
   const { currentTime } = props;
   const changeTime = useChangeTime(props);
-  const [location] = useLocation();
-  return location !== "/" ? null : (
+  const match = useRouteMatch({ path: "/", strict: true, sensitive: true });
+  if (!match?.isExact) return null;
+  return (
     <Flex
       data-testid="time-picker"
       width="200px"

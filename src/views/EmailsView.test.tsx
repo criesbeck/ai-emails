@@ -1,4 +1,5 @@
 import EmailsView from "./EmailsView";
+import { MemoryRouter } from "react-router-dom";
 import { render, waitFor } from "@testing-library/react";
 import submissionJson from "../../public/example-submission-data.json";
 import authorsJson from "../../public/authors.json";
@@ -17,15 +18,17 @@ document.createRange = () => {
 
 const TestEmails = () => {
   return (
-    <EmailsView
-      data={{
-        authors: authorsJson,
-        // @ts-ignore
-        submissions: submissionJson,
-        // @ts-ignore
-        poke: pokeJson,
-      }}
-    />
+    <MemoryRouter>
+      <EmailsView
+        data={{
+          authors: authorsJson,
+          // @ts-ignore
+          submissions: submissionJson,
+          // @ts-ignore
+          poke: pokeJson,
+        }}
+      />
+    </MemoryRouter>
   );
 };
 
