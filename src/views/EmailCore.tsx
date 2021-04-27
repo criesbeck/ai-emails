@@ -20,12 +20,20 @@ import {
   ApiResponse,
   Student,
   Tag as TagType,
-  StudentHelp,
+  Students,
   getStudentMap,
 } from "../help-system";
 import { Route, Switch, useHistory } from "react-router-dom";
 import AlertError from "./AlertError";
-import { useStoredStudent, useGoHome } from "./useLocal";
+import {
+  StudentContext,
+  useStudent,
+  useStudents,
+  useGoHome,
+  useGotoConfirmation,
+  useLocalStudents,
+} from "./useStudents";
+import EmailConfirmation from "./EmailConfirmation";
 
 const TableColumnHeaders = () => {
   return (
@@ -76,7 +84,7 @@ const PreviousEmail: React.FC<PreviousEmailProps> = ({ previousEmail }) => {
 };
 
 const EditEmail: React.FC<StudentProps> = ({ student }) => {
-  const { message, saveMessage, editMessage } = useStoredStudent(student);
+  const { message, saveMessage, editMessage } = useStudent(student);
   return (
     <Flex flexDirection="column" alignItems="center">
       <Heading size="lg" pb="10px">
@@ -162,9 +170,10 @@ const EditStudentMessage: React.FC<StudentProps> = ({ student }) => {
 };
 
 const FinishedCheckbox: React.FC<StudentProps> = ({ student }) => {
-  const { storage, toggleFinished } = useStoredStudent(student);
+  const { storage, toggleFinished } = useStudent(student);
   return (
     <Checkbox
+      data-testid={`${student.name.replace(" ", "-")}-checkbox`}
       isChecked={storage?.finished}
       onChange={toggleFinished}
       size="lg"
@@ -275,34 +284,48 @@ const StudentMissing: React.FC<StudentMissingProps> = ({ id }) => {
   );
 };
 
-const EmailCore: React.FC<StudentHelp> = (props) => {
-  const { students } = props;
-  const studentMap = getStudentMap(students);
+const EmailButton = () => {
+  const { storedStudents } = useStudents();
+  const gotoConfirmation = useGotoConfirmation();
   return (
-    <Switch>
-      <Route
-        path="/confirm"
-        exact
-        render={() => {
-          return <h1>Hello!</h1>;
-        }}
-      />
-      <Route
-        path="/:id"
-        exact
-        render={({ match }) => {
-          return studentMap[match.params.id] ? (
-            <EditStudentMessage student={studentMap[match.params.id]} />
-          ) : (
-            <StudentMissing id={match.params.id} />
-          );
-        }}
-      ></Route>
-      <Route>
-        <EmailCoreTable students={students} />
-        <Button colorScheme="teal">Send all Emails</Button>
-      </Route>
-    </Switch>
+    <Button
+      data-testid="goto-confirm-emails"
+      onClick={gotoConfirmation}
+      isDisabled={Object.values(storedStudents).some(
+        (student) => !student.finished
+      )}
+      colorScheme="teal"
+    >
+      Send all Emails
+    </Button>
+  );
+};
+
+const EmailCore: React.FC<Students> = (props) => {
+  const { students } = props;
+  const studentMap = React.useMemo(() => getStudentMap(students), [students]);
+  const value = useLocalStudents(props);
+  return (
+    <StudentContext.Provider value={value}>
+      <Switch>
+        <Route path="/confirm" exact component={EmailConfirmation} />
+        <Route
+          path="/:id"
+          exact
+          render={({ match }) => {
+            return studentMap[match.params.id] ? (
+              <EditStudentMessage student={studentMap[match.params.id]} />
+            ) : (
+              <StudentMissing id={match.params.id} />
+            );
+          }}
+        ></Route>
+        <Route>
+          <EmailCoreTable students={students} />
+          <EmailButton />
+        </Route>
+      </Switch>
+    </StudentContext.Provider>
   );
 };
 

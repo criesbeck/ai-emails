@@ -5,7 +5,7 @@ import {
   TagContext,
   Tag,
   TagFilterContext,
-  StudentHelp,
+  Students,
 } from "./tagStructure";
 import {
   getCourseContext,
@@ -57,7 +57,7 @@ const getPreviousEmail = (info: WebContext, student: Student) => {
   return getInitialEmail(student);
 };
 
-export const orderStudents = (info: WebContext): StudentHelp => {
+export const orderStudents = (info: WebContext): Students => {
   const studentsThisWeek = makeStudents(info);
   const studentsLastWeek = makeStudents({
     ...info,

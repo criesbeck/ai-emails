@@ -51,6 +51,6 @@ export interface TagFilterContext {
 
 export type TagValidator = (ctx: TagFilterContext) => Tag[];
 
-export interface StudentHelp {
+export interface Students {
   students: Student[];
 }

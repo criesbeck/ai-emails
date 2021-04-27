@@ -1,22 +1,22 @@
 import React from "react";
-import { StudentHelp } from "../help-system";
+import { Students } from "../help-system";
 import { EmailViewElements } from "./EmailCore";
 import Worker from "../worker";
 
 export interface UseAuthors {
   loading: boolean;
-  results: StudentHelp;
+  results: Students;
 }
 
 const useOrderStudents = (els: EmailViewElements) => {
   const [loading, setLoading] = React.useState(false);
-  const [students, setStudents] = React.useState<StudentHelp>({
+  const [students, setStudents] = React.useState<Students>({
     students: [],
   });
   const sortStudents = React.useCallback(async () => {
     setLoading(true);
     const worker = new Worker();
-    const res = (await worker.processStudents(els)) as StudentHelp;
+    const res = (await worker.processStudents(els)) as Students;
     setStudents(res);
     setLoading(false);
   }, [els, setLoading]);

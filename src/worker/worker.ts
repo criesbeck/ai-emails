@@ -1,5 +1,5 @@
-import { orderStudents, StudentHelp, WebContext } from "../help-system";
+import { orderStudents, Students, WebContext } from "../help-system";
 
-export function processStudents(ctx: WebContext): StudentHelp {
+export function processStudents(ctx: WebContext): Students {
   return orderStudents(ctx);
 }
