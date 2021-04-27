@@ -16,11 +16,11 @@ const EmailViewController: React.FC<EmailCoreProps> = (props) => {
     currentTime,
   });
   if (loading) return <EmailsLoading />;
-  const { students, studentMap } = results;
+  const { students } = results;
   return (
     <>
       <TimePicker currentTime={currentTime} setCurrentTime={setCurrentTime} />
-      <EmailCore students={students} studentMap={studentMap} />
+      <EmailCore students={students} />
     </>
   );
 };

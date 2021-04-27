@@ -38,13 +38,6 @@ export interface Student {
   email: string;
   id: number;
   issues: Tag[];
-}
-
-export interface StudentWithHistory {
-  name: string;
-  email: string;
-  id: number;
-  issues: Tag[];
   previousEmail: string | null;
 }
 
@@ -57,3 +50,7 @@ export interface TagFilterContext {
 }
 
 export type TagValidator = (ctx: TagFilterContext) => Tag[];
+
+export interface StudentHelp {
+  students: Student[];
+}

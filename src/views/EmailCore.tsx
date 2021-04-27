@@ -21,12 +21,11 @@ import {
   Student,
   Tag as TagType,
   StudentHelp,
-  StudentWithHistory,
-  getInitialEmail,
+  getStudentMap,
 } from "../help-system";
 import { Route, Switch, useHistory } from "react-router-dom";
-import { useLocalStorage } from "react-use";
 import AlertError from "./AlertError";
+import { useStoredStudent, useGoHome } from "./useLocal";
 
 const TableColumnHeaders = () => {
   return (
@@ -43,57 +42,12 @@ interface StudentProps {
   student: Student;
 }
 
-interface EditStudentProps {
-  student: StudentWithHistory;
-}
-
 const useSelectStudent = ({ id }: Student) => {
   const history = useHistory();
   const selectThisStudent = React.useCallback(() => {
     history.push(`/${id}`);
   }, [history, id]);
   return selectThisStudent;
-};
-
-interface LocalStudentStorage {
-  finished: boolean;
-  message: string;
-}
-
-const DEFAULT_STORAGE: LocalStudentStorage = {
-  finished: false,
-  message: "",
-};
-const useGoHome = () => {
-  const history = useHistory();
-  const goHome = React.useCallback(() => {
-    history.push("/");
-  }, [history]);
-  return goHome;
-};
-
-const useStoredStudent = (student: Student) => {
-  const goHome = useGoHome();
-  const [storage, setStorage] = useLocalStorage<LocalStudentStorage>(
-    `${student.id}`,
-    { finished: false, message: getInitialEmail(student) }
-  );
-  const toggleFinished = React.useCallback(() => {
-    const toSpread = { ...DEFAULT_STORAGE, ...storage };
-    setStorage({ ...toSpread, finished: !storage?.finished });
-  }, [setStorage, storage]);
-  const [message, setMessage] = React.useState<string>(
-    storage?.message || getInitialEmail(student)
-  );
-  const editMessage: React.ChangeEventHandler<HTMLTextAreaElement> = React.useCallback(
-    (event) => setMessage(event.target.value),
-    [setMessage]
-  );
-  const saveMessage = React.useCallback(() => {
-    setStorage({ finished: true, message: message });
-    goHome();
-  }, [message, setStorage, goHome]);
-  return { storage, toggleFinished, message, editMessage, saveMessage };
 };
 
 const Divider = () => {
@@ -121,7 +75,7 @@ const PreviousEmail: React.FC<PreviousEmailProps> = ({ previousEmail }) => {
   );
 };
 
-const EditEmail: React.FC<EditStudentProps> = ({ student }) => {
+const EditEmail: React.FC<StudentProps> = ({ student }) => {
   const { message, saveMessage, editMessage } = useStoredStudent(student);
   return (
     <Flex flexDirection="column" alignItems="center">
@@ -185,7 +139,7 @@ const EditTags: React.FC<StudentProps> = ({ student }) => {
   );
 };
 
-const EditStudentMessage: React.FC<EditStudentProps> = ({ student }) => {
+const EditStudentMessage: React.FC<StudentProps> = ({ student }) => {
   return (
     <>
       <Flex
@@ -322,9 +276,17 @@ const StudentMissing: React.FC<StudentMissingProps> = ({ id }) => {
 };
 
 const EmailCore: React.FC<StudentHelp> = (props) => {
-  const { students, studentMap } = props;
+  const { students } = props;
+  const studentMap = getStudentMap(students);
   return (
     <Switch>
+      <Route
+        path="/confirm"
+        exact
+        render={() => {
+          return <h1>Hello!</h1>;
+        }}
+      />
       <Route
         path="/:id"
         exact

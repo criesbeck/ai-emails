@@ -12,7 +12,6 @@ const useOrderStudents = (els: EmailViewElements) => {
   const [loading, setLoading] = React.useState(false);
   const [students, setStudents] = React.useState<StudentHelp>({
     students: [],
-    studentMap: {},
   });
   const sortStudents = React.useCallback(async () => {
     setLoading(true);
