@@ -32,6 +32,7 @@ import {
   useGoHome,
   useGotoConfirmation,
   useLocalStudents,
+  useCheckboxHelper,
 } from "./useStudents";
 import EmailConfirmation from "./EmailConfirmation";
 
@@ -301,6 +302,16 @@ const EmailButton = () => {
   );
 };
 
+const CheckboxHelpers = () => {
+  const { setFinished, setUnfinished } = useCheckboxHelper();
+  return (
+    <Flex py="16px" justifyContent="space-between" minWidth="250px">
+      <Button onClick={setFinished}>Check All</Button>
+      <Button onClick={setUnfinished}>Uncheck All</Button>
+    </Flex>
+  );
+};
+
 const EmailCore: React.FC<Students> = (props) => {
   const { students } = props;
   const studentMap = React.useMemo(() => getStudentMap(students), [students]);
@@ -327,7 +338,9 @@ const EmailCore: React.FC<Students> = (props) => {
           }}
         ></Route>
         <Route>
+          <CheckboxHelpers />
           <EmailCoreTable students={students} />
+          <CheckboxHelpers />
           <EmailButton />
         </Route>
       </Switch>

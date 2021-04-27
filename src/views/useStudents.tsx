@@ -2,6 +2,9 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import { Student, Students, getInitialEmail } from "../help-system";
 import { useLocalStorage } from "react-use";
+import axios from "axios";
+import { useMutation } from "react-query";
+import { toast } from "react-toastify";
 
 export interface StudentMessage {
   finished: boolean;
@@ -104,12 +107,61 @@ export const useStudent = (student: Student) => {
   };
 };
 
+const useMassSetter = (finished: boolean) => {
+  const { storedStudents, setStoredStudents } = useStudents();
+  const toggler = React.useCallback(() => {
+    const newStudents = Object.entries(storedStudents).reduce(
+      (acc, [id, message]) => {
+        return { ...acc, [id]: { ...message, finished } };
+      },
+      {}
+    );
+    setStoredStudents(newStudents);
+  }, [storedStudents, setStoredStudents, finished]);
+  return toggler;
+};
+
+export const useCheckboxHelper = () => {
+  const setFinished = useMassSetter(true);
+  const setUnfinished = useMassSetter(false);
+  return { setFinished, setUnfinished };
+};
+
 export const useGotoConfirmation = () => {
   const history = useHistory();
   const gotoConfirmation = React.useCallback(() => {
     history.push("/confirm");
   }, [history]);
   return gotoConfirmation;
+};
+
+const postEmails = async (students: StudentStorage) => {
+  const body = Object.entries(students).reduce(
+    (acc, [id, { email, message }]) => {
+      return { ...acc, [id]: { email, message } };
+    },
+    {}
+  );
+  await axios.post(process.env.REACT_APP_POST_EMAILS_URL!, body);
+};
+
+export const useSendEmails = (students: Students) => {
+  const { storedStudents, setStoredStudents } = useStudents();
+  const goHome = useGoHome();
+  const mutation = useMutation("emails", postEmails);
+  const sendEmails = React.useCallback(async () => {
+    try {
+      await mutation.mutateAsync(storedStudents);
+      setStoredStudents(getInitialStudents(students));
+      goHome();
+      toast.success("Emails sent successfully.");
+    } catch (err) {
+      toast.error(
+        `Something went wrong. Please refresh the page and try again.`
+      );
+    }
+  }, [mutation, storedStudents, goHome, setStoredStudents, students]);
+  return { sendEmails, mutation };
 };
 
 export const useLocalStudents = (students: Students) => {

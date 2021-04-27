@@ -12,9 +12,15 @@ import {
   Td,
   TableCaption,
   Button,
+  Spinner,
 } from "@chakra-ui/react";
 import { Students } from "../help-system";
-import { useStudents, useGoHome, StudentMessage } from "./useStudents";
+import {
+  useStudents,
+  useGoHome,
+  StudentMessage,
+  useSendEmails,
+} from "./useStudents";
 
 const TableLabels = () => {
   return (
@@ -74,15 +80,24 @@ const GoBack = () => {
   );
 };
 
-const Send = () => {
-  return <Button colorScheme="blue">Send</Button>;
+const Send: React.FC<Students> = (props) => {
+  const {
+    sendEmails,
+    mutation: { isLoading },
+  } = useSendEmails(props);
+  console.log(isLoading);
+  return (
+    <Button onClick={sendEmails} colorScheme="blue">
+      {isLoading ? <Spinner size="sm" /> : `Send Emails`}
+    </Button>
+  );
 };
 
-const EmailButtons = () => {
+const EmailButtons: React.FC<Students> = ({ students }) => {
   return (
     <Flex py="16px" minWidth="300px" justifyContent="space-between">
       <GoBack />
-      <Send />
+      <Send students={students} />
     </Flex>
   );
 };
@@ -95,9 +110,9 @@ const EmailConfirmation: React.FC<Students> = ({ students }) => {
       alignItems="center"
     >
       <Heading size="lg">Confirmation</Heading>
-      <EmailButtons />
+      <EmailButtons students={students} />
       <EmailTable students={students} />
-      <EmailButtons />
+      <EmailButtons students={students} />
     </Flex>
   );
 };

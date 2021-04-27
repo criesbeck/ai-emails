@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import { render, fireEvent } from "@testing-library/react";
 import { Students } from "../help-system";
+import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
 import EmailCore from "./EmailCore";
 
@@ -9,13 +10,21 @@ const studentsJson = JSON.parse(
   fs.readFileSync(path.join(__dirname, "./students.json"), "utf-8")
 ) as Students;
 
-describe("Getting to the page", () => {
-  test("We can navigate between pages by clicking on the right buttons", () => {
-    const { getByTestId } = render(
+const client = new QueryClient();
+
+const Body = () => {
+  return (
+    <QueryClientProvider client={client}>
       <MemoryRouter>
         <EmailCore students={studentsJson.students} />
       </MemoryRouter>
-    );
+    </QueryClientProvider>
+  );
+};
+
+describe("Getting to the page", () => {
+  test("We can navigate between pages by clicking on the right buttons", () => {
+    const { getByTestId } = render(<Body />);
     const button = getByTestId("Brazil-Velazquez-email-button");
     fireEvent.click(button);
     expect(getByTestId("edit-student-message")).toBeInTheDocument();
@@ -27,18 +36,11 @@ describe("Getting to the page", () => {
     const checkboxes = studentsJson.students.map(
       (student) => `${student.name.replace(" ", "-")}-checkbox`
     );
-    const { getByTestId } = render(
-      <MemoryRouter>
-        <EmailCore students={studentsJson.students} />
-      </MemoryRouter>
-    );
+    const { getByTestId } = render(<Body />);
     const confirmEmails = getByTestId("goto-confirm-emails");
     fireEvent.click(confirmEmails);
     expect(getByTestId("Brazil-Velazquez-email-button")).toBeInTheDocument();
-    for (let i = 0; i < checkboxes.length; ++i) {
-      const button = getByTestId(checkboxes[i]);
-      fireEvent.click(button);
-    }
+    checkboxes.forEach((box) => fireEvent.click(getByTestId(box)));
     fireEvent.click(confirmEmails);
     expect(getByTestId("confirm-emails-page")).toBeInTheDocument();
   });
