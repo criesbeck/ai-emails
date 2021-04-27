@@ -2,6 +2,8 @@ import { OnlyChildren } from "../types";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import { HashRouter, MemoryRouter } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Router: React.FC<OnlyChildren> = ({ children }) => {
   if (process.env.NODE_ENV === "test") {
@@ -25,6 +27,7 @@ export const Providers: React.FC<OnlyChildren> = ({ children }) => {
       <ChakraProvider theme={theme}>
         <QueryClientProvider client={queryClient}>
           {children}
+          <ToastContainer />
         </QueryClientProvider>
       </ChakraProvider>
     </Router>
