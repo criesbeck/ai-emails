@@ -15,8 +15,8 @@ const EmailViewController: React.FC<EmailCoreProps> = (props) => {
     data: props.data,
     currentTime,
   });
-  if (loading) return <EmailsLoading />;
   const { students } = results;
+  if (loading || students.length <= 0) return <EmailsLoading />;
   return (
     <>
       <TimePicker currentTime={currentTime} setCurrentTime={setCurrentTime} />

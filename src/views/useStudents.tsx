@@ -6,6 +6,8 @@ import { useLocalStorage } from "react-use";
 export interface StudentMessage {
   finished: boolean;
   message: string;
+  email: string;
+  name: string;
 }
 
 export type StudentStorage = Record<string, StudentMessage>;
@@ -21,6 +23,8 @@ export const useGoHome = () => {
 export const DEFAULT_STORAGE: StudentMessage = {
   finished: false,
   message: "",
+  email: "",
+  name: "",
 };
 
 interface StudentState {
@@ -33,10 +37,17 @@ export const StudentContext = React.createContext<StudentState | undefined>(
 );
 
 export const getInitialStudents = ({ students }: Students) =>
-  students.reduce(
-    (acc: StudentStorage, el) => ({ ...acc, [el.id]: DEFAULT_STORAGE }),
-    {}
-  );
+  students.reduce((acc: StudentStorage, el) => {
+    return {
+      ...acc,
+      [el.id]: {
+        ...DEFAULT_STORAGE,
+        email: el.email,
+        name: el.name,
+        message: getInitialEmail(el),
+      },
+    };
+  }, {});
 
 export const useStudents = () => {
   const ctx = React.useContext(StudentContext);
@@ -102,9 +113,10 @@ export const useGotoConfirmation = () => {
 };
 
 export const useLocalStudents = (students: Students) => {
+  const initialStudents = getInitialStudents(students);
   const [storedStudents, setStoredStudents] = useLocalStorage(
     "students",
-    getInitialStudents(students)
+    initialStudents
   );
   return {
     storedStudents: storedStudents || getInitialStudents(students),

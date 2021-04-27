@@ -308,7 +308,13 @@ const EmailCore: React.FC<Students> = (props) => {
   return (
     <StudentContext.Provider value={value}>
       <Switch>
-        <Route path="/confirm" exact component={EmailConfirmation} />
+        <Route
+          path="/confirm"
+          exact
+          render={() => {
+            return <EmailConfirmation students={students} />;
+          }}
+        />
         <Route
           path="/:id"
           exact
