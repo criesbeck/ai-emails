@@ -38,8 +38,6 @@ describe("Getting to the page", () => {
     );
     const { getByTestId } = render(<Body />);
     const confirmEmails = getByTestId("goto-confirm-emails");
-    fireEvent.click(confirmEmails);
-    expect(getByTestId("Brazil-Velazquez-email-button")).toBeInTheDocument();
     checkboxes.forEach((box) => fireEvent.click(getByTestId(box)));
     fireEvent.click(confirmEmails);
     expect(getByTestId("confirm-emails-page")).toBeInTheDocument();

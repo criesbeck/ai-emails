@@ -29,8 +29,8 @@ import AlertError from "./AlertError";
 import {
   StudentContext,
   useStudent,
-  useStudents,
   useGoHome,
+  useStudents,
   useGotoConfirmation,
   useLocalStudents,
   useCheckboxHelper,
@@ -186,7 +186,7 @@ const TableAuthor: React.FC<StudentProps> = ({ student }) => {
         {student.issues.map((issue) => {
           return (
             <Tag colorScheme="teal" key={issue.name} mr="8px" mb="8px">
-              {issue.name}
+              {issue.subject}
             </Tag>
           );
         })}
@@ -281,18 +281,18 @@ const StudentMissing: React.FC<StudentMissingProps> = ({ id }) => {
 };
 
 const EmailButton = () => {
-  const { storedStudents } = useStudents();
   const gotoConfirmation = useGotoConfirmation();
+  const { storedStudents } = useStudents();
   return (
     <Button
+      isDisabled={
+        !Object.values(storedStudents).some((student) => student.finished)
+      }
       data-testid="goto-confirm-emails"
       onClick={gotoConfirmation}
-      isDisabled={Object.values(storedStudents).some(
-        (student) => !student.finished
-      )}
       colorScheme="teal"
     >
-      Send all Emails
+      Send Email
     </Button>
   );
 };

@@ -60,9 +60,14 @@ const EmailTable: React.FC<Students> = ({ students }) => {
         <TableLabels />
       </Thead>
       <Tbody>
-        {students.map((student) => (
-          <StudentEmail key={student.id} student={storedStudents[student.id]} />
-        ))}
+        {students.map((student) =>
+          storedStudents[student.id].finished ? (
+            <StudentEmail
+              key={student.id}
+              student={storedStudents[student.id]}
+            />
+          ) : null
+        )}
       </Tbody>
       <Tfoot>
         <TableLabels />
