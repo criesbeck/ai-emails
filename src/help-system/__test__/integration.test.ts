@@ -43,11 +43,11 @@ const runTest = (testCase: TestCase) => {
   test(testCase.description, () => {
     const student = findStudent(testCase);
     const issue = student.issues.find(
-      (issue) => issue.name === testCase.issueName
+      (issue) => issue.subject === testCase.issueName
     );
     const testPassed = testCase.errorIfExists
-      ? issue?.name === undefined
-      : issue?.name === testCase.issueName;
+      ? issue?.subject === undefined
+      : issue?.subject === testCase.issueName;
     if (!testPassed) logFailureContext(testCase, student, issue);
     expect(testPassed).toBe(true);
   });

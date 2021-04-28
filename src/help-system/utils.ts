@@ -69,6 +69,7 @@ export const getCourseContext = (webContext: WebContext): CourseContext => {
     challengeExercises: getChallengeExercises(webContext),
     currentWeek: getCurrentWeek(webContext),
     weekStartTime: getWeekStart(webContext),
+    templates: webContext.data.templates,
   };
 };
 

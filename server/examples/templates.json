@@ -1,0 +1,39 @@
+{
+  "submission_gap": {
+    "id": 1,
+    "name": "submission_gap",
+    "subject": "Submission Gap",
+    "template": "You have not made any submissions in the past 4 days. Are you ok?",
+    "weight": 1
+  },
+  "exercise_count": {
+    "id": 2,
+    "name": "exercise_count",
+    "subject": "Exercise Count",
+    "template": "You did not complete three exercises this week."
+  },
+  "ai_problems": {
+    "id": 3,
+    "name": "ai_problems",
+    "subject": "AI Problems",
+    "template": "You should work on more AI exercises."
+  },
+  "challenge_problems": {
+    "id": 4,
+    "name": "challenge_problems",
+    "subject": "Challenge Problems",
+    "template": "You should work on harder exercises."
+  },
+  "consider_dropping": {
+    "id": 5,
+    "name": "consider_dropping",
+    "subject": "Consider Dropping",
+    "template": "You should consider dropping the course."
+  },
+  "dont_give_up": {
+    "id": 6,
+    "name": "dont_give_up",
+    "subject": "Don't give up!",
+    "template": "Don't give up! Keep trying and learning! You can do it!"
+  }
+}

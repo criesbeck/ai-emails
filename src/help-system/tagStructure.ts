@@ -2,6 +2,7 @@ import {
   ApiResponse,
   Author,
   AuthorSubmissionHistory,
+  Templates,
 } from "./CriticStructure";
 
 export interface CourseContext {
@@ -10,10 +11,13 @@ export interface CourseContext {
   currentWeek: number;
   aiExercises: Set<number>;
   challengeExercises: Set<number>;
+  templates: Templates;
 }
 
 export interface Tag {
+  id: number;
   name: string;
+  subject: string;
   template: string;
   weight: number;
 }

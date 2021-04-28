@@ -17,9 +17,7 @@ export const submissionGap: TagReducer = ({ ctx, history }) => {
     ? dayjs(ctx.currentTime).diff(lastSubmission.submitted, "day")
     : Infinity;
   return {
-    name: "Submission Gap",
-    template:
-      "You haven't submitted anything in over 4 days. Is everything okay?",
+    ...ctx.templates.submission_gap,
     weight: daysBetween >= 4 && finishedExercises.length < 30 ? 1 : 0,
   };
 };
@@ -27,8 +25,7 @@ export const submissionGap: TagReducer = ({ ctx, history }) => {
 export const exerciseCount: TagReducer = ({ history, ctx }) => {
   const thisWeeksExercises = getFinishedExercises(history, ctx);
   return {
-    name: "Exercise Count",
-    template: `You did not complete three exercises this week.`,
+    ...ctx.templates.exercise_count,
     weight: 3 - thisWeeksExercises.length,
   };
 };
@@ -40,11 +37,10 @@ interface ReducerConfig {
 }
 
 const generateCategoryReducer = (config: ReducerConfig): TagReducer => {
-  const { offset, template, name } = config;
+  const { offset, name } = config;
   const needsMore: TagReducer = ({ history, ctx }) => {
     return {
-      name,
-      template,
+      ...ctx.templates[name],
       weight:
         ctx.currentWeek < 5
           ? 0
@@ -55,13 +51,13 @@ const generateCategoryReducer = (config: ReducerConfig): TagReducer => {
 };
 
 export const needsMoreAi = generateCategoryReducer({
-  name: "AI Problems",
+  name: "ai_problems",
   template: "You should work on more AI exercises.",
   offset: 7,
 });
 
 export const needsMoreChallenge = generateCategoryReducer({
-  name: "Challenge Problems",
+  name: "challenge_problems",
   template: "You should work on more challenge exercises.",
   offset: 7,
 });
@@ -80,13 +76,12 @@ const getDropWeight = (
 export const considerDropping: TagReducer = ({ history, ctx }) => {
   const dropWeight = getDropWeight(history, ctx);
   return {
-    name: "Consider Dropping",
-    template: "You should consider dropping the course.",
+    ...ctx.templates.consider_dropping,
     weight: dropWeight,
   };
 };
 
-export const needsEncouragement: TagReducer = ({ history }) => {
+export const needsEncouragement: TagReducer = ({ ctx, history }) => {
   const unfinishedExercises = Object.values(history.exercises).filter(
     (ex) => !isFinished(ex.status)
   );
@@ -94,8 +89,7 @@ export const needsEncouragement: TagReducer = ({ history }) => {
     unfinishedExercises.find((ex) => ex?.submit_hist?.length > 5)
   );
   return {
-    name: "Don't give up!",
-    template: "Don't give up! Keep trying and learning! You can do it!",
+    ...ctx.templates.dont_give_up,
     weight: needsEncouragement ? 1 : 0,
   };
 };

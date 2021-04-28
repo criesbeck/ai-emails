@@ -15,6 +15,7 @@ import {
   Tag,
   Button,
   Checkbox,
+  Spinner,
 } from "@chakra-ui/react";
 import {
   ApiResponse,
@@ -35,6 +36,7 @@ import {
   useCheckboxHelper,
 } from "./useStudents";
 import EmailConfirmation from "./EmailConfirmation";
+import useIssue from "./useIssue";
 
 const TableColumnHeaders = () => {
   return (
@@ -111,25 +113,18 @@ interface IssueFormProps {
   issue: TagType;
 }
 
-const useIssue = (issue: TagType) => {
-  const [issueText, setIssueText] = React.useState<string>(issue.template);
-  const changeIssue: React.ChangeEventHandler<HTMLTextAreaElement> = React.useCallback(
-    (event) => {
-      setIssueText(event.target.value);
-    },
-    [setIssueText]
-  );
-  return { issueText, changeIssue };
-};
-
 const IssueForm: React.FC<IssueFormProps> = ({ issue }) => {
-  const { issueText, changeIssue } = useIssue(issue);
+  const { issueText, changeIssue, saveIssueChanges, mutation } = useIssue(
+    issue
+  );
   return (
     <Flex flexDirection="column" maxWidth="200px" py="16px">
-      <Text fontWeight="bold">{issue.name}</Text>
+      <Text fontWeight="bold">{issue.subject}</Text>
       <Textarea onChange={changeIssue} value={issueText} />
       <Flex pt="8px">
-        <Button colorScheme="blue">Save Changes</Button>
+        <Button onClick={saveIssueChanges} colorScheme="blue">
+          {mutation.isLoading ? <Spinner size="sm" /> : `Save Changes`}
+        </Button>
       </Flex>
     </Flex>
   );

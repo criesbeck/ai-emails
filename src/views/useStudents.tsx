@@ -136,12 +136,10 @@ export const useGotoConfirmation = () => {
 };
 
 const postEmails = async (students: StudentStorage) => {
-  const body = Object.entries(students).reduce(
-    (acc, [id, { email, message }]) => {
-      return { ...acc, [id]: { email, message } };
-    },
-    {}
-  );
+  const body = new FormData();
+  Object.entries(students).forEach(([id, { email, message }]) => {
+    body.append(id, JSON.stringify({ id, email, message }));
+  });
   await axios.post(process.env.REACT_APP_POST_EMAILS_URL!, body);
 };
 
