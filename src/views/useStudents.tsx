@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 
 export interface StudentMessage {
   finished: boolean;
+  touched: boolean;
   message: string;
   email: string;
   name: string;
@@ -25,6 +26,7 @@ export const useGoHome = () => {
 
 export const DEFAULT_STORAGE: StudentMessage = {
   finished: false,
+  touched: false,
   message: "",
   email: "",
   name: "",
@@ -78,11 +80,20 @@ const useMessage = (student: Student) => {
   const { storedStudents, setStoredStudents } = useStudents();
   const goHome = useGoHome();
   const [message, setMessage] = React.useState<string>(
-    storedStudents[student.id].message || getInitialEmail(student)
+    storedStudents[student.id].touched
+      ? storedStudents[student.id].message
+      : getInitialEmail(student)
   );
   const editMessage: React.ChangeEventHandler<HTMLTextAreaElement> = React.useCallback(
-    (event) => setMessage(event.target.value),
-    [setMessage]
+    (event) => {
+      setMessage(event.target.value);
+      if (storedStudents[student.id].touched === true) return;
+      setStoredStudents({
+        ...storedStudents,
+        [student.id]: { ...storedStudents[student.id], touched: true },
+      });
+    },
+    [setMessage, storedStudents, setStoredStudents, student.id]
   );
   const saveMessage = React.useCallback(() => {
     setStoredStudents({
