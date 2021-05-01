@@ -1,6 +1,11 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { Student, Students, getInitialEmail } from "../help-system";
+import {
+  Student,
+  Students,
+  getInitialEmail,
+  getStudentMap,
+} from "../help-system";
 import { useLocalStorage } from "react-use";
 import axios from "axios";
 import { useMutation } from "react-query";
@@ -146,12 +151,26 @@ export const useGotoConfirmation = () => {
   return gotoConfirmation;
 };
 
-const postEmails = async (students: StudentStorage) => {
+interface PostEmailProps {
+  students: Students;
+  storedStudents: StudentStorage;
+}
+
+type EmailPost = (els: PostEmailProps) => Promise<void>;
+
+const postEmails: EmailPost = async ({ students, storedStudents }) => {
   const body = new FormData();
-  Object.entries(students).forEach(([id, { email, message, finished }]) => {
-    if (!finished) return;
-    body.append(id, JSON.stringify({ id, email, message }));
-  });
+  const curStudents = getStudentMap(students.students);
+  Object.entries(storedStudents).forEach(
+    ([id, { email, message, finished }], index) => {
+      if (!finished) return;
+      body.append("id", id);
+      body.append("email", email);
+      body.append("message", message);
+      body.append("finished", finished.toString());
+      body.append("issues", curStudents[id].issues.join(":"));
+    }
+  );
   await axios.post(process.env.REACT_APP_POST_EMAILS_URL!, body);
 };
 
@@ -161,7 +180,7 @@ export const useSendEmails = (students: Students) => {
   const mutation = useMutation("emails", postEmails);
   const sendEmails = React.useCallback(async () => {
     try {
-      await mutation.mutateAsync(storedStudents);
+      await mutation.mutateAsync({ storedStudents, students });
       setStoredStudents(getInitialStudents(students));
       goHome();
       toast.success("Emails sent successfully.");

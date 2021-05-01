@@ -90,7 +90,6 @@ const Send: React.FC<Students> = (props) => {
     sendEmails,
     mutation: { isLoading },
   } = useSendEmails(props);
-  console.log(isLoading);
   return (
     <Button onClick={sendEmails} colorScheme="blue">
       {isLoading ? <Spinner size="sm" /> : `Send Emails`}
