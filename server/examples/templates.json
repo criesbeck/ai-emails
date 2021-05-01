@@ -3,7 +3,7 @@
     "id": 1,
     "name": "submission_gap",
     "subject": "Submission Gap",
-    "template": "You have not made any submissions in the past 4 days. Are you ok?",
+    "template": "You have not made any submissions in the past 4 days. Are you doing all right?",
     "weight": 1
   },
   "exercise_count": {

@@ -189,7 +189,7 @@ const IssueList: React.FC<IssueListProps> = ({ issues }) => {
       {issues.map((issue) => {
         return (
           <Tag colorScheme="teal" key={issue.name} mr="8px" mb="8px">
-            {issue.name}
+            {issue.subject}
           </Tag>
         );
       })}
@@ -209,13 +209,10 @@ const TableAuthor: React.FC<StudentProps> = ({ student }) => {
       </Td>
       <Td maxWidth="300px">{storage?.message || getInitialEmail(student)}</Td>
       <Td maxWidth="300px">
-        {student.issues.map((issue) => {
-          return (
-            <Tag colorScheme="teal" key={issue.name} mr="8px" mb="8px">
-              {issue.subject}
-            </Tag>
-          );
-        })}
+        <IssueList issues={student.issues} />
+      </Td>
+      <Td>
+        <FinishedCheckbox student={student} />
       </Td>
       <Td>
         <Button
