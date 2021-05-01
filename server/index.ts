@@ -20,9 +20,10 @@ app.put("/templates", async (req, res) => {
   const file = await readFile(thePath, "utf-8");
   const json = JSON.parse(file);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [[_, issueString]] = Object.entries(req.fields);
-  const issue = JSON.parse(issueString as string);
-  const newJson = JSON.stringify({ ...json, [issue.name]: issue });
+  const newJson = JSON.stringify({
+    ...json,
+    [`${req.fields.name}`]: { ...req.fields },
+  });
   await writeFile(thePath, newJson);
   res.sendStatus(200);
 });

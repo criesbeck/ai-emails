@@ -6,7 +6,10 @@ import { toast } from "react-toastify";
 
 const updateIssue = async (issue: Tag) => {
   const formBody = new FormData();
-  formBody.append(`${issue.id}`, JSON.stringify(issue));
+  formBody.append("id", `${issue.id}`);
+  formBody.append("name", issue.name);
+  formBody.append("subject", issue.subject);
+  formBody.append("template", issue.template);
   await axios.put(process.env.REACT_APP_TEMPLATES_URL!, formBody);
 };
 
