@@ -164,11 +164,14 @@ const postEmails: EmailPost = async ({ students, storedStudents }) => {
   Object.entries(storedStudents).forEach(
     ([id, { email, message, finished }], index) => {
       if (!finished) return;
+      const issueNames = curStudents[id].issues
+        .map((issue) => issue.name)
+        .join(":");
       body.append("id", id);
       body.append("email", email);
       body.append("message", message);
       body.append("finished", finished.toString());
-      body.append("issues", curStudents[id].issues.join(":"));
+      body.append("issues", issueNames);
     }
   );
   await axios.post(process.env.REACT_APP_POST_EMAILS_URL!, body);
