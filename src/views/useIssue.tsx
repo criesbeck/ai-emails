@@ -23,7 +23,7 @@ const useIssue = (issue: Tag) => {
     try {
       await mutation.mutateAsync({ ...issue, template: issueText });
       toast.success("Success! Redirecting...");
-      window.location.href = "/";
+      window.location.reload();
     } catch (err) {
       toast.error(
         "Something went wrong. Please refresh the page and try again."

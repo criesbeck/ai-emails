@@ -23,6 +23,7 @@ import {
   Tag as TagType,
   Students,
   getStudentMap,
+  getInitialEmail,
 } from "../help-system";
 import { Route, Switch, useHistory } from "react-router-dom";
 import AlertError from "./AlertError";
@@ -42,9 +43,10 @@ const TableColumnHeaders = () => {
   return (
     <Tr>
       <Th>Name</Th>
+      <Th>Email</Th>
       <Th>Issues</Th>
-      <Th>Send Message</Th>
       <Th>Finished</Th>
+      <Th>Edit</Th>
     </Tr>
   );
 };
@@ -177,11 +179,35 @@ const FinishedCheckbox: React.FC<StudentProps> = ({ student }) => {
   );
 };
 
+interface IssueListProps {
+  issues: TagType[];
+}
+
+const IssueList: React.FC<IssueListProps> = ({ issues }) => {
+  return (
+    <>
+      {issues.map((issue) => {
+        return (
+          <Tag colorScheme="teal" key={issue.name} mr="8px" mb="8px">
+            {issue.name}
+          </Tag>
+        );
+      })}
+    </>
+  );
+};
+
 const TableAuthor: React.FC<StudentProps> = ({ student }) => {
   const selectThisStudent = useSelectStudent(student);
+  const { storage } = useStudent(student);
   return (
     <Tr>
-      <Td>{student.name}</Td>
+      <Td>
+        {student.name}
+        <br />
+        {student.email}
+      </Td>
+      <Td maxWidth="300px">{storage?.message || getInitialEmail(student)}</Td>
       <Td maxWidth="300px">
         {student.issues.map((issue) => {
           return (
@@ -197,11 +223,8 @@ const TableAuthor: React.FC<StudentProps> = ({ student }) => {
           onClick={selectThisStudent}
           colorScheme="blue"
         >
-          Message
+          Edit
         </Button>
-      </Td>
-      <Td>
-        <FinishedCheckbox student={student} />
       </Td>
     </Tr>
   );
