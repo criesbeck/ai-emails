@@ -34,9 +34,9 @@ const TestEmails = () => {
 
 describe("Our emails view", () => {
   test("Renders the authors you give it", async () => {
-    const { getByText } = render(<TestEmails />);
+    const { getByTestId } = render(<TestEmails />);
     await waitFor(() => {
-      expect(getByText("Twila Penning")).toBeInTheDocument();
+      expect(getByTestId("Twila-Penning-checkbox")).toBeInTheDocument();
     });
   });
 });
