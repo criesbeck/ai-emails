@@ -162,7 +162,7 @@ const postEmails: EmailPost = async ({ students, storedStudents }) => {
   const body = new FormData();
   const curStudents = getStudentMap(students.students);
   Object.entries(storedStudents).forEach(
-    ([id, { email, message, finished }], index) => {
+    ([id, { email, message, finished }]) => {
       if (!finished) return;
       const issueNames = curStudents[id].issues
         .map((issue) => issue.name)
@@ -170,7 +170,6 @@ const postEmails: EmailPost = async ({ students, storedStudents }) => {
       body.append("id", id);
       body.append("email", email);
       body.append("message", message);
-      body.append("finished", finished.toString());
       body.append("issues", issueNames);
     }
   );

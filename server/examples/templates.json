@@ -9,7 +9,7 @@
     "id": "1",
     "name": "submission_gap",
     "subject": "Submission Gap",
-    "template": "You have not made any submissions in the past 4 days. Are you all right?"
+    "template": "You have not made any submissions in the past 4 days. Are you ok?"
   },
   "exercise_count": {
     "id": 2,
