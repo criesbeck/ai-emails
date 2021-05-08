@@ -3,7 +3,7 @@
     "id": "1",
     "name": "submission_gap",
     "subject": "Submission Gap",
-    "template": "You have not made any submissions in the past 4 days. Are you dong ok?"
+    "template": "You have not made any submissions in the past 4 days. Are you dong ok? In order to do well in the course, you have to submit code every week."
   },
   "exercise_count": {
     "id": 2,
