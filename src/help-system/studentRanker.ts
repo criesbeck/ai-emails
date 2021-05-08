@@ -10,9 +10,7 @@ import {
 import {
   getCourseContext,
   getWeekBefore,
-  isFirstWeek,
   scoreStudent,
-  getInitialEmail,
   getStudentMap,
 } from "./utils";
 import * as tagReducers from "./tagReducers";
@@ -51,10 +49,12 @@ const makeStudents = (context: WebContext): Student[] => {
   return getAuthors(context).map(makeStudent).map(filterIssues);
 };
 
-const getPreviousEmail = (info: WebContext, student: Student) => {
-  if (isFirstWeek(info.data.submissions.submissions, info.currentTime))
-    return null;
-  return getInitialEmail(student);
+const getPreviousEmail = (
+  info: WebContext,
+  student: Student
+): string | null => {
+  const studentHistory = info.data.emailHistory[student.id];
+  return studentHistory ? studentHistory[0].message : null;
 };
 
 export const orderStudents = (info: WebContext): Students => {
