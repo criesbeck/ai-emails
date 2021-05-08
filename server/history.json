@@ -1,0 +1,45 @@
+{
+  "948": [
+    {
+      "id": "948",
+      "email": "maryj.penn@egl-inc.info",
+      "message": "You have not made any submissions in the past 4 days. Are you dong ok? In order to do well in the course, you have to submit code every week.",
+      "issues": [
+        "submission_gap",
+        "exercise_count",
+        "ai_problems",
+        "challenge_problems"
+      ],
+      "submissionTime": 1620510882424
+    }
+  ],
+  "1324": [
+    {
+      "id": "1324",
+      "email": "fira-lamonta@progressenergyinc.info",
+      "message": "You have not made any submissions in the past 4 days. Are you dong ok? In order to do well in the course, you have to submit code every week.",
+      "issues": [
+        "submission_gap",
+        "exercise_count",
+        "ai_problems",
+        "challenge_problems"
+      ],
+      "submissionTime": 1620510882424
+    }
+  ],
+  "1796": [
+    {
+      "id": "1796",
+      "email": "cur-wilk@diaperstack.com",
+      "message": "You have not made any submissions in the past 4 days. Are you dong ok? In order to do well in the course, you have to submit code every week.",
+      "issues": [
+        "submission_gap",
+        "exercise_count",
+        "ai_problems",
+        "challenge_problems",
+        "dont_give_up"
+      ],
+      "submissionTime": 1620510882424
+    }
+  ]
+}
