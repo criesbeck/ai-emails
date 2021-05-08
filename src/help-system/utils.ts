@@ -87,8 +87,14 @@ export const getFinishedExercises = (
 export const scoreStudent = (student: Student): number =>
   student.issues.reduce((curScore, issue) => curScore + issue.weight, 0);
 
-export const getInitialEmail = (student: Student): string =>
-  student.issues.map((issue) => issue.template).join("\n");
+export const getInitialEmail = (student: Student): string => {
+  const submissionGap = student.issues.find(
+    (issue) => issue.name === "submission_gap"
+  );
+  return submissionGap
+    ? submissionGap.template
+    : student.issues.map((issue) => issue.template).join("\n");
+};
 
 export const getStudentMap = (students: Student[]): Record<string, Student> =>
   students.reduce(
