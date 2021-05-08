@@ -9,3 +9,4 @@ process.env.REACT_APP_AUTHORS = "/authors.json";
 process.env.REACT_APP_POKE = "/poke-325-export.json";
 process.env.REACT_APP_POST_EMAILS_URL = "/emails";
 process.env.REACT_APP_TEMPLATES_URL = "/templates";
+process.env.REACT_APP_GET_EMAILS_URL = "/emails";
