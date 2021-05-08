@@ -1,9 +1,9 @@
 import EmailsView from "./EmailsView";
 import { MemoryRouter } from "react-router-dom";
 import { render, waitFor } from "@testing-library/react";
-import submissionJson from "../../public/example-submission-data.json";
-import authorsJson from "../../public/authors.json";
-import pokeJson from "../../public/poke-325-export.json";
+import submissionJson from "../../server/example-submission-data.json";
+import authorsJson from "../../server/authors.json";
+import pokeJson from "../../server/poke-325-export.json";
 
 document.createRange = () => {
   const range = new Range();

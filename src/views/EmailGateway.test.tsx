@@ -4,9 +4,9 @@ import { fetchEmailStatistics } from "./EmailGateway";
 import { render, waitFor } from "@testing-library/react";
 import App from "../App";
 import { queryClient } from "./Providers";
-import submissions from "../../public/example-submission-data.json";
-import authors from "../../public/authors.json";
-import poke from "../../public/poke-325-export.json";
+import submissions from "../../server/example-submission-data.json";
+import authors from "../../server/authors.json";
+import poke from "../../server/poke-325-export.json";
 
 console.error = jest.fn();
 const mock = new AxiosMock(axios);
