@@ -328,7 +328,7 @@ const CheckboxHelpers = () => {
 };
 
 const EmailCore: React.FC<Students> = (props) => {
-  const { students } = props;
+  const { students, emailedStudents } = props;
   const studentMap = React.useMemo(() => getStudentMap(students), [students]);
   const value = useLocalStudents(props);
   return (
@@ -338,7 +338,12 @@ const EmailCore: React.FC<Students> = (props) => {
           path="/confirm"
           exact
           render={() => {
-            return <EmailConfirmation students={students} />;
+            return (
+              <EmailConfirmation
+                emailedStudents={emailedStudents}
+                students={students}
+              />
+            );
           }}
         />
         <Route

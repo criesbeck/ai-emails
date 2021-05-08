@@ -57,20 +57,41 @@ const getPreviousEmail = (
   return studentHistory ? studentHistory[0].message : null;
 };
 
-export const orderStudents = (info: WebContext): Students => {
+interface SortedStudents {
+  students: Student[];
+}
+
+const getSortedStudents = (info: WebContext): SortedStudents => {
   const studentsThisWeek = makeStudents(info);
   const studentsLastWeek = makeStudents({
     ...info,
     currentTime: getWeekBefore(info.currentTime),
   });
   const lastWeekMap = getStudentMap(studentsLastWeek);
-  const students = studentsThisWeek.sort(
+  const sortedStudents = studentsThisWeek.sort(
     (a, b) => scoreStudent(b) - scoreStudent(a)
   );
   return {
-    students: students.map((student) => ({
+    students: sortedStudents.map((student) => ({
       ...student,
       previousEmail: getPreviousEmail(info, lastWeekMap[student.id]),
     })),
+  };
+};
+
+const getEmailedStudents = (
+  sortedStudents: SortedStudents,
+  info: WebContext
+) => {
+  const lastTimes = Object.values(info.data.emailHistory);
+  console.log(lastTimes);
+  return sortedStudents;
+};
+
+export const orderStudents = (info: WebContext): Students => {
+  const sortedStudents = getSortedStudents(info);
+  return {
+    ...sortedStudents,
+    emailedStudents: getEmailedStudents(sortedStudents, info).students,
   };
 };

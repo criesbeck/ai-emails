@@ -15,12 +15,12 @@ const EmailViewController: React.FC<EmailCoreProps> = (props) => {
     data: props.data,
     currentTime,
   });
-  const { students } = results;
+  const { students, emailedStudents } = results;
   if (loading || students.length <= 0) return <EmailsLoading />;
   return (
     <>
       <TimePicker currentTime={currentTime} setCurrentTime={setCurrentTime} />
-      <EmailCore students={students} />
+      <EmailCore students={students} emailedStudents={emailedStudents} />
     </>
   );
 };

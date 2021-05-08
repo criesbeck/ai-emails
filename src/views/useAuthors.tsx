@@ -12,6 +12,7 @@ const useOrderStudents = (els: EmailViewElements) => {
   const [loading, setLoading] = React.useState(false);
   const [students, setStudents] = React.useState<Students>({
     students: [],
+    emailedStudents: [],
   });
   const sortStudents = React.useCallback(async () => {
     setLoading(true);

@@ -97,16 +97,19 @@ const Send: React.FC<Students> = (props) => {
   );
 };
 
-const EmailButtons: React.FC<Students> = ({ students }) => {
+const EmailButtons: React.FC<Students> = ({ students, emailedStudents }) => {
   return (
     <Flex py="16px" minWidth="300px" justifyContent="space-between">
       <GoBack />
-      <Send students={students} />
+      <Send emailedStudents={emailedStudents} students={students} />
     </Flex>
   );
 };
 
-const EmailConfirmation: React.FC<Students> = ({ students }) => {
+const EmailConfirmation: React.FC<Students> = ({
+  students,
+  emailedStudents,
+}) => {
   return (
     <Flex
       data-testid="confirm-emails-page"
@@ -114,9 +117,9 @@ const EmailConfirmation: React.FC<Students> = ({ students }) => {
       alignItems="center"
     >
       <Heading size="lg">Confirmation</Heading>
-      <EmailButtons students={students} />
-      <EmailTable students={students} />
-      <EmailButtons students={students} />
+      <EmailButtons emailedStudents={emailedStudents} students={students} />
+      <EmailTable emailedStudents={emailedStudents} students={students} />
+      <EmailButtons emailedStudents={emailedStudents} students={students} />
     </Flex>
   );
 };

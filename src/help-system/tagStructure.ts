@@ -57,4 +57,5 @@ export type TagValidator = (ctx: TagFilterContext) => Tag[];
 
 export interface Students {
   students: Student[];
+  emailedStudents: Student[];
 }
