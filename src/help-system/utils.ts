@@ -101,3 +101,13 @@ export const getStudentMap = (students: Student[]): Record<string, Student> =>
     (acc: Record<string, Student>, el) => ({ ...acc, [el.id]: el }),
     {}
   );
+
+export const emailedThisWeek = (
+  student: Student,
+  info: WebContext
+): boolean => {
+  const emailHist = info.data.emailHistory[student.id];
+  if (!emailHist) return false;
+  const lastEmail = emailHist[0];
+  return dayjs(Date.now()).diff(lastEmail.submissionTime, "week") < 1;
+};

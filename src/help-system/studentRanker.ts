@@ -12,6 +12,7 @@ import {
   getWeekBefore,
   scoreStudent,
   getStudentMap,
+  emailedThisWeek,
 } from "./utils";
 import * as tagReducers from "./tagReducers";
 import * as tagValidators from "./tagValidators";
@@ -79,19 +80,27 @@ const getSortedStudents = (info: WebContext): SortedStudents => {
   };
 };
 
-const getEmailedStudents = (
-  sortedStudents: SortedStudents,
+const separateByEmail = (
+  { students: sortedStudents }: SortedStudents,
   info: WebContext
-) => {
-  const lastTimes = Object.values(info.data.emailHistory);
-  console.log(lastTimes);
-  return sortedStudents;
+): Students => {
+  return sortedStudents.reduce(
+    (acc: Students, aStudent: Student) => {
+      return emailedThisWeek(aStudent, info)
+        ? {
+            ...acc,
+            emailedStudents: [...acc.emailedStudents, aStudent],
+          }
+        : {
+            ...acc,
+            students: [...acc.students, aStudent],
+          };
+    },
+    { students: [], emailedStudents: [] }
+  );
 };
 
 export const orderStudents = (info: WebContext): Students => {
   const sortedStudents = getSortedStudents(info);
-  return {
-    ...sortedStudents,
-    emailedStudents: getEmailedStudents(sortedStudents, info).students,
-  };
+  return separateByEmail(sortedStudents, info);
 };

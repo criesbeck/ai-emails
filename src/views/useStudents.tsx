@@ -187,6 +187,7 @@ export const useSendEmails = (students: Students) => {
       setStoredStudents(getInitialStudents(students));
       goHome();
       toast.success("Emails sent successfully.");
+      window.location.href = "/";
     } catch (err) {
       toast.error(
         `Something went wrong. Please refresh the page and try again.`

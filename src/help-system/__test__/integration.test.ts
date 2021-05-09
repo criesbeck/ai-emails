@@ -11,6 +11,7 @@ import {
   getLatestSubmission,
   isFirstWeek,
   getWeekBefore,
+  emailedThisWeek,
 } from "../utils";
 
 const readJson = (dir: string) =>
@@ -52,6 +53,85 @@ const runTest = (testCase: TestCase) => {
     expect(testPassed).toBe(true);
   });
 };
+
+describe("Checking if we've already a student this week", () => {
+  test("We can tell when we have", () => {
+    expect(
+      emailedThisWeek(
+        {
+          name: "test",
+          issues: [],
+          id: 3,
+          email: "arbitrary",
+          previousEmail: "arbitrary",
+        },
+        {
+          currentTime: 0,
+          data: {
+            submissions: {
+              exercises: {},
+              ai: [],
+              challenge: [],
+              submissions: {},
+            },
+            poke: { authors: {} },
+            authors: { authors: {} },
+            templates: {},
+            emailHistory: {
+              "3": [
+                {
+                  email: "test@test.com",
+                  id: 3,
+                  issues: ["test"],
+                  message: "test",
+                  submissionTime: Date.now(),
+                },
+              ],
+            },
+          },
+        }
+      )
+    ).toBe(true);
+  });
+  test("We can tell when we have not", () => {
+    expect(
+      emailedThisWeek(
+        {
+          name: "test",
+          issues: [],
+          id: 3,
+          email: "arbitrary",
+          previousEmail: "arbitrary",
+        },
+        {
+          currentTime: 0,
+          data: {
+            submissions: {
+              exercises: {},
+              ai: [],
+              challenge: [],
+              submissions: {},
+            },
+            poke: { authors: {} },
+            authors: { authors: {} },
+            templates: {},
+            emailHistory: {
+              "3": [
+                {
+                  email: "test@test.com",
+                  id: 3,
+                  issues: ["test"],
+                  message: "test",
+                  submissionTime: Date.now() - 1000 * 60 * 60 * 24 * 100,
+                },
+              ],
+            },
+          },
+        }
+      )
+    ).toBe(false);
+  });
+});
 
 describe("Simple utils", () => {
   test("Between works", () => {

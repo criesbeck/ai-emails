@@ -101,10 +101,12 @@ app.post("/emails", async (req, res, __) => {
   const fields: any = await parse(req);
   if (!fields) return res.sendStatus(404);
   const json = zipForm(fields);
-  const newHistFile = Object.keys(json).reduce(
-    (acc, key) => ({ ...acc, [key]: [json[key], ...oldHistFile[key]] }),
-    oldHistFile
-  );
+  const newHistFile = Object.keys(json).reduce((acc, key) => {
+    if (Array.isArray(oldHistFile[key])) {
+      return { ...acc, [key]: [json[key], ...oldHistFile[key]] };
+    }
+    return { ...acc, [key]: [json[key]] };
+  }, oldHistFile);
   await writeFile(historyPath, JSON.stringify(newHistFile));
   res.sendStatus(200);
 });

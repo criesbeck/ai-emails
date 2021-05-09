@@ -95,6 +95,7 @@ const EditEmail: React.FC<StudentProps> = ({ student }) => {
       <Heading size="lg" pb="10px">
         Message {student.name}
       </Heading>
+      1000 * 60 * 60 * 24 * 2
       <Textarea
         minWidth="500px"
         minHeight="400px"
@@ -327,6 +328,57 @@ const CheckboxHelpers = () => {
   );
 };
 
+interface AlreadyEmailedProps {
+  emailedStudents: Student[];
+}
+
+const AlreadySentHeadings = () => (
+  <Tr>
+    <Th>Name</Th>
+    <Th>Previous Email</Th>
+  </Tr>
+);
+
+const AlreadySentRow: React.FC<StudentProps> = ({ student }) => (
+  <Tr>
+    <Td>{student.name}</Td>
+    <Td maxWidth="300px">{student.previousEmail}</Td>
+  </Tr>
+);
+
+const AlreadySentTable: React.FC<AlreadyEmailedProps> = ({
+  emailedStudents,
+}) => {
+  return (
+    <Table variant="simple" data-testid="email-core-table">
+      <Thead>
+        <AlreadySentHeadings />
+      </Thead>
+      <Tbody>
+        {emailedStudents.map((student) => (
+          <AlreadySentRow key={student.id} student={student} />
+        ))}
+      </Tbody>
+      <Tfoot>
+        <AlreadySentHeadings />
+      </Tfoot>
+    </Table>
+  );
+};
+
+const EmailAlreadyEmailed: React.FC<AlreadyEmailedProps> = (props) => {
+  const { emailedStudents } = props;
+  if (!emailedStudents || emailedStudents.length <= 0) return null;
+  return (
+    <Flex flexDirection="column" alignItems="center">
+      <Heading size="md" pb="8px">
+        Previously Sent Emails
+      </Heading>
+      <AlreadySentTable emailedStudents={emailedStudents} />
+    </Flex>
+  );
+};
+
 const EmailCore: React.FC<Students> = (props) => {
   const { students, emailedStudents } = props;
   const studentMap = React.useMemo(() => getStudentMap(students), [students]);
@@ -362,6 +414,8 @@ const EmailCore: React.FC<Students> = (props) => {
           <EmailCoreTable students={students} />
           <CheckboxHelpers />
           <EmailButton />
+          <Flex height="1px" width="100%" bg="black" my="24px" />
+          <EmailAlreadyEmailed emailedStudents={emailedStudents} />
         </Route>
       </Switch>
     </StudentContext.Provider>
