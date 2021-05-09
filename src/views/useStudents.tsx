@@ -46,8 +46,9 @@ export const StudentContext = React.createContext<StudentState | undefined>(
   undefined
 );
 
-export const getInitialStudents = ({ students }: Students) =>
-  students.reduce((acc: StudentStorage, el) => {
+export const getInitialStudents = ({ students, emailedStudents }: Students) => {
+  const arr = emailedStudents ? [...students, ...emailedStudents] : students;
+  return arr.reduce((acc: StudentStorage, el) => {
     return {
       ...acc,
       [el.id]: {
@@ -58,6 +59,7 @@ export const getInitialStudents = ({ students }: Students) =>
       },
     };
   }, {});
+};
 
 export const useStudents = () => {
   const ctx = React.useContext(StudentContext);
@@ -74,10 +76,10 @@ const useToggleFinished = (student: Student) => {
       ...storedStudents,
       [student.id]: {
         ...storedStudents[student.id],
-        finished: !storedStudents[student.id].finished,
+        finished: !storedStudents[student.id]?.finished,
       },
     });
-  }, [storedStudents, setStoredStudents, student.id]);
+  }, [storedStudents, setStoredStudents, student?.id]);
   return toggleFinished;
 };
 
@@ -85,14 +87,14 @@ const useMessage = (student: Student) => {
   const { storedStudents, setStoredStudents } = useStudents();
   const goHome = useGoHome();
   const [message, setMessage] = React.useState<string>(
-    storedStudents[student.id].touched
-      ? storedStudents[student.id].message
+    storedStudents[student.id]?.touched
+      ? storedStudents[student.id]?.message
       : getInitialEmail(student)
   );
   const editMessage: React.ChangeEventHandler<HTMLTextAreaElement> = React.useCallback(
     (event) => {
       setMessage(event.target.value);
-      if (storedStudents[student.id].touched === true) return;
+      if (storedStudents[student.id]?.touched === true) return;
       setStoredStudents({
         ...storedStudents,
         [student.id]: { ...storedStudents[student.id], touched: true },

@@ -95,7 +95,6 @@ const EditEmail: React.FC<StudentProps> = ({ student }) => {
       <Heading size="lg" pb="10px">
         Message {student.name}
       </Heading>
-      1000 * 60 * 60 * 24 * 2
       <Textarea
         minWidth="500px"
         minHeight="400px"
