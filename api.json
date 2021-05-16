@@ -1,5 +1,5 @@
 {
-  "submissions": {
+  "REACT_APP_SUBMISSION_DATA": {
     "course": "cs325",
     "user": {
       "userid": "ckr427",
@@ -16304,7 +16304,7 @@
       }
     }
   },
-  "authors": {
+  "REACT_APP_AUTHORS": {
     "authors": {
       "948": {
         "name": "Mary-Jane Penning",
@@ -16658,7 +16658,7 @@
       }
     }
   },
-  "poke": {
+  "REACT_APP_POKE": {
     "authors": {
       "948": {
         "exercises": {
@@ -57470,12 +57470,12 @@
       }
     }
   },
-  "templates": {
+  "REACT_APP_TEMPLATES_URL": {
     "submission_gap": {
-      "id": 1,
+      "id": "1",
       "name": "submission_gap",
       "subject": "Submission Gap",
-      "template": "You haven't submitted anything in over 4 days. Is everything okay?"
+      "template": "You have not made any submissions in the past 4 days. Are you dong ok? In order to do well in the course, you have to submit code every week."
     },
     "exercise_count": {
       "id": 2,
@@ -57511,14 +57511,71 @@
       "id": 7,
       "name": "doing_fine",
       "subject": "Doing fine.",
-      "template": "You're doing fine. Keep up the good work."
+      "template": "You're doing fine. Keep working at your current pace. Since you're doing OK, try focusing on AI and challenge problems."
     },
     "can_relax": {
       "id": 8,
       "name": "can_relax",
       "subject": "You can relax.",
-      "template": "You're doing fine, and you've done enough. Feel free to relax."
+      "template": "You're doing fine. You've done enough work this quarter and can relax."
     }
   },
-  "emailHistory": {}
+  "REACT_APP_GET_EMAILS_URL": {
+    "948": [
+      {
+        "id": "948",
+        "email": "maryj.penn@egl-inc.info",
+        "message": "You have not made any submissions in the past 4 days. Are you dong ok? In order to do well in the course, you have to submit code every week.",
+        "issues": [
+          "submission_gap",
+          "exercise_count",
+          "ai_problems",
+          "challenge_problems"
+        ],
+        "submissionTime": 1620510882424
+      }
+    ],
+    "1724": [
+      {
+        "id": "1724",
+        "email": "mont-knut@arvinmeritor.info",
+        "message": "You have not made any submissions in the past 4 days. Are you dong ok? In order to do well in the course, you have to submit code every week.",
+        "issues": [
+          "submission_gap",
+          "exercise_count",
+          "ai_problems",
+          "challenge_problems"
+        ],
+        "submissionTime": 1621128630777
+      }
+    ],
+    "1725": [
+      {
+        "id": "1725",
+        "email": "tha-pontius@arvinmeritor.info",
+        "message": "You have not made any submissions in the past 4 days. Are you dong ok? In order to do well in the course, you have to submit code every week.",
+        "issues": [
+          "submission_gap",
+          "exercise_count",
+          "ai_problems",
+          "challenge_problems"
+        ],
+        "submissionTime": 1621128630777
+      }
+    ],
+    "1726": [
+      {
+        "id": "1726",
+        "email": "ail.ru@diaperstack.com",
+        "message": "You have not made any submissions in the past 4 days. Are you dong ok? In order to do well in the course, you have to submit code every week.",
+        "issues": [
+          "submission_gap",
+          "exercise_count",
+          "ai_problems",
+          "challenge_problems"
+        ],
+        "submissionTime": 1621128630777
+      }
+    ]
+  }
 }

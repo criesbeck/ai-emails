@@ -15,21 +15,38 @@ import {
   Tag,
   Button,
   Checkbox,
+  Spinner,
 } from "@chakra-ui/react";
-import { ApiResponse } from "../help-system/CriticStructure";
-import { Student, Tag as TagType } from "../help-system/tagStructure";
-import { StudentHelp, getInitialEmail } from "../help-system/studentRanker";
-import { Switch, Route, useLocation, useRouter } from "wouter";
-import { useLocalStorage } from "react-use";
+import {
+  ApiResponse,
+  Student,
+  Tag as TagType,
+  Students,
+  getStudentMap,
+  getInitialEmail,
+} from "../help-system";
+import { Route, Switch, useHistory } from "react-router-dom";
 import AlertError from "./AlertError";
+import {
+  StudentContext,
+  useStudent,
+  useGoHome,
+  useStudents,
+  useGotoConfirmation,
+  useLocalStudents,
+  useCheckboxHelper,
+} from "./useStudents";
+import EmailConfirmation from "./EmailConfirmation";
+import useIssue from "./useIssue";
 
 const TableColumnHeaders = () => {
   return (
     <Tr>
       <Th>Name</Th>
+      <Th>Email</Th>
       <Th>Issues</Th>
-      <Th>Send Message</Th>
       <Th>Finished</Th>
+      <Th>Edit</Th>
     </Tr>
   );
 };
@@ -38,66 +55,41 @@ interface StudentProps {
   student: Student;
 }
 
-const useSelectStudent = (student: Student) => {
-  const router = useRouter();
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_, setLocation] = useLocation();
+const useSelectStudent = ({ id }: Student) => {
+  const history = useHistory();
   const selectThisStudent = React.useCallback(() => {
-    setLocation(`/${student.id}`);
-    // @ts-ignore
-    router.lastLocation = window.scrollY;
-  }, [setLocation, student, router]);
+    history.push(`/${id}`);
+  }, [history, id]);
   return selectThisStudent;
-};
-
-interface LocalStudentStorage {
-  finished: boolean;
-  message: string;
-}
-
-const DEFAULT_STORAGE: LocalStudentStorage = {
-  finished: false,
-  message: "",
-};
-const useGoHome = () => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_, setLocation] = useLocation();
-  const goHome = React.useCallback(() => {
-    setLocation("/");
-  }, [setLocation]);
-  return goHome;
-};
-
-const useStoredStudent = (student: Student) => {
-  const goHome = useGoHome();
-  const [storage, setStorage] = useLocalStorage<LocalStudentStorage>(
-    `${student.id}`,
-    { finished: false, message: getInitialEmail(student) }
-  );
-  const toggleFinished = React.useCallback(() => {
-    const toSpread = { ...DEFAULT_STORAGE, ...storage };
-    setStorage({ ...toSpread, finished: !storage?.finished });
-  }, [setStorage, storage]);
-  const [message, setMessage] = React.useState<string>(
-    storage?.message || getInitialEmail(student)
-  );
-  const editMessage: React.ChangeEventHandler<HTMLTextAreaElement> = React.useCallback(
-    (event) => setMessage(event.target.value),
-    [setMessage]
-  );
-  const saveMessage = React.useCallback(() => {
-    setStorage({ finished: true, message: message });
-    goHome();
-  }, [message, setStorage, goHome]);
-  return { storage, toggleFinished, message, editMessage, saveMessage };
 };
 
 const Divider = () => {
   return <Flex backgroundColor="black" mx="24px" width="1px" />;
 };
 
+interface PreviousEmailProps {
+  previousEmail: string | null;
+}
+
+const PreviousEmail: React.FC<PreviousEmailProps> = ({ previousEmail }) => {
+  if (previousEmail === null || previousEmail === "") return null;
+  return (
+    <>
+      <Heading size="md" py="10px">
+        Previous Message
+      </Heading>
+      <Textarea
+        minWidth="500px"
+        minHeight="400px"
+        value={previousEmail}
+        readOnly
+      />
+    </>
+  );
+};
+
 const EditEmail: React.FC<StudentProps> = ({ student }) => {
-  const { message, saveMessage, editMessage } = useStoredStudent(student);
+  const { message, saveMessage, editMessage } = useStudent(student);
   return (
     <Flex flexDirection="column" alignItems="center">
       <Heading size="lg" pb="10px">
@@ -109,11 +101,12 @@ const EditEmail: React.FC<StudentProps> = ({ student }) => {
         value={message}
         onChange={editMessage}
       />
-      <Flex pt="10px">
+      <Flex py="10px">
         <Button onClick={saveMessage} colorScheme="blue">
           Save Draft
         </Button>
       </Flex>
+      <PreviousEmail previousEmail={student.previousEmail} />
     </Flex>
   );
 };
@@ -122,25 +115,18 @@ interface IssueFormProps {
   issue: TagType;
 }
 
-const useIssue = (issue: TagType) => {
-  const [issueText, setIssueText] = React.useState<string>(issue.template);
-  const changeIssue: React.ChangeEventHandler<HTMLTextAreaElement> = React.useCallback(
-    (event) => {
-      setIssueText(event.target.value);
-    },
-    [setIssueText]
-  );
-  return { issueText, changeIssue };
-};
-
 const IssueForm: React.FC<IssueFormProps> = ({ issue }) => {
-  const { issueText, changeIssue } = useIssue(issue);
+  const { issueText, changeIssue, saveIssueChanges, mutation } = useIssue(
+    issue
+  );
   return (
     <Flex flexDirection="column" maxWidth="200px" py="16px">
-      <Text fontWeight="bold">{issue.name}</Text>
+      <Text fontWeight="bold">{issue.subject}</Text>
       <Textarea onChange={changeIssue} value={issueText} />
       <Flex pt="8px">
-        <Button colorScheme="blue">Save Changes</Button>
+        <Button onClick={saveIssueChanges} colorScheme="blue">
+          {mutation.isLoading ? <Spinner size="sm" /> : `Save Changes`}
+        </Button>
       </Flex>
     </Flex>
   );
@@ -182,9 +168,10 @@ const EditStudentMessage: React.FC<StudentProps> = ({ student }) => {
 };
 
 const FinishedCheckbox: React.FC<StudentProps> = ({ student }) => {
-  const { storage, toggleFinished } = useStoredStudent(student);
+  const { storage, toggleFinished } = useStudent(student);
   return (
     <Checkbox
+      data-testid={`${student.name.replace(" ", "-")}-checkbox`}
       isChecked={storage?.finished}
       onChange={toggleFinished}
       size="lg"
@@ -192,19 +179,40 @@ const FinishedCheckbox: React.FC<StudentProps> = ({ student }) => {
   );
 };
 
+interface IssueListProps {
+  issues: TagType[];
+}
+
+const IssueList: React.FC<IssueListProps> = ({ issues }) => {
+  return (
+    <>
+      {issues.map((issue) => {
+        return (
+          <Tag colorScheme="teal" key={issue.name} mr="8px" mb="8px">
+            {issue.subject}
+          </Tag>
+        );
+      })}
+    </>
+  );
+};
+
 const TableAuthor: React.FC<StudentProps> = ({ student }) => {
   const selectThisStudent = useSelectStudent(student);
+  const { storage } = useStudent(student);
   return (
     <Tr>
-      <Td>{student.name}</Td>
+      <Td>
+        {student.name}
+        <br />
+        {student.email}
+      </Td>
+      <Td maxWidth="300px">{storage?.message || getInitialEmail(student)}</Td>
       <Td maxWidth="300px">
-        {student.issues.map((issue) => {
-          return (
-            <Tag colorScheme="teal" key={issue.name} mr="8px" mb="8px">
-              {issue.name}
-            </Tag>
-          );
-        })}
+        <IssueList issues={student.issues} />
+      </Td>
+      <Td>
+        <FinishedCheckbox student={student} />
       </Td>
       <Td>
         <Button
@@ -212,11 +220,8 @@ const TableAuthor: React.FC<StudentProps> = ({ student }) => {
           onClick={selectThisStudent}
           colorScheme="blue"
         >
-          Message
+          Edit
         </Button>
-      </Td>
-      <Td>
-        <FinishedCheckbox student={student} />
       </Td>
     </Tr>
   );
@@ -245,19 +250,7 @@ export interface EmailCoreProps {
   data: ApiResponse;
 }
 
-const useRememberScrollPosition = () => {
-  const router = useRouter();
-  React.useEffect(() => {
-    // @ts-ignore
-    if (!router.lastLocation) return;
-    // @ts-ignore
-    const lastLocation: number = router.lastLocation;
-    window.scrollTo({ top: lastLocation });
-  }, [router]);
-};
-
 const EmailCoreTable: React.FC<TableProps> = ({ students }) => {
-  useRememberScrollPosition();
   return (
     <Table variant="simple" data-testid="email-core-table">
       <TableCaption>Students</TableCaption>
@@ -307,24 +300,124 @@ const StudentMissing: React.FC<StudentMissingProps> = ({ id }) => {
   );
 };
 
-const EmailCore: React.FC<StudentHelp> = (props) => {
-  const { students, studentMap } = props;
+const EmailButton = () => {
+  const gotoConfirmation = useGotoConfirmation();
+  const { storedStudents } = useStudents();
   return (
-    <Switch>
-      <Route path="/:id">
-        {(params) =>
-          studentMap[params.id] ? (
-            <EditStudentMessage student={studentMap[params.id]} />
-          ) : (
-            <StudentMissing id={params.id} />
-          )
-        }
-      </Route>
-      <Route>
-        <EmailCoreTable students={students} />
-        <Button colorScheme="teal">Send all Emails</Button>
-      </Route>
-    </Switch>
+    <Button
+      isDisabled={
+        !Object.values(storedStudents).some((student) => student.finished)
+      }
+      data-testid="goto-confirm-emails"
+      onClick={gotoConfirmation}
+      colorScheme="teal"
+    >
+      Send Email
+    </Button>
+  );
+};
+
+const CheckboxHelpers = () => {
+  const { setFinished, setUnfinished } = useCheckboxHelper();
+  return (
+    <Flex py="16px" justifyContent="space-between" minWidth="250px">
+      <Button onClick={setFinished}>Check All</Button>
+      <Button onClick={setUnfinished}>Uncheck All</Button>
+    </Flex>
+  );
+};
+
+interface AlreadyEmailedProps {
+  emailedStudents: Student[];
+}
+
+const AlreadySentHeadings = () => (
+  <Tr>
+    <Th>Name</Th>
+    <Th>Previous Email</Th>
+  </Tr>
+);
+
+const AlreadySentRow: React.FC<StudentProps> = ({ student }) => (
+  <Tr>
+    <Td>{student.name}</Td>
+    <Td maxWidth="300px">{student.previousEmail}</Td>
+  </Tr>
+);
+
+const AlreadySentTable: React.FC<AlreadyEmailedProps> = ({
+  emailedStudents,
+}) => {
+  return (
+    <Table variant="simple" data-testid="email-core-table">
+      <Thead>
+        <AlreadySentHeadings />
+      </Thead>
+      <Tbody>
+        {emailedStudents.map((student) => (
+          <AlreadySentRow key={student.id} student={student} />
+        ))}
+      </Tbody>
+      <Tfoot>
+        <AlreadySentHeadings />
+      </Tfoot>
+    </Table>
+  );
+};
+
+const EmailAlreadyEmailed: React.FC<AlreadyEmailedProps> = (props) => {
+  const { emailedStudents } = props;
+  if (!emailedStudents || emailedStudents.length <= 0) return null;
+  return (
+    <Flex flexDirection="column" alignItems="center">
+      <Heading size="md" pb="8px">
+        Previously Sent Emails
+      </Heading>
+      <AlreadySentTable emailedStudents={emailedStudents} />
+    </Flex>
+  );
+};
+
+const EmailCore: React.FC<Students> = (props) => {
+  const { students, emailedStudents } = props;
+  const studentMap = React.useMemo(() => getStudentMap(students), [students]);
+  const value = useLocalStudents(props);
+  return (
+    <StudentContext.Provider value={value}>
+      <Switch>
+        <Route
+          path="/confirm"
+          exact
+          render={() => {
+            return (
+              <EmailConfirmation
+                emailedStudents={emailedStudents}
+                students={students}
+              />
+            );
+          }}
+        />
+        <Route
+          path="/:id"
+          exact
+          render={({ match }) => {
+            return studentMap[match.params.id] ? (
+              <EditStudentMessage student={studentMap[match.params.id]} />
+            ) : (
+              <StudentMissing id={match.params.id} />
+            );
+          }}
+        ></Route>
+        <Route>
+          <CheckboxHelpers />
+          <EmailCoreTable students={students} />
+          <CheckboxHelpers />
+          <EmailButton />
+          <Flex height="1px" width="100%" bg="black" my="24px" />
+          <EmailAlreadyEmailed emailedStudents={emailedStudents} />
+        </Route>
+      </Switch>
+    </StudentContext.Provider>
   );
 };
 

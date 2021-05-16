@@ -4,7 +4,7 @@ import EmailsLoading from "./EmailsLoading";
 import TimePicker from "./TimePicker";
 import EmailCore, { EmailCoreProps } from "./EmailCore";
 
-import { getLatestSubmission } from "../help-system/utils";
+import { getLatestSubmission } from "../help-system";
 import useAuthors from "./useAuthors";
 
 const EmailViewController: React.FC<EmailCoreProps> = (props) => {
@@ -15,12 +15,13 @@ const EmailViewController: React.FC<EmailCoreProps> = (props) => {
     data: props.data,
     currentTime,
   });
-  if (loading) return <EmailsLoading />;
-  const { students, studentMap } = results;
+  const { students, emailedStudents } = results;
+  if (loading || (students.length <= 0 && emailedStudents.length <= 0))
+    return <EmailsLoading />;
   return (
     <>
       <TimePicker currentTime={currentTime} setCurrentTime={setCurrentTime} />
-      <EmailCore students={students} studentMap={studentMap} />
+      <EmailCore students={students} emailedStudents={emailedStudents} />
     </>
   );
 };

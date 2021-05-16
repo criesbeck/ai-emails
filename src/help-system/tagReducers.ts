@@ -2,17 +2,34 @@ import dayjs from "dayjs";
 import {
   getFinishedExercises,
   countAiExercises,
+  countChallengeExercises,
   between,
   isFinished,
+  finishedSoFar,
 } from "./utils";
 import { AuthorSubmissionHistory } from "./CriticStructure";
-import { TagReducer, CourseContext } from "./tagStructure";
+import { TagReducer, TagContext, CourseContext } from "./tagStructure";
+
+export const submissionGap: TagReducer = ({ ctx, history }) => {
+  const finishedExercises = getFinishedExercises(history, ctx);
+  const lastSubmission = history.submissions
+    .filter((submission) => submission.submitted <= ctx.currentTime)
+    .sort((a, b) => b.submitted - a.submitted)[0];
+  const daysBetween = lastSubmission?.submitted
+    ? dayjs(ctx.currentTime).diff(lastSubmission.submitted, "day")
+    : Infinity;
+  return {
+    ...ctx.templates.submission_gap,
+    subject: `${ctx.templates.submission_gap.subject} ${daysBetween}`,
+    weight: daysBetween >= 4 && finishedExercises.length < 30 ? 1 : 0,
+  };
+};
 
 export const exerciseCount: TagReducer = ({ history, ctx }) => {
   const thisWeeksExercises = getFinishedExercises(history, ctx);
   return {
-    name: "Exercise Count",
-    template: `You did not complete three exercises this week.`,
+    ...ctx.templates.exercise_count,
+    subject: `${ctx.templates.exercise_count.subject} ${thisWeeksExercises.length} / 3`,
     weight: 3 - thisWeeksExercises.length,
   };
 };
@@ -21,33 +38,34 @@ interface ReducerConfig {
   name: string;
   template: string;
   offset: number;
+  fn: (history: AuthorSubmissionHistory, ctx: CourseContext) => number;
 }
 
 const generateCategoryReducer = (config: ReducerConfig): TagReducer => {
-  const { offset, template, name } = config;
+  const { offset, name, fn } = config;
   const needsMore: TagReducer = ({ history, ctx }) => {
+    const count = fn(history, ctx);
     return {
-      name,
-      template,
-      weight:
-        ctx.currentWeek < 5
-          ? 0
-          : ctx.currentWeek - offset - countAiExercises(history, ctx),
+      ...ctx.templates[name],
+      subject: `${ctx.templates[name].subject} ${count}`,
+      weight: ctx.currentWeek < 5 ? 0 : offset - count,
     };
   };
   return needsMore;
 };
 
 export const needsMoreAi = generateCategoryReducer({
-  name: "AI Problems",
+  name: "ai_problems",
   template: "You should work on more AI exercises.",
   offset: 7,
+  fn: countAiExercises,
 });
 
 export const needsMoreChallenge = generateCategoryReducer({
-  name: "Challenge Problems",
+  name: "challenge_problems",
   template: "You should work on more challenge exercises.",
   offset: 7,
+  fn: countChallengeExercises,
 });
 
 const getDropWeight = (
@@ -64,13 +82,12 @@ const getDropWeight = (
 export const considerDropping: TagReducer = ({ history, ctx }) => {
   const dropWeight = getDropWeight(history, ctx);
   return {
-    name: "Consider Dropping",
-    template: "You should consider dropping the course.",
+    ...ctx.templates.consider_dropping,
     weight: dropWeight,
   };
 };
 
-export const needsEncouragement: TagReducer = ({ history }) => {
+export const needsEncouragement: TagReducer = ({ ctx, history }) => {
   const unfinishedExercises = Object.values(history.exercises).filter(
     (ex) => !isFinished(ex.status)
   );
@@ -78,24 +95,25 @@ export const needsEncouragement: TagReducer = ({ history }) => {
     unfinishedExercises.find((ex) => ex?.submit_hist?.length > 5)
   );
   return {
-    name: "Don't give up!",
-    template: "Don't give up! Keep trying and learning! You can do it!",
+    ...ctx.templates.dont_give_up,
     weight: needsEncouragement ? 1 : 0,
   };
 };
 
-export const submissionGap: TagReducer = ({ ctx, history }) => {
-  const finishedExercises = getFinishedExercises(history, ctx);
-  const lastSubmission = history.submissions
-    .filter((submission) => submission.submitted <= ctx.currentTime)
-    .sort((a, b) => b.submitted - a.submitted)[0];
-  const daysBetween = lastSubmission?.submitted
-    ? dayjs(ctx.currentTime).diff(lastSubmission.submitted, "day")
-    : Infinity;
+const studentCanRelax = (ctx: TagContext): boolean => {
+  const currentlyFinished = finishedSoFar(ctx);
+  if (currentlyFinished.length < 30) return false;
+  const aiAndChallenge = currentlyFinished.filter((x) => {
+    const id = x.submit_hist[0].exid;
+    return ctx.ctx.aiExercises.has(id) || ctx.ctx.challengeExercises.has(id);
+  });
+  return aiAndChallenge.length >= 4 && ctx.ctx.currentWeek >= 8;
+};
+
+export const canRelax: TagReducer = (ctx) => {
+  const canRelax = studentCanRelax(ctx);
   return {
-    name: "Submission Gap",
-    template:
-      "You haven't submitted anything in over 4 days. Is everything okay?",
-    weight: daysBetween >= 4 && finishedExercises.length < 30 ? 1 : 0,
+    ...ctx.ctx.templates.can_relax,
+    weight: canRelax ? 1 : 0,
   };
 };

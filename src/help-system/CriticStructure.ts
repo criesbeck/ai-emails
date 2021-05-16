@@ -54,6 +54,18 @@ export interface AuthorHistory {
   authors: Record<authorId, AuthorSubmissionHistory>;
 }
 
+export type Templates = Record<string, TemplateResponse>;
+
+interface EmailRecord {
+  id: authorId;
+  email: string;
+  message: string;
+  issues: string[];
+  submissionTime: number;
+}
+
+export type EmailHistory = Record<authorId, EmailRecord[]>;
+
 export interface ApiResponse {
   authors: {
     authors: Record<authorId, Author>;
@@ -62,4 +74,13 @@ export interface ApiResponse {
     authors: Record<authorId, AuthorSubmissionHistory>;
   };
   submissions: Submissions;
+  templates: Templates;
+  emailHistory: EmailHistory;
+}
+
+export interface TemplateResponse {
+  id: number;
+  name: string;
+  subject: string;
+  template: string;
 }
