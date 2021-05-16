@@ -10,7 +10,7 @@ const updateIssue = async (issue: Tag) => {
   formBody.append("name", issue.name);
   formBody.append("subject", issue.subject);
   formBody.append("template", issue.template);
-  await axios.put(process.env.REACT_APP_TEMPLATES_URL!, formBody);
+  await axios.put(process.env.REACT_APP_PUT_TEMPLATES_URL!, formBody);
 };
 
 const useIssue = (issue: Tag) => {

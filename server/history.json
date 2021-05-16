@@ -12,5 +12,47 @@
       ],
       "submissionTime": 1620510882424
     }
+  ],
+  "1724": [
+    {
+      "id": "1724",
+      "email": "mont-knut@arvinmeritor.info",
+      "message": "You have not made any submissions in the past 4 days. Are you dong ok? In order to do well in the course, you have to submit code every week.",
+      "issues": [
+        "submission_gap",
+        "exercise_count",
+        "ai_problems",
+        "challenge_problems"
+      ],
+      "submissionTime": 1621128630777
+    }
+  ],
+  "1725": [
+    {
+      "id": "1725",
+      "email": "tha-pontius@arvinmeritor.info",
+      "message": "You have not made any submissions in the past 4 days. Are you dong ok? In order to do well in the course, you have to submit code every week.",
+      "issues": [
+        "submission_gap",
+        "exercise_count",
+        "ai_problems",
+        "challenge_problems"
+      ],
+      "submissionTime": 1621128630777
+    }
+  ],
+  "1726": [
+    {
+      "id": "1726",
+      "email": "ail.ru@diaperstack.com",
+      "message": "You have not made any submissions in the past 4 days. Are you dong ok? In order to do well in the course, you have to submit code every week.",
+      "issues": [
+        "submission_gap",
+        "exercise_count",
+        "ai_problems",
+        "challenge_problems"
+      ],
+      "submissionTime": 1621128630777
+    }
   ]
 }
