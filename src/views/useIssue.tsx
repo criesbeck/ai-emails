@@ -4,11 +4,15 @@ import axios from "axios";
 import { useMutation } from "react-query";
 import { toast } from "react-toastify";
 
+const normalizeSubject = (subject: string) => {
+  return subject.replace(/[0-9]/g, "").trim();
+};
+
 const updateIssue = async (issue: Tag) => {
   const formBody = new FormData();
   formBody.append("id", `${issue.id}`);
   formBody.append("name", issue.name);
-  formBody.append("subject", issue.subject);
+  formBody.append("subject", normalizeSubject(issue.subject));
   formBody.append("template", issue.template);
   await axios.put(process.env.REACT_APP_PUT_TEMPLATES_URL!, formBody);
 };
