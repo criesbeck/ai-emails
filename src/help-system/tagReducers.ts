@@ -8,12 +8,7 @@ import {
   finishedSoFar,
 } from "./utils";
 import { AuthorSubmissionHistory } from "./CriticStructure";
-import {
-  TagReducer,
-  TagContext,
-  CourseContext,
-  WebContext,
-} from "./tagStructure";
+import { TagReducer, TagContext, CourseContext } from "./tagStructure";
 
 export const submissionGap: TagReducer = ({ ctx, history }) => {
   const finishedExercises = getFinishedExercises(history, ctx);
@@ -25,6 +20,7 @@ export const submissionGap: TagReducer = ({ ctx, history }) => {
     : Infinity;
   return {
     ...ctx.templates.submission_gap,
+    subject: `${ctx.templates.submission_gap.subject} ${daysBetween}`,
     weight: daysBetween >= 4 && finishedExercises.length < 30 ? 1 : 0,
   };
 };
@@ -33,6 +29,7 @@ export const exerciseCount: TagReducer = ({ history, ctx }) => {
   const thisWeeksExercises = getFinishedExercises(history, ctx);
   return {
     ...ctx.templates.exercise_count,
+    subject: `${ctx.templates.exercise_count.subject} ${thisWeeksExercises.length} / 3`,
     weight: 3 - thisWeeksExercises.length,
   };
 };
