@@ -57506,6 +57506,18 @@
       "name": "dont_give_up",
       "subject": "Don't give up!",
       "template": "Don't give up! Keep trying and learning! You can do it!"
+    },
+    "doing_fine": {
+      "id": 7,
+      "name": "doing_fine",
+      "subject": "You're doing fine.",
+      "template": "You're doing fine. Keep up the good work."
+    },
+    "can_relax": {
+      "id": 8,
+      "name": "can_relax",
+      "subject": "Nice work",
+      "template": "You're doing fine, and you've done enough. Feel free to relax."
     }
   },
   "emailHistory": {}

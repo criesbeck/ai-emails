@@ -34,5 +34,17 @@
     "name": "dont_give_up",
     "subject": "Don't give up!",
     "template": "Don't give up! Keep trying and learning! You can do it!"
+  },
+  "doing_fine": {
+    "id": 7,
+    "name": "doing_fine",
+    "subject": "Doing fine.",
+    "template": "You're doing fine. Keep working at your current pace."
+  },
+  "can_relax": {
+    "id": 8,
+    "name": "can_relax",
+    "subject": "You can relax.",
+    "template": "You're doing fine. You've done enough work this quarter and can relax."
   }
 }
