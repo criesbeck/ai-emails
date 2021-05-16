@@ -5,7 +5,7 @@ import {
   Status,
   Submission,
 } from "./CriticStructure";
-import { WebContext, CourseContext, Student } from "./tagStructure";
+import { WebContext, CourseContext, Student, TagContext } from "./tagStructure";
 
 type SubmissionRecord = Record<submissionId, Submission>;
 
@@ -62,6 +62,16 @@ export const countAiExercises = (
   }).length;
 };
 
+export const countChallengeExercises = (
+  history: AuthorSubmissionHistory,
+  ctx: CourseContext
+): number => {
+  const thisWeeksExercises = getFinishedExercises(history, ctx);
+  return thisWeeksExercises.filter((ex) => {
+    return ctx.challengeExercises.has(ex.submit_hist[0].exid);
+  }).length;
+};
+
 export const getCourseContext = (webContext: WebContext): CourseContext => {
   return {
     currentTime: webContext.currentTime,
@@ -110,4 +120,13 @@ export const emailedThisWeek = (
   if (!emailHist) return false;
   const lastEmail = emailHist[0];
   return dayjs(Date.now()).diff(lastEmail.submissionTime, "week") < 1;
+};
+
+export const finishedSoFar = (ctx: TagContext) => {
+  const {
+    history: { exercises },
+  } = ctx;
+  return Object.values(exercises).filter((ex) => {
+    return ex.submitted <= ctx.ctx.currentTime && isFinished(ex.status);
+  });
 };

@@ -2,11 +2,18 @@ import dayjs from "dayjs";
 import {
   getFinishedExercises,
   countAiExercises,
+  countChallengeExercises,
   between,
   isFinished,
+  finishedSoFar,
 } from "./utils";
 import { AuthorSubmissionHistory } from "./CriticStructure";
-import { TagReducer, CourseContext } from "./tagStructure";
+import {
+  TagReducer,
+  TagContext,
+  CourseContext,
+  WebContext,
+} from "./tagStructure";
 
 export const submissionGap: TagReducer = ({ ctx, history }) => {
   const finishedExercises = getFinishedExercises(history, ctx);
@@ -34,17 +41,17 @@ interface ReducerConfig {
   name: string;
   template: string;
   offset: number;
+  fn: (history: AuthorSubmissionHistory, ctx: CourseContext) => number;
 }
 
 const generateCategoryReducer = (config: ReducerConfig): TagReducer => {
-  const { offset, name } = config;
+  const { offset, name, fn } = config;
   const needsMore: TagReducer = ({ history, ctx }) => {
+    const count = fn(history, ctx);
     return {
       ...ctx.templates[name],
-      weight:
-        ctx.currentWeek < 5
-          ? 0
-          : ctx.currentWeek - offset - countAiExercises(history, ctx),
+      subject: `${ctx.templates[name].subject} ${count}`,
+      weight: ctx.currentWeek < 5 ? 0 : offset - count,
     };
   };
   return needsMore;
@@ -54,12 +61,14 @@ export const needsMoreAi = generateCategoryReducer({
   name: "ai_problems",
   template: "You should work on more AI exercises.",
   offset: 7,
+  fn: countAiExercises,
 });
 
 export const needsMoreChallenge = generateCategoryReducer({
   name: "challenge_problems",
   template: "You should work on more challenge exercises.",
   offset: 7,
+  fn: countChallengeExercises,
 });
 
 const getDropWeight = (
@@ -91,5 +100,23 @@ export const needsEncouragement: TagReducer = ({ ctx, history }) => {
   return {
     ...ctx.templates.dont_give_up,
     weight: needsEncouragement ? 1 : 0,
+  };
+};
+
+const studentCanRelax = (ctx: TagContext): boolean => {
+  const currentlyFinished = finishedSoFar(ctx);
+  if (currentlyFinished.length < 30) return false;
+  const aiAndChallenge = currentlyFinished.filter((x) => {
+    const id = x.submit_hist[0].exid;
+    return ctx.ctx.aiExercises.has(id) || ctx.ctx.challengeExercises.has(id);
+  });
+  return aiAndChallenge.length >= 4 && ctx.ctx.currentWeek >= 8;
+};
+
+export const canRelax: TagReducer = (ctx) => {
+  const canRelax = studentCanRelax(ctx);
+  return {
+    ...ctx.ctx.templates.can_relax,
+    weight: canRelax ? 1 : 0,
   };
 };

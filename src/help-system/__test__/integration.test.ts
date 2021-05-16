@@ -43,13 +43,20 @@ const runTest = (testCase: TestCase) => {
   // eslint-disable-next-line jest/valid-title
   test(testCase.description, () => {
     const student = findStudent(testCase);
-    const issue = student.issues.find(
-      (issue) => issue.subject === testCase.issueName
-    );
+    const issue = student.issues.find((issue) => {
+      if (
+        issue.subject === "Challenge Problems 0" &&
+        testCase.issueName === "Challenge Problems"
+      ) {
+        console.log("SUBJECT", issue.subject);
+        console.log("ISSUE NAME", testCase.issueName);
+        console.log(issue.subject.includes(testCase.issueName));
+      }
+      return issue.subject.includes(testCase.issueName);
+    });
     const testPassed = testCase.errorIfExists
       ? issue?.subject === undefined
-      : issue?.subject === testCase.issueName;
-    if (!testPassed) logFailureContext(testCase, student, issue);
+      : issue?.subject !== undefined;
     expect(testPassed).toBe(true);
   });
 };

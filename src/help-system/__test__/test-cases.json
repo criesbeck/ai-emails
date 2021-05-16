@@ -57,14 +57,14 @@
     },
     {
       "description": "We can find a student who needs to do more challenge problems.",
-      "week": "WEEK_8",
-      "studentName": "Latif Thacker",
+      "week": "WEEK_10",
+      "studentName": "Gina Voyles",
       "issueName": "Challenge Problems"
     },
     {
       "description": "We don't report on challenge problems too early in the quarter",
       "week": "WEEK_1",
-      "studentName": "Latif Thacker",
+      "studentName": "Gina Voyles",
       "issueName": "Challenge Problems",
       "errorIfExists": true
     },
@@ -126,6 +126,19 @@
       "week": "WEEK_8",
       "studentName": "Eliora Grissett",
       "issueName": "Submission Gap",
+      "errorIfExists": true
+    },
+    {
+      "description": "We can find a student who can relax",
+      "week": "WEEK_11",
+      "studentName": "Eliora Grissett",
+      "issueName": "You can relax."
+    },
+    {
+      "description": "We can find a student who should not relax.",
+      "week": "WEEK_11",
+      "studentName": "Brazil Gast",
+      "issueName": "You can relax.",
       "errorIfExists": true
     }
   ]
