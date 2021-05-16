@@ -3,7 +3,6 @@ import path from "path";
 import dayjs from "dayjs";
 import { TestInputs, TestCase } from "./test-types";
 import { ApiResponse } from "../CriticStructure";
-import { Student, Tag } from "../tagStructure";
 import { orderStudents } from "../studentRanker";
 import {
   between,
@@ -19,12 +18,6 @@ const readJson = (dir: string) =>
 
 const data = readJson("api-data.json") as ApiResponse;
 const inputs = readJson("test-cases.json") as TestInputs;
-
-const logFailureContext = (testCase: TestCase, student: Student, tag?: Tag) => {
-  console.log("TEST CASE: ", testCase);
-  console.log("STUDENT: ", student);
-  console.log("TAG: ", tag);
-};
 
 const findStudent = (testCase: TestCase) => {
   const { students } = orderStudents({
@@ -44,14 +37,6 @@ const runTest = (testCase: TestCase) => {
   test(testCase.description, () => {
     const student = findStudent(testCase);
     const issue = student.issues.find((issue) => {
-      if (
-        issue.subject === "Challenge Problems 0" &&
-        testCase.issueName === "Challenge Problems"
-      ) {
-        console.log("SUBJECT", issue.subject);
-        console.log("ISSUE NAME", testCase.issueName);
-        console.log(issue.subject.includes(testCase.issueName));
-      }
       return issue.subject.includes(testCase.issueName);
     });
     const testPassed = testCase.errorIfExists
