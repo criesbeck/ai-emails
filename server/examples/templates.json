@@ -29,20 +29,14 @@
     "subject": "Consider Dropping",
     "template": "You should consider dropping the course."
   },
-  "dont_give_up": {
-    "id": 6,
-    "name": "dont_give_up",
-    "subject": "Don't give up!",
-    "template": "Don't give up! Keep trying and learning! You can do it!"
-  },
   "doing_fine": {
-    "id": 7,
+    "id": 6,
     "name": "doing_fine",
     "subject": "Doing fine.",
     "template": "You're doing fine. Keep working at your current pace. Since you're doing OK, try focusing on AI and challenge problems."
   },
   "can_relax": {
-    "id": 8,
+    "id": 7,
     "name": "can_relax",
     "subject": "You can relax.",
     "template": "You're doing fine. You've done enough work this quarter and can relax."

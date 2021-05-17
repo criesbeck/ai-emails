@@ -103,19 +103,6 @@
       "errorIfExists": true
     },
     {
-      "description": "We can find and provide encouragement to a student who needs it.",
-      "week": "WEEK_8",
-      "studentName": "Curran Wilkins",
-      "issueName": "Don't give up!"
-    },
-    {
-      "description": "We do not provide encouragement to a student who does not need it.",
-      "week": "WEEK_8",
-      "studentName": "Drystan Hamman",
-      "issueName": "Don't give up!",
-      "errorIfExists": true
-    },
-    {
       "description": "We can find a student with a submission gap.",
       "week": "WEEK_10",
       "studentName": "Sharlene Spinks",

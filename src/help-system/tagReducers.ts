@@ -87,19 +87,6 @@ export const considerDropping: TagReducer = ({ history, ctx }) => {
   };
 };
 
-export const needsEncouragement: TagReducer = ({ ctx, history }) => {
-  const unfinishedExercises = Object.values(history.exercises).filter(
-    (ex) => !isFinished(ex.status)
-  );
-  const needsEncouragement = Boolean(
-    unfinishedExercises.find((ex) => ex?.submit_hist?.length > 5)
-  );
-  return {
-    ...ctx.templates.dont_give_up,
-    weight: needsEncouragement ? 1 : 0,
-  };
-};
-
 const studentCanRelax = (ctx: TagContext): boolean => {
   const currentlyFinished = finishedSoFar(ctx);
   if (currentlyFinished.length < 30) return false;
