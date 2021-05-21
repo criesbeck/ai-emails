@@ -21,7 +21,7 @@ export const submissionGap: TagReducer = ({ ctx, history }) => {
   return {
     ...ctx.templates.submission_gap,
     subject: `${ctx.templates.submission_gap.subject} ${daysBetween}`,
-    weight: daysBetween >= 4 && finishedExercises.length < 30 ? 1 : 0,
+    weight: daysBetween >= 4 && finishedExercises.length < 30 ? daysBetween : 0,
   };
 };
 
@@ -92,7 +92,7 @@ const studentCanRelax = (ctx: TagContext): boolean => {
   if (currentlyFinished.length < 30) return false;
   const aiAndChallenge = currentlyFinished.filter((x) => {
     const id = x.submit_hist[0].exid;
-    return ctx.ctx.aiExercises.has(id) || ctx.ctx.challengeExercises.has(id);
+    return ctx.ctx.aiExercises.has(+id) || ctx.ctx.challengeExercises.has(+id);
   });
   return aiAndChallenge.length >= 4 && ctx.ctx.currentWeek >= 8;
 };
