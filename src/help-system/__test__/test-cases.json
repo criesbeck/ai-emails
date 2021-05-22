@@ -127,6 +127,19 @@
       "studentName": "Brazil Gast",
       "issueName": "You can relax.",
       "errorIfExists": true
+    },
+    {
+      "description": "We can find a student who should bring up their exercise velocity",
+      "week": "WEEK_8",
+      "studentName": "Gina Eichelberger",
+      "issueName": "Exercise Velocity"
+    },
+    {
+      "description": "We can find a student who has fine velocity",
+      "week": "WEEK_8",
+      "studentName": "Eliora Grissett",
+      "issueName": "Exercise Velocity",
+      "errorIfExists": true
     }
   ]
 }
