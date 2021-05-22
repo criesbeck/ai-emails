@@ -6,7 +6,13 @@ import {
   Submission,
   SubmissionHistory,
 } from "./CriticStructure";
-import { WebContext, CourseContext, Student, TagContext } from "./tagStructure";
+import {
+  WebContext,
+  CourseContext,
+  Student,
+  TagContext,
+  TagFilterContext,
+} from "./tagStructure";
 
 type SubmissionRecord = Record<submissionId, Submission>;
 
@@ -123,7 +129,7 @@ export const emailedThisWeek = (
   return dayjs(Date.now()).diff(lastEmail.submissionTime, "week") < 1;
 };
 
-export const finishedSoFar = (ctx: TagContext) => {
+export const finishedSoFar = (ctx: TagContext | TagFilterContext) => {
   const {
     history: { exercises },
   } = ctx;
@@ -163,6 +169,39 @@ export const buildWeekArray = (
     .map((weekNum) => weekMap[weekNum + 1] || 0);
 };
 
+export interface RelaxMeta {
+  aiFinished: number;
+  challengeFinished: number;
+  currentlyFinished: number;
+}
+
+export const getRelaxMessage = ({
+  currentlyFinished,
+  challengeFinished,
+  aiFinished,
+}: RelaxMeta): string => {
+  return `${currentlyFinished} + ${aiFinished + challengeFinished}`;
+};
+
+export const extractRelaxMeta = (
+  ctx: TagContext | TagFilterContext
+): RelaxMeta => {
+  const currentlyFinished = finishedSoFar(ctx);
+  const aiFinished = currentlyFinished.filter((x) => {
+    const id = x.submit_hist[0].exid;
+    return ctx.ctx.aiExercises.has(+id);
+  });
+  const challengeFinished = currentlyFinished.filter((x) => {
+    const id = x.submit_hist[0].exid;
+    return ctx.ctx.challengeExercises.has(+id);
+  });
+  return {
+    aiFinished: aiFinished.length,
+    challengeFinished: challengeFinished.length,
+    currentlyFinished: currentlyFinished.length,
+  };
+};
+
 export const decayingAverage = (nums: number[]): number =>
   nums.reduce(
     (acc: null | number, el) =>
@@ -170,13 +209,13 @@ export const decayingAverage = (nums: number[]): number =>
     null
   ) || 0;
 
-export const getAiAndChallenged = (ctx: TagContext) => {
-  const finishedExercises = finishedSoFar(ctx);
-  const aiAndChallenge = finishedExercises.filter((x) => {
-    const id = x.submit_hist[0].exid;
-    return ctx.ctx.aiExercises.has(+id) || ctx.ctx.challengeExercises.has(+id);
-  });
-  return aiAndChallenge;
+export const getDoingFine = (ctx: TagFilterContext) => {
+  const meta = extractRelaxMeta(ctx);
+  const message = getRelaxMessage(meta);
+  return {
+    ...ctx.ctx.templates.doing_fine,
+    subject: `${ctx.ctx.templates.doing_fine.subject} ${message}`,
+  };
 };
 
 export const partitionSubmissions = (ctx: TagContext): number[] =>

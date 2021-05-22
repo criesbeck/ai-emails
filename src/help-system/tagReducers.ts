@@ -5,9 +5,10 @@ import {
   countChallengeExercises,
   between,
   isFinished,
-  finishedSoFar,
+  extractRelaxMeta,
   partitionSubmissions,
   decayingAverage,
+  getRelaxMessage,
 } from "./utils";
 import { AuthorSubmissionHistory } from "./CriticStructure";
 import { TagReducer, TagContext, CourseContext } from "./tagStructure";
@@ -100,20 +101,22 @@ export const studentVelocity: TagReducer = (ctx) => {
   };
 };
 
-const studentCanRelax = (ctx: TagContext): boolean => {
-  const currentlyFinished = finishedSoFar(ctx);
-  if (currentlyFinished.length < 30) return false;
-  const aiAndChallenge = currentlyFinished.filter((x) => {
-    const id = x.submit_hist[0].exid;
-    return ctx.ctx.aiExercises.has(+id) || ctx.ctx.challengeExercises.has(+id);
-  });
-  return aiAndChallenge.length >= 4 && ctx.ctx.currentWeek >= 8;
+const studentCanRelax = (ctx: TagContext): [boolean, string] => {
+  const meta = extractRelaxMeta(ctx);
+  const message = getRelaxMessage(meta);
+  const { currentlyFinished, aiFinished, challengeFinished } = meta;
+  if (currentlyFinished < 30) return [false, message];
+  return [
+    aiFinished + challengeFinished >= 4 && ctx.ctx.currentWeek >= 8,
+    message,
+  ];
 };
 
 export const canRelax: TagReducer = (ctx) => {
-  const canRelax = studentCanRelax(ctx);
+  const [canRelax, relaxMessage] = studentCanRelax(ctx);
   return {
     ...ctx.ctx.templates.can_relax,
+    subject: `${ctx.ctx.templates.can_relax.subject} ${relaxMessage}`,
     weight: canRelax ? 1 : 0,
   };
 };
