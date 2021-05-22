@@ -45,6 +45,6 @@
     "id": 8,
     "name": "exercise_velocity",
     "subject": "Exercise Velocity",
-    "template": "Usually, you submit less than 2.5 exercises per week. You should try to submit more exercises to bring up this average."
+    "template": "On average, you do not submit even one exercise per week. You should try to submit more exercises to bring up this average."
   }
 }

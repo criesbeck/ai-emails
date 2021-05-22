@@ -4,6 +4,7 @@ import {
   submissionId,
   Status,
   Submission,
+  SubmissionHistory,
 } from "./CriticStructure";
 import { WebContext, CourseContext, Student, TagContext } from "./tagStructure";
 
@@ -130,3 +131,53 @@ export const finishedSoFar = (ctx: TagContext) => {
     return ex.submitted <= ctx.ctx.currentTime && isFinished(ex.status);
   });
 };
+
+const getTotalFinished = (ctx: TagContext) => {
+  const { exercises } = ctx.history;
+  const finishedExercises = Object.values(exercises).filter((ex) =>
+    isFinished(ex.status)
+  );
+  return finishedExercises;
+};
+
+const getWeekMap = (ctx: TagContext): Record<number, number> => {
+  const finishedExercises = getTotalFinished(ctx);
+  const toWeekNumber = (s: SubmissionHistory): number => {
+    return dayjs(ctx.ctx.currentTime).diff(s.submitted, "week");
+  };
+  const toWeekMap = (acc: Record<number, number>, el: number) => {
+    return Number.isInteger(acc[el])
+      ? { ...acc, [el]: acc[el] + 1 }
+      : { ...acc, [el]: 1 };
+  };
+  const weekMap = finishedExercises.map(toWeekNumber).reduce(toWeekMap, {});
+  return weekMap;
+};
+
+export const buildWeekArray = (
+  weekMap: Record<number, number>,
+  numWeeks: number
+): number[] => {
+  return Array.from({ length: numWeeks })
+    .map((_, i) => i)
+    .map((weekNum) => weekMap[weekNum + 1] || 0);
+};
+
+export const decayingAverage = (nums: number[]): number =>
+  nums.reduce(
+    (acc: null | number, el) =>
+      acc ? Number.parseFloat((acc * 0.35 + el * 0.65).toFixed(2)) : el,
+    null
+  ) || 0;
+
+export const getAiAndChallenged = (ctx: TagContext) => {
+  const finishedExercises = finishedSoFar(ctx);
+  const aiAndChallenge = finishedExercises.filter((x) => {
+    const id = x.submit_hist[0].exid;
+    return ctx.ctx.aiExercises.has(+id) || ctx.ctx.challengeExercises.has(+id);
+  });
+  return aiAndChallenge;
+};
+
+export const partitionSubmissions = (ctx: TagContext): number[] =>
+  buildWeekArray(getWeekMap(ctx), ctx.ctx.currentWeek);

@@ -57518,6 +57518,12 @@
       "name": "can_relax",
       "subject": "You can relax.",
       "template": "You're doing fine, and you've done enough. Feel free to relax."
+    },
+    "exercise_velocity": {
+      "id": 9,
+      "name": "exercise_velocity",
+      "subject": "Exercise Velocity",
+      "template": "This is a message about exercise velocity."
     }
   },
   "emailHistory": {}

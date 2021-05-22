@@ -11,6 +11,8 @@ import {
   isFirstWeek,
   getWeekBefore,
   emailedThisWeek,
+  buildWeekArray,
+  decayingAverage,
 } from "../utils";
 
 const readJson = (dir: string) =>
@@ -125,11 +127,37 @@ describe("Checking if we've already a student this week", () => {
   });
 });
 
+describe("Our decaying average function", () => {
+  test("Should work with no numbers", () => {
+    expect(decayingAverage([])).toBe(0);
+  });
+  test("Should work with one number", () => {
+    expect(decayingAverage([4])).toBe(4);
+  });
+  test("Should work with 2 numbers", () => {
+    expect(decayingAverage([4, 3])).toBe(3.35);
+  });
+  test("Should work with 3 numbers", () => {
+    expect(decayingAverage([4, 3, 3.5])).toBe(3.45);
+  });
+});
+
 describe("Simple utils", () => {
   test("Between works", () => {
     expect(between(5, 1, 10)).toBe(true);
     expect(between(5, 11, 12)).toBe(false);
     expect(between(5, 1, 2)).toBe(false);
+  });
+});
+
+describe("Building a week array", () => {
+  test("Should work on an empty object", () => {
+    const weekArray = buildWeekArray({}, 5);
+    expect(weekArray).toEqual([0, 0, 0, 0, 0]);
+  });
+  test("Should work on a bigger object", () => {
+    const weekArray = buildWeekArray({ 1: 3, 2: 4 }, 2);
+    expect(weekArray).toEqual([3, 4]);
   });
 });
 

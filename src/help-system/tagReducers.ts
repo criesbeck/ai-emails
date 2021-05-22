@@ -6,6 +6,8 @@ import {
   between,
   isFinished,
   finishedSoFar,
+  partitionSubmissions,
+  decayingAverage,
 } from "./utils";
 import { AuthorSubmissionHistory } from "./CriticStructure";
 import { TagReducer, TagContext, CourseContext } from "./tagStructure";
@@ -84,6 +86,17 @@ export const considerDropping: TagReducer = ({ history, ctx }) => {
   return {
     ...ctx.templates.consider_dropping,
     weight: dropWeight,
+  };
+};
+
+export const studentVelocity: TagReducer = (ctx) => {
+  const weeklyAverage = decayingAverage(partitionSubmissions(ctx));
+  return {
+    ...ctx.ctx.templates.exercise_velocity,
+    subject: `${
+      ctx.ctx.templates.exercise_velocity.subject
+    } ${weeklyAverage.toFixed(2)}`,
+    weight: weeklyAverage < 1 ? 3 + weeklyAverage : 0,
   };
 };
 
