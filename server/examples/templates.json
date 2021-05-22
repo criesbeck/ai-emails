@@ -40,5 +40,11 @@
     "name": "can_relax",
     "subject": "You can relax.",
     "template": "You're doing fine. You've done enough work this quarter and can relax."
+  },
+  "exercise_velocity": {
+    "id": 8,
+    "name": "exercise_velocity",
+    "subject": "Exercise Velocity",
+    "template": "Usually, you submit less than 2.5 exercises per week. You should try to submit more exercises to bring up this average."
   }
 }
