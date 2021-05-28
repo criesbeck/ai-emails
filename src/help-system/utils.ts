@@ -180,7 +180,7 @@ export const getRelaxMessage = ({
   challengeFinished,
   aiFinished,
 }: RelaxMeta): string => {
-  return `${currentlyFinished} + ${aiFinished + challengeFinished}`;
+  return `${currentlyFinished} : ${aiFinished + challengeFinished}`;
 };
 
 export const extractRelaxMeta = (
