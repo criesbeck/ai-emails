@@ -1,3 +1,18 @@
+/* eslint-disable import/first */
+
+export const CONFIG = {
+  EXERCISE_GOAL: 30,
+  MINIMUM_AI_CHALLENGE_FINISHED: 4,
+  WEEK_TO_STOP_WORKING: 8,
+  SUBMISSION_GAP_SIZE: 4,
+  EXERCISES_TO_COMPLETE_EACH_WEEK: 3,
+  WEEK_TO_START_DROP_SUGGESTIONS: 4,
+  WEEK_TO_STOP_DROP_SUGGESTIONS: 6,
+  WEEK_TO_START_AI_CHALLENGE_PROBLEMS: 5,
+  DECAYING_AVERAGE: 0.65,
+  DECAYING_AVERAGE_ROUND: 2,
+};
+
 import dayjs from "dayjs";
 import {
   AuthorSubmissionHistory,
@@ -205,7 +220,14 @@ export const extractRelaxMeta = (
 export const decayingAverage = (nums: number[]): number =>
   nums.reduce(
     (acc: null | number, el) =>
-      acc ? Number.parseFloat((acc * 0.35 + el * 0.65).toFixed(2)) : el,
+      acc
+        ? Number.parseFloat(
+            (
+              acc * (1 - CONFIG.DECAYING_AVERAGE) +
+              el * CONFIG.DECAYING_AVERAGE
+            ).toFixed(CONFIG.DECAYING_AVERAGE_ROUND)
+          )
+        : el,
     null
   ) || 0;
 

@@ -1,5 +1,6 @@
 import dayjs from "dayjs";
 import {
+  CONFIG,
   getFinishedExercises,
   countAiExercises,
   countChallengeExercises,
@@ -24,7 +25,11 @@ export const submissionGap: TagReducer = ({ ctx, history }) => {
   return {
     ...ctx.templates.submission_gap,
     subject: `${ctx.templates.submission_gap.subject} ${daysBetween}`,
-    weight: daysBetween >= 4 && finishedExercises.length < 30 ? daysBetween : 0,
+    weight:
+      daysBetween >= CONFIG.SUBMISSION_GAP_SIZE &&
+      finishedExercises.length < CONFIG.EXERCISE_GOAL
+        ? daysBetween
+        : 0,
   };
 };
 
@@ -32,8 +37,8 @@ export const exerciseCount: TagReducer = ({ history, ctx }) => {
   const thisWeeksExercises = getFinishedExercises(history, ctx);
   return {
     ...ctx.templates.exercise_count,
-    subject: `${ctx.templates.exercise_count.subject} ${thisWeeksExercises.length} / 3`,
-    weight: 3 - thisWeeksExercises.length,
+    subject: `${ctx.templates.exercise_count.subject} ${thisWeeksExercises.length} / CONFIG.EXERCISES_TO_COMPLETE_EACH_WEEK`,
+    weight: CONFIG.EXERCISES_TO_COMPLETE_EACH_WEEK - thisWeeksExercises.length,
   };
 };
 
@@ -51,7 +56,10 @@ const generateCategoryReducer = (config: ReducerConfig): TagReducer => {
     return {
       ...ctx.templates[name],
       subject: `${ctx.templates[name].subject} ${count}`,
-      weight: ctx.currentWeek < 5 ? 0 : offset - count,
+      weight:
+        ctx.currentWeek < CONFIG.WEEK_TO_START_AI_CHALLENGE_PROBLEMS
+          ? 0
+          : offset - count,
     };
   };
   return needsMore;
@@ -75,10 +83,17 @@ const getDropWeight = (
   history: AuthorSubmissionHistory,
   ctx: CourseContext
 ): number => {
-  if (!between(ctx.currentWeek, 4, 6)) return 0;
+  if (
+    !between(
+      ctx.currentWeek,
+      CONFIG.WEEK_TO_START_DROP_SUGGESTIONS,
+      CONFIG.WEEK_TO_STOP_DROP_SUGGESTIONS
+    )
+  )
+    return 0;
   return Object.values(history.exercises).filter((ex) => isFinished(ex.status))
-    .length <= 3
-    ? 5
+    .length <= CONFIG.EXERCISES_TO_COMPLETE_EACH_WEEK
+    ? 1
     : 0;
 };
 
@@ -96,8 +111,11 @@ export const studentVelocity: TagReducer = (ctx) => {
     ...ctx.ctx.templates.exercise_velocity,
     subject: `${
       ctx.ctx.templates.exercise_velocity.subject
-    } ${weeklyAverage.toFixed(2)}`,
-    weight: weeklyAverage < 1 ? 3 + weeklyAverage : 0,
+    } ${weeklyAverage.toFixed(CONFIG.DECAYING_AVERAGE_ROUND)}`,
+    weight:
+      weeklyAverage < 1
+        ? CONFIG.EXERCISES_TO_COMPLETE_EACH_WEEK + weeklyAverage
+        : 0,
   };
 };
 
@@ -105,9 +123,10 @@ const studentCanRelax = (ctx: TagContext): [boolean, string] => {
   const meta = extractRelaxMeta(ctx);
   const message = getRelaxMessage(meta);
   const { currentlyFinished, aiFinished, challengeFinished } = meta;
-  if (currentlyFinished < 30) return [false, message];
+  if (currentlyFinished < CONFIG.EXERCISE_GOAL) return [false, message];
   return [
-    aiFinished + challengeFinished >= 4 && ctx.ctx.currentWeek >= 8,
+    aiFinished + challengeFinished >= CONFIG.SUBMISSION_GAP_SIZE &&
+      ctx.ctx.currentWeek >= CONFIG.WEEK_TO_STOP_WORKING,
     message,
   ];
 };
