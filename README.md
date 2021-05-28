@@ -16,8 +16,9 @@ This command also starts a develompent server for testing interactions with the 
 
 All of the business logic for detecting issues in the student data lives in the `src/help-system` directory. The following information may prove useful if you wish to change that logic:
 
-- To change how the system creates rules, considing adding a new function to either `src/help-system/tagReducers.ts`.
-- To validate the rules that the system comes up with, consider adding a new function to `src/help-system/tagValidators.ts`.
+- To edit the templates the system uses as the basis for tags, modify the file in `server/examples/templates.json`. That data will likely go in the database.
+- To change how the system creates tags, considing adding a new function to either `src/help-system/tagReducers.ts`.
+- To run postprocessing functions on the tags the system comes up with, consider adding a new function to `src/help-system/tagPostProcessors.ts`.
 - To modify the way that the functions in those files ultimately get composed together, modify `src/help-system/studentRanker.ts`.
 
 For more information about the shape of the data, consult the type definitions in `src/help-system/CriticStructure.ts` and `src/help-system/tagStructure.ts`. The former file adds describes the types of information obtained from the API; the later file describes the types of information our system computes.

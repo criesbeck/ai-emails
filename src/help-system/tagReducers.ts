@@ -45,21 +45,22 @@ export const exerciseCount: TagReducer = ({ history, ctx }) => {
 interface ReducerConfig {
   name: string;
   template: string;
-  offset: number;
   fn: (history: AuthorSubmissionHistory, ctx: CourseContext) => number;
 }
 
+const getCategoryWeight = (week: number, finished: number) => {
+  if (week < CONFIG.WEEK_TO_START_AI_CHALLENGE_PROBLEMS) return 0;
+  return CONFIG.MINIMUM_AI_CHALLENGE_FINISHED - finished;
+};
+
 const generateCategoryReducer = (config: ReducerConfig): TagReducer => {
-  const { offset, name, fn } = config;
+  const { name, fn } = config;
   const needsMore: TagReducer = ({ history, ctx }) => {
     const count = fn(history, ctx);
     return {
       ...ctx.templates[name],
       subject: `${ctx.templates[name].subject} ${count}`,
-      weight:
-        ctx.currentWeek < CONFIG.WEEK_TO_START_AI_CHALLENGE_PROBLEMS
-          ? 0
-          : offset - count,
+      weight: getCategoryWeight(ctx.currentWeek, count),
     };
   };
   return needsMore;
@@ -68,14 +69,12 @@ const generateCategoryReducer = (config: ReducerConfig): TagReducer => {
 export const needsMoreAi = generateCategoryReducer({
   name: "ai_problems",
   template: "You should work on more AI exercises.",
-  offset: 7,
   fn: countAiExercises,
 });
 
 export const needsMoreChallenge = generateCategoryReducer({
   name: "challenge_problems",
   template: "You should work on more challenge exercises.",
-  offset: 7,
   fn: countChallengeExercises,
 });
 
