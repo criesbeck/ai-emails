@@ -74,23 +74,23 @@ const getAiExercises = (webContext: WebContext) =>
 const getChallengeExercises = (webContext: WebContext) =>
   new Set(webContext.data.submissions.challenge);
 
-export const countAiExercises = (
-  history: AuthorSubmissionHistory,
-  ctx: CourseContext
-): number => {
-  const thisWeeksExercises = getFinishedExercises(history, ctx);
+export const countAiExercises = (tagContext: TagContext): number => {
+  const thisWeeksExercises = getFinishedExercises(
+    tagContext.history,
+    tagContext.ctx
+  );
   return thisWeeksExercises.filter((ex) => {
-    return ctx.aiExercises.has(ex.submit_hist[0].exid);
+    return tagContext.ctx.aiExercises.has(ex.submit_hist[0].exid);
   }).length;
 };
 
-export const countChallengeExercises = (
-  history: AuthorSubmissionHistory,
-  ctx: CourseContext
-): number => {
-  const thisWeeksExercises = getFinishedExercises(history, ctx);
+export const countChallengeExercises = (tagContext: TagContext): number => {
+  const thisWeeksExercises = getFinishedExercises(
+    tagContext.history,
+    tagContext.ctx
+  );
   return thisWeeksExercises.filter((ex) => {
-    return ctx.challengeExercises.has(ex.submit_hist[0].exid);
+    return tagContext.ctx.challengeExercises.has(ex.submit_hist[0].exid);
   }).length;
 };
 

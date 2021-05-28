@@ -45,7 +45,7 @@ export const exerciseCount: TagReducer = ({ history, ctx }) => {
 interface ReducerConfig {
   name: string;
   template: string;
-  fn: (history: AuthorSubmissionHistory, ctx: CourseContext) => number;
+  fn: (ctx: TagContext) => number;
 }
 
 const getCategoryWeight = (week: number, finished: number) => {
@@ -55,12 +55,12 @@ const getCategoryWeight = (week: number, finished: number) => {
 
 const generateCategoryReducer = (config: ReducerConfig): TagReducer => {
   const { name, fn } = config;
-  const needsMore: TagReducer = ({ history, ctx }) => {
-    const count = fn(history, ctx);
+  const needsMore: TagReducer = (ctx) => {
+    const count = fn(ctx);
     return {
-      ...ctx.templates[name],
-      subject: `${ctx.templates[name].subject} ${count}`,
-      weight: getCategoryWeight(ctx.currentWeek, count),
+      ...ctx.ctx.templates[name],
+      subject: `${ctx.ctx.templates[name].subject} ${count}`,
+      weight: getCategoryWeight(ctx.ctx.currentWeek, count),
     };
   };
   return needsMore;
