@@ -1,7 +1,7 @@
-import { TagValidator } from "./tagStructure";
+import { TagPostProcessor } from "./tagStructure";
 import { getDoingFine } from "./utils";
 
-export const sufficientValidator: TagValidator = (globalCtx) => {
+export const sufficientValidator: TagPostProcessor = (globalCtx) => {
   const { issues, history } = globalCtx;
   const importantIssues = issues.filter((issue) => issue.weight > 0);
   const newIssues =

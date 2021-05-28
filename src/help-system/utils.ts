@@ -26,7 +26,7 @@ import {
   CourseContext,
   Student,
   TagContext,
-  TagFilterContext,
+  TagProcessContext,
 } from "./tagStructure";
 
 type SubmissionRecord = Record<submissionId, Submission>;
@@ -144,7 +144,7 @@ export const emailedThisWeek = (
   return dayjs(Date.now()).diff(lastEmail.submissionTime, "week") < 1;
 };
 
-export const finishedSoFar = (ctx: TagContext | TagFilterContext) => {
+export const finishedSoFar = (ctx: TagContext | TagProcessContext) => {
   const {
     history: { exercises },
   } = ctx;
@@ -199,7 +199,7 @@ export const getRelaxMessage = ({
 };
 
 export const extractRelaxMeta = (
-  ctx: TagContext | TagFilterContext
+  ctx: TagContext | TagProcessContext
 ): RelaxMeta => {
   const currentlyFinished = finishedSoFar(ctx);
   const aiFinished = currentlyFinished.filter((x) => {
@@ -231,7 +231,7 @@ export const decayingAverage = (nums: number[]): number =>
     null
   ) || 0;
 
-export const getDoingFine = (ctx: TagFilterContext) => {
+export const getDoingFine = (ctx: TagProcessContext) => {
   const meta = extractRelaxMeta(ctx);
   const message = getRelaxMessage(meta);
   return {
