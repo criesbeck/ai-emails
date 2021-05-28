@@ -15,13 +15,13 @@ import {
   emailedThisWeek,
 } from "./utils";
 import * as tagReducers from "./tagReducers";
-import * as tagValidators from "./tagValidators";
+import * as tagPostProcessors from "./tagPostProcessors";
 
 const reducers = Object.values(tagReducers);
 const reduceTags = (ctx: TagContext) =>
   reducers.reduce((acc: Tag[], fn) => acc.concat(fn(ctx)), []);
 
-const filters = Object.values(tagValidators);
+const filters = Object.values(tagPostProcessors);
 const filterTags = (ctx: TagFilterContext) =>
   filters.reduce(
     (acc: Tag[], filter) =>
