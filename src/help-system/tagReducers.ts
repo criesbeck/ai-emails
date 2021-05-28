@@ -37,7 +37,7 @@ export const exerciseCount: TagReducer = ({ history, ctx }) => {
   const thisWeeksExercises = getFinishedExercises(history, ctx);
   return {
     ...ctx.templates.exercise_count,
-    subject: `${ctx.templates.exercise_count.subject} ${thisWeeksExercises.length} / CONFIG.EXERCISES_TO_COMPLETE_EACH_WEEK`,
+    subject: `${ctx.templates.exercise_count.subject} ${thisWeeksExercises.length} / ${CONFIG.EXERCISES_TO_COMPLETE_EACH_WEEK}`,
     weight: CONFIG.EXERCISES_TO_COMPLETE_EACH_WEEK - thisWeeksExercises.length,
   };
 };
