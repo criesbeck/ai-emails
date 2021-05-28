@@ -1,13 +1,15 @@
 import { TagPostProcessor } from "./tagStructure";
 import { getDoingFine } from "./utils";
 
-export const sufficientValidator: TagPostProcessor = (globalCtx) => {
+export const aboveZeroProcessor: TagPostProcessor = (globalCtx) =>
+  globalCtx.issues.filter((issue) => issue.weight > 0);
+
+export const doingFineProcessor: TagPostProcessor = (globalCtx) => {
   const { issues, history } = globalCtx;
-  const importantIssues = issues.filter((issue) => issue.weight > 0);
   const newIssues =
     Object.values(history.exercises).length >= 30
-      ? importantIssues.filter((issue) => issue.name === "can_relax")
-      : importantIssues;
+      ? issues.filter((issue) => issue.name === "can_relax")
+      : issues;
   return newIssues.length === 0
     ? [{ ...getDoingFine(globalCtx), weight: 1 }]
     : newIssues;
