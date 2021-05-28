@@ -4,7 +4,7 @@ import {
   Student,
   TagContext,
   Tag,
-  TagFilterContext,
+  TagProcessContext,
   Students,
 } from "./tagStructure";
 import {
@@ -22,7 +22,7 @@ const reduceTags = (ctx: TagContext) =>
   reducers.reduce((acc: Tag[], fn) => acc.concat(fn(ctx)), []);
 
 const filters = Object.values(tagPostProcessors);
-const filterTags = (ctx: TagFilterContext) =>
+const filterTags = (ctx: TagProcessContext) =>
   filters.reduce(
     (acc: Tag[], filter) =>
       filter({ issues: acc, ctx: ctx.ctx, history: ctx.history }),

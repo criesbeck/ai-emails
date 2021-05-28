@@ -47,13 +47,13 @@ export interface Student {
 
 export type TagReducer = (ctx: TagContext) => Tag;
 
-export interface TagFilterContext {
+export interface TagProcessContext {
   issues: Tag[];
   history: AuthorSubmissionHistory;
   ctx: CourseContext;
 }
 
-export type TagValidator = (ctx: TagFilterContext) => Tag[];
+export type TagPostProcessor = (ctx: TagProcessContext) => Tag[];
 
 export interface Students {
   students: Student[];
