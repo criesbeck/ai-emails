@@ -6,7 +6,6 @@ import {
   countChallengeExercises,
   between,
   isFinished,
-  studentCanRelax,
   partitionSubmissions,
   decayingAverage,
 } from "./utils";
@@ -114,14 +113,5 @@ export const studentVelocity: TagReducer = (ctx) => {
       weeklyAverage < 1
         ? CONFIG.EXERCISES_TO_COMPLETE_EACH_WEEK + weeklyAverage
         : 0,
-  };
-};
-
-export const canRelax: TagReducer = (ctx) => {
-  const [canRelax, relaxMessage] = studentCanRelax(ctx);
-  return {
-    ...ctx.ctx.templates.can_relax,
-    subject: `${ctx.ctx.templates.can_relax.subject} ${relaxMessage}`,
-    weight: canRelax ? 1 : 0,
   };
 };
