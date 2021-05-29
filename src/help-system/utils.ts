@@ -2,14 +2,16 @@
 
 export const CONFIG = {
   EXERCISE_GOAL: 30,
+  EXERCISES_TO_COMPLETE_EACH_WEEK: 3,
   MINIMUM_AI_CHALLENGE_FINISHED: 4,
   WEEK_TO_STOP_WORKING: 8,
   SUBMISSION_GAP_SIZE: 4,
-  EXERCISES_TO_COMPLETE_EACH_WEEK: 3,
   WEEK_TO_START_DROP_SUGGESTIONS: 4,
   WEEK_TO_STOP_DROP_SUGGESTIONS: 6,
   WEEK_TO_START_AI_CHALLENGE_PROBLEMS: 5,
   DECAYING_AVERAGE: 0.65,
+  // At each step of the decaying average calculation, round to
+  // n decimal places.
   DECAYING_AVERAGE_ROUND: 2,
 };
 
@@ -74,14 +76,18 @@ const getAiExercises = (webContext: WebContext) =>
 const getChallengeExercises = (webContext: WebContext) =>
   new Set(webContext.data.submissions.challenge);
 
-export const countAiExercises = (tagContext: TagContext): number => {
+export const countAiExercises = (
+  tagContext: TagContext | TagProcessContext
+): number => {
   const finished = finishedSoFar(tagContext);
   return finished.filter((ex) => {
     return tagContext.ctx.aiExercises.has(ex.submit_hist[0].exid);
   }).length;
 };
 
-export const countChallengeExercises = (tagContext: TagContext): number => {
+export const countChallengeExercises = (
+  tagContext: TagContext | TagProcessContext
+): number => {
   const finished = finishedSoFar(tagContext);
   return finished.filter((ex) => {
     return tagContext.ctx.challengeExercises.has(ex.submit_hist[0].exid);
@@ -196,17 +202,9 @@ export const extractRelaxMeta = (
   ctx: TagContext | TagProcessContext
 ): RelaxMeta => {
   const currentlyFinished = finishedSoFar(ctx);
-  const aiFinished = currentlyFinished.filter((x) => {
-    const id = x.submit_hist[0].exid;
-    return ctx.ctx.aiExercises.has(+id);
-  });
-  const challengeFinished = currentlyFinished.filter((x) => {
-    const id = x.submit_hist[0].exid;
-    return ctx.ctx.challengeExercises.has(+id);
-  });
   return {
-    aiFinished: aiFinished.length,
-    challengeFinished: challengeFinished.length,
+    aiFinished: countAiExercises(ctx),
+    challengeFinished: countChallengeExercises(ctx),
     currentlyFinished: currentlyFinished.length,
   };
 };
@@ -225,14 +223,48 @@ export const decayingAverage = (nums: number[]): number =>
     null
   ) || 0;
 
-export const getDoingFine = (ctx: TagProcessContext) => {
+export const makeDoingFineTag = (ctx: TagProcessContext) => {
   const meta = extractRelaxMeta(ctx);
   const message = getRelaxMessage(meta);
   return {
     ...ctx.ctx.templates.doing_fine,
     subject: `${ctx.ctx.templates.doing_fine.subject} ${message}`,
+    weight: 1,
   };
 };
+
+export const isOnTrack = (ctx: TagProcessContext) => {
+  if (ctx.issues[0].name === "can_relax") return false;
+  const { currentWeek } = ctx.ctx;
+  const finished = finishedSoFar(ctx).length;
+  return (
+    finished >=
+    Math.min(
+      CONFIG.EXERCISES_TO_COMPLETE_EACH_WEEK * currentWeek,
+      CONFIG.EXERCISE_GOAL
+    )
+  );
+};
+
+export const studentCanRelax = (
+  ctx: TagContext | TagProcessContext
+): [boolean, string] => {
+  const meta = extractRelaxMeta(ctx);
+  const message = getRelaxMessage(meta);
+  const { currentlyFinished, aiFinished, challengeFinished } = meta;
+  if (currentlyFinished < CONFIG.EXERCISE_GOAL) return [false, message];
+  return [
+    aiFinished + challengeFinished >= CONFIG.SUBMISSION_GAP_SIZE &&
+      ctx.ctx.currentWeek >= CONFIG.WEEK_TO_STOP_WORKING,
+    message,
+  ];
+};
+
+export const makeRelaxTag = (ctx: TagProcessContext, message: string) => ({
+  ...ctx.ctx.templates.can_relax,
+  subject: `${ctx.ctx.templates.can_relax.subject} ${message}`,
+  weight: 1,
+});
 
 export const partitionSubmissions = (ctx: TagContext): number[] =>
   buildWeekArray(getWeekMap(ctx), ctx.ctx.currentWeek);

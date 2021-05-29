@@ -50,7 +50,7 @@
     },
     {
       "description": "We can find a student who does not need to do more AI problems.",
-      "week": "WEEK_8",
+      "week": "WEEK_9",
       "studentName": "Eliora Grissett",
       "issueName": "AI Problems",
       "errorIfExists": true

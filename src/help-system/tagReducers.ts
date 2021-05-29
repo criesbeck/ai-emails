@@ -6,10 +6,9 @@ import {
   countChallengeExercises,
   between,
   isFinished,
-  extractRelaxMeta,
+  studentCanRelax,
   partitionSubmissions,
   decayingAverage,
-  getRelaxMessage,
 } from "./utils";
 import { AuthorSubmissionHistory } from "./CriticStructure";
 import { TagReducer, TagContext, CourseContext } from "./tagStructure";
@@ -116,18 +115,6 @@ export const studentVelocity: TagReducer = (ctx) => {
         ? CONFIG.EXERCISES_TO_COMPLETE_EACH_WEEK + weeklyAverage
         : 0,
   };
-};
-
-const studentCanRelax = (ctx: TagContext): [boolean, string] => {
-  const meta = extractRelaxMeta(ctx);
-  const message = getRelaxMessage(meta);
-  const { currentlyFinished, aiFinished, challengeFinished } = meta;
-  if (currentlyFinished < CONFIG.EXERCISE_GOAL) return [false, message];
-  return [
-    aiFinished + challengeFinished >= CONFIG.SUBMISSION_GAP_SIZE &&
-      ctx.ctx.currentWeek >= CONFIG.WEEK_TO_STOP_WORKING,
-    message,
-  ];
 };
 
 export const canRelax: TagReducer = (ctx) => {
