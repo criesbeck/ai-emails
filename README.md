@@ -14,12 +14,31 @@ This command also starts a develompent server for testing interactions with the 
 
 ## Issue Finding
 
+### Semantics
+
+Our email finding system works by producing `tags` for various issues that a student might face. The structure of a tag looks like this:
+
+```json
+{
+  "id": 3,
+  "name": "some_id",
+  "subject": "Some Nice Presentation.",
+  "template": "This is a description that will help us create an email."
+}
+```
+
+Note that in the presentation layer of the application, there exists code which modifies `subject` to show extra information computed at runtime.
+
+For more information about how our system generates tags, see the `code walkthrough` below.
+
+### Code Walkthrough
+
 All of the business logic for detecting issues in the student data lives in the `src/help-system` directory. The following information may prove useful if you wish to change that logic:
 
 - To edit the templates the system uses as the basis for tags, modify the file in `server/examples/templates.json`. That data will likely go in the database.
 - To change how the system creates tags, considing adding a new function to either `src/help-system/tagReducers.ts`.
 - To run postprocessing functions on the tags the system comes up with, consider adding a new function to `src/help-system/tagPostProcessors.ts`.
-- To modify the way that the functions in those files ultimately get composed together, modify `src/help-system/studentRanker.ts`.
+- To modify the way that the functions in those files ultimately get composed together, modify `src/help-system/studentRanker.ts`. **Unless there is a bug, you should not need to modify this file.**
 
 For more information about the shape of the data, consult the type definitions in `src/help-system/CriticStructure.ts` and `src/help-system/tagStructure.ts`. The former file adds describes the types of information obtained from the API; the later file describes the types of information our system computes.
 
@@ -47,6 +66,10 @@ REACT_APP_PUT_TEMPLATES_URL
 ```
 
 Those send `FormData` that the Java backend should be able to parse. For development purposes, there exists a small development server that runs when one invokes `npm start` from the command line.
+
+## Known Bugs
+
+- Our pre-generated messages don't update dynamically when you click around back in time.
 
 ## Testing
 
