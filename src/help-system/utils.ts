@@ -75,21 +75,15 @@ const getChallengeExercises = (webContext: WebContext) =>
   new Set(webContext.data.submissions.challenge);
 
 export const countAiExercises = (tagContext: TagContext): number => {
-  const thisWeeksExercises = getFinishedExercises(
-    tagContext.history,
-    tagContext.ctx
-  );
-  return thisWeeksExercises.filter((ex) => {
+  const finished = finishedSoFar(tagContext);
+  return finished.filter((ex) => {
     return tagContext.ctx.aiExercises.has(ex.submit_hist[0].exid);
   }).length;
 };
 
 export const countChallengeExercises = (tagContext: TagContext): number => {
-  const thisWeeksExercises = getFinishedExercises(
-    tagContext.history,
-    tagContext.ctx
-  );
-  return thisWeeksExercises.filter((ex) => {
+  const finished = finishedSoFar(tagContext);
+  return finished.filter((ex) => {
     return tagContext.ctx.challengeExercises.has(ex.submit_hist[0].exid);
   }).length;
 };
