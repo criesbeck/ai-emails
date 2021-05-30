@@ -1,18 +1,32 @@
 /* eslint-disable import/first */
 
 export const CONFIG = {
+  // A student should try to complete this many exercises during the quarter.
   EXERCISE_GOAL: 30,
+  // A student should try to finish this many exercises per week.
   EXERCISES_TO_COMPLETE_EACH_WEEK: 3,
+  // A student should try to complete this many AI and challenge exercises.
   MINIMUM_AI_CHALLENGE_FINISHED: 4,
+  // If a student has completed EXERCISE_GOAL exercises and MINIMUM_AI_CHALLENGE_FINISHED
+  // exercises, they can relax at this week of the quarter.
   WEEK_TO_STOP_WORKING: 8,
+  // If a student does not submit anything in SUBMISSION_GAP_SIZE days, there is a problem.
   SUBMISSION_GAP_SIZE: 4,
+  // If a student has done very little work at WEEK_TO_START_DROP_SUGGESTIONS, we should
+  // suggest that they drop the course, as they will probably fail.
   WEEK_TO_START_DROP_SUGGESTIONS: 4,
+  // After WEEK_TO_STOP_DROP_SUGGESTIONS, we no longer suggest dropping because the drop
+  // dealine has passed.
   WEEK_TO_STOP_DROP_SUGGESTIONS: 6,
+  // At WEEK_TO_START_AI_CHALLENGE_PROBLEMS, we start to consider it a problem if a student
+  // has not completed a sufficient number of exercises.
   WEEK_TO_START_AI_CHALLENGE_PROBLEMS: 5,
-  DECAYING_AVERAGE: 0.65,
+  // Use DECAYING_AVERAGE_PERCENTAGE_PERCENTAGE to weight the most recent exercises at each step
+  // of the decaying average calculation.
+  DECAYING_AVERAGE_PERCENTAGE: 0.65,
   // At each step of the decaying average calculation, round to
   // n decimal places.
-  DECAYING_AVERAGE_ROUND: 2,
+  DECAYING_AVERAGE_PERCENTAGE_ROUND: 2,
 };
 
 import dayjs from "dayjs";
@@ -215,9 +229,9 @@ export const decayingAverage = (nums: number[]): number =>
       acc
         ? Number.parseFloat(
             (
-              acc * (1 - CONFIG.DECAYING_AVERAGE) +
-              el * CONFIG.DECAYING_AVERAGE
-            ).toFixed(CONFIG.DECAYING_AVERAGE_ROUND)
+              acc * (1 - CONFIG.DECAYING_AVERAGE_PERCENTAGE) +
+              el * CONFIG.DECAYING_AVERAGE_PERCENTAGE
+            ).toFixed(CONFIG.DECAYING_AVERAGE_PERCENTAGE_ROUND)
           )
         : el,
     null
@@ -239,10 +253,10 @@ export const isOnTrack = (ctx: TagProcessContext) => {
   const finished = finishedSoFar(ctx).length;
   return (
     finished >=
-    Math.min(
-      CONFIG.EXERCISES_TO_COMPLETE_EACH_WEEK * currentWeek,
-      CONFIG.EXERCISE_GOAL
-    )
+      Math.min(
+        CONFIG.EXERCISES_TO_COMPLETE_EACH_WEEK * currentWeek,
+        CONFIG.EXERCISE_GOAL
+      ) || ctx.issues.length === 0
   );
 };
 

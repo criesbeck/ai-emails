@@ -67,9 +67,11 @@ REACT_APP_PUT_TEMPLATES_URL
 
 Those send `FormData` that the Java backend should be able to parse. For development purposes, there exists a small development server that runs when one invokes `npm start` from the command line.
 
-## Known Bugs
+## Known Issues
 
 - Our pre-generated messages don't update dynamically when you click around back in time.
+- Right now, some of the `react-scripts` dependencies have security vulnerabilities. [This GitHub issue contains more details.](https://github.com/facebook/create-react-app/issues/10929)
+  - At some point in the future, updating `react-scripts` will probably fix this problem.
 
 ## Testing
 
@@ -88,3 +90,7 @@ npm run build
 ```
 
 And place the static files generated into the directory of your choice.
+
+## Maintaining
+
+Email [joshuahoeflich2021@u.northwestern.edu](mailto:joshuahoeflich2021@u.northwestern.edu) if there are bugs. Fingers crossed, he will be around for the next 4 years.

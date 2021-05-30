@@ -108,7 +108,7 @@ export const studentVelocity: TagReducer = (ctx) => {
     ...ctx.ctx.templates.exercise_velocity,
     subject: `${
       ctx.ctx.templates.exercise_velocity.subject
-    } ${weeklyAverage.toFixed(CONFIG.DECAYING_AVERAGE_ROUND)}`,
+    } ${weeklyAverage.toFixed(CONFIG.DECAYING_AVERAGE_PERCENTAGE_ROUND)}`,
     weight:
       weeklyAverage < 1
         ? CONFIG.EXERCISES_TO_COMPLETE_EACH_WEEK + weeklyAverage
