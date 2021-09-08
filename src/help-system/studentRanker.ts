@@ -13,6 +13,7 @@ import {
   scoreStudent,
   getStudentMap,
   emailedThisWeek,
+  authorsMap,
 } from "./utils";
 import * as tagReducers from "./tagReducers";
 import * as tagPostProcessors from "./tagPostProcessors";
@@ -34,8 +35,9 @@ const getAuthors = (info: WebContext): Author[] =>
 
 const makeStudents = (context: WebContext): Student[] => {
   const ctx = getCourseContext(context);
+  const authors = authorsMap(context.data);
   const makeStudent = (author: Author): Student => {
-    const history = context.data.poke.authors[author.id];
+    const history = authors[author.id];
     return {
       ...author,
       previousEmail: null,
@@ -43,7 +45,7 @@ const makeStudents = (context: WebContext): Student[] => {
     };
   };
   const filterIssues = (student: Student): Student => {
-    const history = context.data.poke.authors[student.id];
+    const history = authors[student.id];
     const { issues } = student;
     return { ...student, issues: filterTags({ issues, history, ctx }) };
   };

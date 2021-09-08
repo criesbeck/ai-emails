@@ -1,5 +1,4 @@
 /* eslint-disable import/first */
-
 export const CONFIG = {
   // A student should try to complete this many exercises during the quarter.
   EXERCISE_GOAL: 30,
@@ -35,7 +34,10 @@ import {
   submissionId,
   Status,
   Submission,
+  Submissions,
   SubmissionHistory,
+  ApiResponse,
+  AuthorsMap,
 } from "./CriticStructure";
 import {
   WebContext,
@@ -282,3 +284,73 @@ export const makeRelaxTag = (ctx: TagProcessContext, message: string) => ({
 
 export const partitionSubmissions = (ctx: TagContext): number[] =>
   buildWeekArray(getWeekMap(ctx), ctx.ctx.currentWeek);
+
+interface Exercises {
+  status: Status;
+  submitted: number;
+  submit_hist: Array<Submission>;
+}
+
+const addExercise = (acc: AuthorSubmissionHistory, submission: Submission) => ({
+  ...acc.exercises[submission.exid],
+  submit_hist: [...acc.exercises[submission.exid].submit_hist, submission],
+});
+
+const makeExercise = (submission: Submission): Exercises => ({
+  status: "Not done",
+  submitted: 0,
+  submit_hist: [submission],
+});
+
+const hasExercise = (
+  acc: AuthorSubmissionHistory,
+  submission: Submission
+): boolean => acc.exercises[submission.exid] !== undefined;
+
+const makeSubmissionHistory = (
+  authorSubmissions: Submission[]
+): AuthorSubmissionHistory =>
+  authorSubmissions.reduce(
+    (acc, submission) => ({
+      ...acc,
+      exercises: {
+        ...acc.exercises,
+        [submission.exid]: hasExercise(acc, submission)
+          ? addExercise(acc, submission)
+          : makeExercise(submission),
+      },
+    }),
+    {
+      submissions: authorSubmissions,
+      exercises: {} as Record<number, SubmissionHistory>,
+    }
+  );
+
+const sortSubmissionHistory = (hist: AuthorSubmissionHistory): void => {
+  Object.values(hist.exercises).forEach((ex: SubmissionHistory) => {
+    ex.submit_hist.sort((a, b) => (a.submitted < b.submitted ? -1 : 1));
+    const latestSubmission = ex.submit_hist[ex.submit_hist.length - 1];
+    ex.submitted = latestSubmission.submitted;
+    ex.status = latestSubmission.status;
+  });
+};
+
+const getAuthorsSubmissions = (
+  submissions: Submissions,
+  id: string
+): Submission[] =>
+  Object.values(submissions.submissions).filter(
+    (submission) => submission.author === Number.parseInt(id, 10)
+  );
+
+export const authorsMap = ({
+  authors,
+  submissions,
+}: ApiResponse): AuthorsMap => {
+  return Object.keys(authors.authors).reduce((acc: AuthorsMap, authorId) => {
+    const authorSubmissions = getAuthorsSubmissions(submissions, authorId);
+    const hist = makeSubmissionHistory(authorSubmissions);
+    sortSubmissionHistory(hist);
+    return { ...acc, [authorId]: hist };
+  }, {});
+};

@@ -48480,16 +48480,18 @@
       },
       "1769": {
         "exercises": {
-          "status": "Almost done",
-          "submit_hist": [
-            {
-              "author": 1769,
-              "exid": 1,
-              "status": "Almost done",
-              "submitted": 1538710374995
-            }
-          ],
-          "submitted": 1538710374995
+          "1": {
+            "status": "Almost done",
+            "submit_hist": [
+              {
+                "author": 1769,
+                "exid": 1,
+                "status": "Almost done",
+                "submitted": 1538710374995
+              }
+            ],
+            "submitted": 1538710374995
+          }
         },
         "submissions": [
           {
@@ -53326,16 +53328,18 @@
       },
       "1779": {
         "exercises": {
-          "status": "Not done",
-          "submit_hist": [
-            {
-              "author": 1779,
-              "exid": 1,
-              "status": "Not done",
-              "submitted": 1540978240687
-            }
-          ],
-          "submitted": 1540978240687
+          "1": {
+            "status": "Not done",
+            "submit_hist": [
+              {
+                "author": 1779,
+                "exid": 1,
+                "status": "Not done",
+                "submitted": 1540978240687
+              }
+            ],
+            "submitted": 1540978240687
+          }
         },
         "submissions": [
           {

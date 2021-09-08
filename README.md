@@ -51,7 +51,6 @@ Our email system currently makes 6 separate GET requests to the following endpoi
 ```
 REACT_APP_SUBMISSION_DATA
 REACT_APP_AUTHORS
-REACT_APP_POKE
 REACT_APP_TEMPLATES_URL
 REACT_APP_GET_EMAILS_URL
 ```

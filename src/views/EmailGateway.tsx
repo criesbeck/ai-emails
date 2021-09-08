@@ -7,16 +7,15 @@ import EmailsView from "./EmailsView";
 import { ApiResponse } from "../help-system";
 
 export const fetchEmailStatistics = async (): Promise<ApiResponse> => {
-  const [submissions, authors, poke, templates, emailHistory] = (
+  const [submissions, authors, templates, emailHistory] = (
     await Promise.all([
       axios.get(process.env.REACT_APP_SUBMISSION_DATA!),
       axios.get(process.env.REACT_APP_AUTHORS!),
-      axios.get(process.env.REACT_APP_POKE!),
       axios.get(process.env.REACT_APP_TEMPLATES_URL!),
       axios.get(process.env.REACT_APP_GET_EMAILS_URL!),
     ])
   )?.map((el) => el.data);
-  return { submissions, authors, poke, templates, emailHistory };
+  return { submissions, authors, templates, emailHistory };
 };
 
 const EmailsError = () => {
