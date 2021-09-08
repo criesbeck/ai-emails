@@ -1,5 +1,4 @@
 /* eslint-disable import/first */
-
 export const CONFIG = {
   // A student should try to complete this many exercises during the quarter.
   EXERCISE_GOAL: 30,
@@ -36,6 +35,8 @@ import {
   Status,
   Submission,
   SubmissionHistory,
+  ApiResponse,
+  AuthorsMap,
 } from "./CriticStructure";
 import {
   WebContext,
@@ -282,3 +283,58 @@ export const makeRelaxTag = (ctx: TagProcessContext, message: string) => ({
 
 export const partitionSubmissions = (ctx: TagContext): number[] =>
   buildWeekArray(getWeekMap(ctx), ctx.ctx.currentWeek);
+
+interface Exercises {
+  status: Status;
+  submitted: number;
+  submit_hist: Array<Submission>;
+}
+
+export const authorsMap = ({
+  authors,
+  submissions,
+}: ApiResponse): AuthorsMap => {
+  return Object.keys(authors.authors).reduce((acc: AuthorsMap, authorId) => {
+    const authorSubmissions = Object.values(submissions.submissions).filter(
+      (submission) => submission.author === Number.parseInt(authorId, 10)
+    );
+
+    const history: AuthorSubmissionHistory = authorSubmissions.reduce(
+      (acc: AuthorSubmissionHistory, submission) => {
+        return {
+          ...acc,
+          exercises: {
+            ...acc.exercises,
+            [submission.exid]:
+              acc.exercises[submission.exid] !== undefined
+                ? {
+                    ...acc.exercises[submission.exid],
+                    submit_hist: [
+                      ...acc.exercises[submission.exid].submit_hist,
+                      submission,
+                    ],
+                  }
+                : {
+                    status: "Not done",
+                    submitted: 0,
+                    submit_hist: [submission],
+                  },
+          },
+        };
+      },
+      {
+        submissions: authorSubmissions,
+        exercises: {} as Record<number, SubmissionHistory>,
+      }
+    );
+    Object.values(history.exercises).forEach((ex: SubmissionHistory) => {
+      ex.submit_hist.sort((a, b) => (a.submitted < b.submitted ? -1 : 1));
+      const latestSubmission = ex.submit_hist[ex.submit_hist.length - 1];
+      ex.submitted = latestSubmission.submitted;
+      ex.status = latestSubmission.status;
+    });
+    return { ...acc, [authorId]: history };
+  }, {});
+  // console.log(Object.keys(authors.authors));
+  // throw new Error("UNIMPLEMENTED");
+};

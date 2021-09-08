@@ -66,12 +66,11 @@ interface EmailRecord {
 
 export type EmailHistory = Record<authorId, EmailRecord[]>;
 
+export type AuthorsMap = Record<authorId, AuthorSubmissionHistory>;
+
 export interface ApiResponse {
   authors: {
     authors: Record<authorId, Author>;
-  };
-  poke: {
-    authors: Record<authorId, AuthorSubmissionHistory>;
   };
   submissions: Submissions;
   templates: Templates;
